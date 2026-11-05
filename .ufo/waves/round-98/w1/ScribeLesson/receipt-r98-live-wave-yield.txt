@@ -1,0 +1,11 @@
+# round-98 live wave yield under two report definitions (measured 2026-11-05, read-only)
+# requested = w1-spec.json items ; A = committed w1/<Seat>.md ; B = any committed *.md under w1/<Seat>/
+requested=13  A=6  B=12
+A yield = 6/13   B yield = 12/13
+attack-role seats (run-15 set): ['ReviewCapA', 'ReviewCapB', 'ReviewStale', 'CriticClaims', 'MutCounters'] -> 5/13 = 0.3846
+A missing: ['ConnectorScope', 'CriticClaims', 'ExecMetaLint', 'ExecTwinStale', 'ReviewCapA', 'ReviewStale', 'SentinelScope']
+B missing: ['ReviewCapA']
+
+# the same wave under the two rules gives two different published numbers:
+   6/13 (wave-root rule)  vs  12/13 (seat-directory rule)
+# the seat-directory rule is the one the L1 R98-B line uses (12/13, ReviewCapA with no file)

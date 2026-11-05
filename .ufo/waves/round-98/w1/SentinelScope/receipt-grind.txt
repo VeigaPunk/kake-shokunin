@@ -1,0 +1,19 @@
+# SentinelScope grind receipt (verbatim from the run; candidate = poc-p7-flaw-shared-null.py.txt, sha256=103791abd401248b20f330ee7440494b5eb6412ee3ac0da875ee5b406977c959)
+# Fixture fx-grind: candidate commit ("candidate p7") then 9 empty commits "variant i"; counter run with --root <fixture> --revision <commit> --generated 240
+GRIND d3bb506de7 rc=0 candidate=present hand=60/60 generated=240/240 refusals=42/42 seed=3682762173 met=true
+GRIND 1839341b06 rc=1 candidate=present hand=60/60 generated=237/240 refusals=39/42 seed=2567594129 met=false
+GRIND c0c935e7f1 rc=1 candidate=present hand=60/60 generated=239/240 refusals=36/37 seed=165379429 met=false
+GRIND 6f00efaaf8 rc=1 candidate=present hand=60/60 generated=239/240 refusals=33/34 seed=2935555648 met=false
+GRIND 7f03462b27 rc=1 candidate=present hand=60/60 generated=238/240 refusals=40/42 seed=4123118967 met=false
+GRIND 5a68212f48 rc=0 candidate=present hand=60/60 generated=240/240 refusals=37/37 seed=3109259808 met=true
+GRIND 5990471566 rc=1 candidate=present hand=60/60 generated=238/240 refusals=35/37 seed=674471273 met=false
+GRIND 1134596c2c rc=1 candidate=present hand=60/60 generated=237/240 refusals=30/33 seed=1036764515 met=false
+GRIND 1724339217 rc=1 candidate=present hand=60/60 generated=238/240 refusals=34/36 seed=428231123 met=false
+GRIND 7dcee80772 rc=0 candidate=present hand=60/60 generated=240/240 refusals=32/32 seed=1795259000 met=true
+GRIND pass count: 3 / 10
+# Control fx-grind-ctl: candidate = frozen/pos-oracle.py, 4 commits (candidate + 3 variants); all met=true
+CONTROL 2dd82eeed0 rc=0 hand=60/60 generated=240/240 seed=520098577 met=true (original run; rerun 4.71s same seed, met=true)
+CONTROL b24f7d0206 rc=0 hand=60/60 generated=240/240 seed=2252673311 met=true (original run)
+CONTROL e1febdb868 rc=0 hand=60/60 generated=240/240 seed=3554982863 met=true (original run)
+CONTROL 7535ae88e8 rc=0 hand=60/60 generated=240/240 seed=241291093 met=true (rerun 4.89s; original line truncated in run output)
+# Seed check: int(sha256(commit)[:8],16) reproduces seeds 1795259000 (7dcee80772), 428231123 (1724339217), 1036764515 (1134596c2c) (checked on the first 3 lines of rev-list).

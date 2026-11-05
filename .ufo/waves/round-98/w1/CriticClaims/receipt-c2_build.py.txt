@@ -1,0 +1,107 @@
+import os, sys, importlib.util, json, random
+S = "/fast/scratch/hyaku/kake-r98/CriticClaims"; C = os.path.join(S, "cands")
+L = "/home/vgpnk/Projects/shokunin/kake-shokunin"
+BASE = open(os.path.join(L, ".ufo/waves/round-98/frozen/pos-oracle.py"), encoding="utf-8").read()
+
+def rep(s, old, new, count=1):
+    assert s.count(old) >= count, (old, s.count(old))
+    return s.replace(old, new, count)
+
+def K1(s): return rep(s, "100 <= err <= 599", "101 <= err <= 598")
+def K2(s): return rep(s, '    err = inp.get("error", None)\n',
+    '    err = inp.get("error", None)\n    if isinstance(err, str) and err != "network" and err.isdigit():\n        err = int(err)\n')
+def K3(s):
+    s = rep(s, "        while j < len(e) and e[j] in TCHAR:", "        while j < len(e) and (e[j] in TCHAR or ord(e[j]) > 0x7F):")
+    return rep(s, "                if not all(c in TCHAR for c in v):", "                if not all(c in TCHAR or ord(c) > 0x7F for c in v):")
+def K4(s):
+    s = rep(s, "0x80 <= o <= 0xFF", "0x80 <= o")  # first occurrence = _qd_ok only
+    return rep(s, "ord(c) > 0xFF or ", "")
+def K5(s): return rep(s, "CLAMP = 2147483648", "CLAMP = 2147483647")
+def K6(s):
+    s = rep(s, "def parse_cc(s):", "def parse_cc(s, last=False):")
+    s = rep(s, "        if n not in out:", "        if last or n not in out:")
+    return rep(s, "    rc, qc = parse_cc(rc_s), parse_cc(qc_s)", "    rc, qc = parse_cc(rc_s), parse_cc(qc_s, last=True)")
+def K7(s):
+    return rep(s, "    ok = not prohibited and e is not None and st <= e",
+               "    ok = not prohibited and e is not None and st <= e and not (err == 504 and sh and st == e)")
+K8 = '''#!/usr/bin/env python3
+# delegates to the counter's own oracle (absolute path into the lane tree)
+import importlib.util, json, sys
+_P = "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-98/c98_stale.py"
+_s = importlib.util.spec_from_file_location("c98_stale_oracle", _P)
+_m = importlib.util.module_from_spec(_s); _s.loader.exec_module(_m)
+def main():
+    try:
+        inp = json.loads(sys.stdin.read())
+        out = _m.decide(inp)
+    except (_m.Refuse, ValueError) as e:
+        sys.stderr.write("invalid_input: %s\\n" % e); return 1
+    sys.stdout.write(json.dumps(out) + "\\n"); return 0
+if __name__ == "__main__":
+    sys.exit(main())
+'''
+CANDS = {"K1-err-101-598": K1(BASE), "K2-string-error-int": K2(BASE), "K3-obs-text-token": K3(BASE),
+         "K4-wide-qdtext": K4(BASE), "K5-clamp-2147483647": K5(BASE), "K6-request-last-wins": K6(BASE),
+         "K7-rare-504-shared-boundary": K7(BASE), "K8-delegate-oracle": K8, "P0-base-oracle": BASE}
+for k, v in CANDS.items():
+    open(os.path.join(C, k + ".py"), "w", encoding="utf-8").write(v)
+
+def load(path, name):
+    spec = importlib.util.spec_from_file_location(name, path)
+    m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m); return m
+sys.dont_write_bytecode = True
+ORA = load(os.path.join(L, ".ufo/waves/round-98/c98_stale.py"), "c98_stale_counter")
+mods = {k: load(os.path.join(C, k + ".py"), k.replace("-", "_")) for k in CANDS if k not in ("P0-base-oracle", "K8-delegate-oracle")}
+
+def outcome(m, inp):
+    try: return m.decide(inp)
+    except m.Refuse: return "REFUSE"
+    except Exception as e: return "EXC " + type(e).__name__
+
+NAMED = [
+ ("N1 error 100 is a valid integer (not-an-error)", {"response_cc":"max-age=600","freshness_lifetime":600,"current_age":900,"event":"error","error":100}, {"decision":"not-an-error","staleness":300}),
+ ("N2 error 599 is a valid integer (not-an-error)", {"response_cc":"max-age=600","freshness_lifetime":600,"current_age":900,"event":"error","error":599}, {"decision":"not-an-error","staleness":300}),
+ ("N3 error as string '500' is refused", {"response_cc":"max-age=600, stale-if-error=1200","freshness_lifetime":600,"current_age":900,"event":"error","error":"500"}, "REFUSE"),
+ ("N4 non-tchar byte in directive value refused (S2)", {"response_cc":"max-age=600, stale-while-revalidate=3\u00e9","freshness_lifetime":600,"current_age":615,"event":"request"}, "REFUSE"),
+ ("N5 U+0100 inside quoted-string refused (S2 / U+00FF)", {"response_cc":"max-age=600, stale-while-revalidate=30, foo=\"\u0100\"","freshness_lifetime":600,"current_age":615,"event":"request"}, "REFUSE"),
+ ("N6 clamp at 2147483648 is inclusive (RFC 9111 1.2.2)", {"response_cc":"stale-while-revalidate=99999999999","freshness_lifetime":0,"current_age":2147483648,"event":"request"}, {"decision":"serve-stale-revalidate","staleness":2147483648}),
+ ("N7 first occurrence of request stale-if-error (S2.3)", {"response_cc":"max-age=600, stale-if-error=1200","request_cc":"stale-if-error=5, stale-if-error=60","freshness_lifetime":600,"current_age":640,"event":"error","error":500}, {"decision":"error-through","staleness":40}),
+ ("N8 inclusive sie boundary on shared cache, error 504 (S4)", {"response_cc":"max-age=600, stale-if-error=300","freshness_lifetime":600,"current_age":900,"event":"error","error":504,"shared":True}, {"decision":"serve-stale-error","staleness":300}),
+]
+def check(m):
+    res = []
+    for name, inp, want in NAMED:
+        got = outcome(m, inp)
+        res.append((name, "agree" if got == want else f"DIFF got={got}"))
+    return res
+print("== named contract inputs (expectation written from contract/RFC, not from oracle) ==")
+ora_chk = check(ORA)
+for k, m in mods.items():
+    rs = check(m)
+    fails = [n for n, r in rs if r != "agree"]
+    print(f"{k}: contract_violations={len(fails)}")
+    for n, r in rs:
+        if r != "agree": print("   ", n, r)
+print("counter oracle self-check on named inputs:", [r for _, r in ora_chk].count("agree"), "/", len(NAMED))
+
+# in-process population agreement with the oracle (per seed)
+def gen_outs(m, seed, n=240):
+    cases = m.generate(seed, n) if hasattr(m, "generate") else None
+    return cases
+import importlib
+ORA_GEN = ORA.generate
+def seed_cases(seed): return ORA_GEN(seed, 240)
+def lottery(m, seeds):
+    passing = 0; mism_cases = 0; total = 0
+    for sd in seeds:
+        cases = seed_cases(sd); bad = 0
+        for c in cases:
+            total += 1
+            if outcome(m, c) != outcome(ORA, c): bad += 1
+        mism_cases += bad; passing += bad == 0
+    return passing, len(seeds), mism_cases, total
+print("== in-process generated-population agreement with oracle over 2000 seeds ==")
+for k, m in mods.items():
+    if k.startswith("K8"): continue
+    p, n, mc, tot = lottery(m, range(1, 2001))
+    print(f"{k}: seeds_all240_agree={p}/{n} disagreeing_cases={mc}/{tot} rate={mc/tot:.6f}")

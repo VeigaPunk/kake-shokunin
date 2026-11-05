@@ -1,0 +1,18 @@
+# attack-share instance: the round-96 published share against the run-15 attack-role set
+# attack roles per .ufo/waves/round-81/w1-accounting.json:2 (round-80 closure R80-4):
+#   "sentinel is not an attack role" -> {reviewer, critic, mutation-tester, labrat}
+
+r95: requested=12 attack_role_seats=4 ['ReviewC1', 'ReviewC2', 'CriticClaims', 'MutC1']  sentinel_excluded=['SentinelScope']
+      strict share = 4/12 = 0.3333
+      with sentinel counted (not the run-15 set) = 5/12 = 0.4167
+r96: requested=12 attack_role_seats=4 ['ReviewC1', 'ReviewReval', 'CriticClaims', 'MutReval']  sentinel_excluded=['SentinelScope']
+      strict share = 4/12 = 0.3333
+      with sentinel counted (not the run-15 set) = 5/12 = 0.4167
+r97: requested=13 attack_role_seats=6 ['ReviewIndexA', 'ReviewIndexB', 'ReviewReval', 'CriticClaims', 'MutIndex', 'MutReval']  sentinel_excluded=['SentinelScope']
+      strict share = 6/13 = 0.4615
+      with sentinel counted (not the run-15 set) = 7/13 = 0.5385
+
+# published claims in the fleet reports (read-only):
+  fleet .ufo/reports/round-96/kake.md:73: (ConnectorScope-22) — attack share 5/12 ≈ 42% (≥25%), connector 1 (≤2).
+  fleet .ufo/reports/round-96/kake.md:155: is falsified by the round's own attack seats (R96-3/R96-4) and the
+  fleet .ufo/reports/round-97/kake.md:169: sentinel 1. Attack seats: 6/13 = 46 %.

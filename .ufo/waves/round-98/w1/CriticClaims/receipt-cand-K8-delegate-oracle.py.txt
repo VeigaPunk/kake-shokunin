@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+# delegates to the counter's own oracle (absolute path into the lane tree)
+import importlib.util, json, sys
+_P = "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-98/c98_stale.py"
+_s = importlib.util.spec_from_file_location("c98_stale_oracle", _P)
+_m = importlib.util.module_from_spec(_s); _s.loader.exec_module(_m)
+def main():
+    try:
+        inp = json.loads(sys.stdin.read())
+        out = _m.decide(inp)
+    except (_m.Refuse, ValueError) as e:
+        sys.stderr.write("invalid_input: %s\n" % e); return 1
+    sys.stdout.write(json.dumps(out) + "\n"); return 0
+if __name__ == "__main__":
+    sys.exit(main())

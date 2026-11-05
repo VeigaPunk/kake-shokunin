@@ -1,0 +1,25 @@
+== named contract inputs (expectation written from contract/RFC, not from oracle) ==
+K1-err-101-598: contract_violations=2
+    N1 error 100 is a valid integer (not-an-error) DIFF got=REFUSE
+    N2 error 599 is a valid integer (not-an-error) DIFF got=REFUSE
+K2-string-error-int: contract_violations=1
+    N3 error as string '500' is refused DIFF got={'decision': 'serve-stale-error', 'staleness': 300}
+K3-obs-text-token: contract_violations=1
+    N4 non-tchar byte in directive value refused (S2) DIFF got={'decision': 'revalidate', 'staleness': 15}
+K4-wide-qdtext: contract_violations=1
+    N5 U+0100 inside quoted-string refused (S2 / U+00FF) DIFF got={'decision': 'serve-stale-revalidate', 'staleness': 15}
+K5-clamp-2147483647: contract_violations=1
+    N6 clamp at 2147483648 is inclusive (RFC 9111 1.2.2) DIFF got={'decision': 'revalidate', 'staleness': 2147483648}
+K6-request-last-wins: contract_violations=1
+    N7 first occurrence of request stale-if-error (S2.3) DIFF got={'decision': 'serve-stale-error', 'staleness': 40}
+K7-rare-504-shared-boundary: contract_violations=1
+    N8 inclusive sie boundary on shared cache, error 504 (S4) DIFF got={'decision': 'error-through', 'staleness': 300}
+counter oracle self-check on named inputs: 8 / 8
+== in-process generated-population agreement with oracle over 2000 seeds ==
+K1-err-101-598: seeds_all240_agree=2000/2000 disagreeing_cases=0/480000 rate=0.000000
+K2-string-error-int: seeds_all240_agree=2000/2000 disagreeing_cases=0/480000 rate=0.000000
+K3-obs-text-token: seeds_all240_agree=2000/2000 disagreeing_cases=0/480000 rate=0.000000
+K4-wide-qdtext: seeds_all240_agree=2000/2000 disagreeing_cases=0/480000 rate=0.000000
+K5-clamp-2147483647: seeds_all240_agree=2000/2000 disagreeing_cases=0/480000 rate=0.000000
+K6-request-last-wins: seeds_all240_agree=1843/2000 disagreeing_cases=160/480000 rate=0.000333
+K7-rare-504-shared-boundary: seeds_all240_agree=1983/2000 disagreeing_cases=18/480000 rate=0.000037

@@ -1,0 +1,19 @@
+# seat-yield measurement (considerthese 2026-11-05.md Part 2 proposal 2), committed bytes only
+# lane: /home/vgpnk/Projects/shokunin/kake-shokunin  (read-only git; no mutation)
+# requested = len(w1-spec.json items)
+# settled   = rows in w1-results.json with non-empty output
+# report    = committed w1/<Seat>.md present
+# yield(requested) = report/requested ; yield(settled) = report/settled
+
+round requested settled reports yield/req yield/settled  seats_without_report   notes
+r88        14       14      14   14/14        14/14  -                                        
+r89        14        0      14   14/14         14/0  -                                        ALL-OUTPUTS-NULL(kernel restart) but 14 reports committed
+r90        13        0      13   13/13         13/0  -                                        ALL-OUTPUTS-NULL(kernel restart) but 13 reports committed
+r91        13       12       9   9/13         9/12  ConnectorScope,ExecReuseStubs,ScoutGround,ScoutSources 
+r92        14       14      13   13/14        13/14  SentinelQuote                            
+r93        13     None       8   8/13       8/None  CriticClaims,MutConditional,ScoutGround,ScribeEntry,SentinelScope NO-RESULTS-FILE
+r94        11       11      11   11/11        11/11  -                                        
+r95        12       12       8   8/12         8/12  ConnectorScope,CriticClaims,ExecC1Repair,ExecMutVerify,SentinelScope 
+r96        12       12       9   9/12         9/12  ConnectorScope,CriticClaims,ExecReceipts 
+r97        13       13      10   10/13        10/13  ExecIndexTwin,ReviewReval,SentinelScope  
+r98        13     None       2   2/13       2/None  ConnectorScope,CriticClaims,ExecMetaLint,ExecStale,ExecTwinStale,MutCounters,ReviewCapA,ReviewStale,ScribeEntry,ScribeLesson,SentinelScope NO-RESULTS-FILE

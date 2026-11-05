@@ -1,0 +1,186 @@
+{
+ "S14_seeddoc": {
+  "fixture_rev": "52ebf56f388851a6f5e9a35f93bd11f6ac3dfe08",
+  "doc_seed(sha[:8])": 49290302,
+  "pristine_printed": 49290302,
+  "pristine_matches_doc": true,
+  "s14_printed": 752,
+  "s14_matches_doc": false,
+  "sha[:4]_value": 752,
+  "s14_equals_sha4": true
+ },
+ "cap_recipes": {
+  "M01": {
+   "fixture_rev": "f16e1e22c767f8eaf4a434f6e4e577268021eca0",
+   "row": "| sources-registry; gate flavor | covers the registry census rows offline for publishers | `corpus/SOURCES.md` | 20 |",
+   "pristine": {
+    "rc": 1,
+    "l1": "entries=48 rows=15 matched=9 unlisted=39 unbacked=6 mismatches=45 met=false"
+   },
+   "mutant": {
+    "rc": 1,
+    "l1": "entries=48 rows=15 matched=8 unlisted=40 unbacked=7 mismatches=47 met=false"
+   },
+   "discriminates": true
+  },
+  "M04": {
+   "fixture_rev": "bcd755484296fd414aa787209d57a6dde301af50",
+   "row": "| sources-registry | covers the registry census rows offline for publishers | `corpus/SOURCES.md` | 20 (recount 21) |",
+   "pristine": {
+    "rc": 1,
+    "l1": "entries=48 rows=15 matched=9 unlisted=39 unbacked=6 mismatches=45 met=false"
+   },
+   "mutant": {
+    "rc": 1,
+    "l1": "entries=48 rows=15 matched=8 unlisted=40 unbacked=7 mismatches=47 met=false"
+   },
+   "discriminates": true
+  },
+  "M06": {
+   "fixture_rev": "215e05d637ab6d571a152b92139717cb609329cc",
+   "row": "| sources-registry | covers registry census rows offline | `corpus/SOURCES.md` | 20 |",
+   "pristine": {
+    "rc": 1,
+    "l1": "entries=48 rows=15 matched=8 unlisted=40 unbacked=7 mismatches=47 met=false"
+   },
+   "mutant": {
+    "rc": 1,
+    "l1": "entries=48 rows=15 matched=9 unlisted=39 unbacked=6 mismatches=45 met=false"
+   },
+   "discriminates": true
+  },
+  "M09": {
+   "fixture_rev": "e4825395136d45c57755c32dbcf4679afe65c463",
+   "row": "| Conservative Vary-match reader | watches scripts/vary_match.py responses against frozen fixtures offline today | `corpus/SOURCES.md` | 88 |",
+   "pristine": {
+    "rc": 1,
+    "l1": "entries=48 rows=15 matched=9 unlisted=39 unbacked=6 mismatches=45 met=false"
+   },
+   "mutant": {
+    "rc": 1,
+    "l1": "entries=48 rows=15 matched=8 unlisted=40 unbacked=7 mismatches=47 met=false"
+   },
+   "discriminates": true
+  },
+  "M13": {
+   "fixture_rev": "2c79a75aca493b8e31921998584525df36af6cae",
+   "row": "junkprose fixture minus one row (mismatches=1)",
+   "pristine": {
+    "rc": 1,
+    "l1": "entries=48 rows=47 matched=47 unlisted=1 unbacked=0 mismatches=1 met=false"
+   },
+   "mutant": {
+    "rc": 0,
+    "l1": "entries=48 rows=47 matched=47 unlisted=1 unbacked=0 mismatches=1 met=true"
+   },
+   "discriminates": true
+  }
+ },
+ "M10_probe": {
+  "iters": 200000,
+  "greedy_ne_max": 0,
+  "example": null
+ },
+ "oracle_demos": {
+  "S02": {
+   "case": {
+    "response_cc": "a=1, =2",
+    "freshness_lifetime": 1,
+    "current_age": 2,
+    "event": "request"
+   },
+   "pristine_expect": "REFUSE",
+   "mutant_expect": "{'decision': 'revalidate', 'staleness': 1}",
+   "pos_oracle_candidate": {
+    "rc": 1,
+    "out": "",
+    "err": "invalid_input: bad directive name"
+   },
+   "discriminates": true
+  },
+  "S04": {
+   "case": {
+    "response_cc": "stale-while-revalidate=99999999999",
+    "freshness_lifetime": 0,
+    "current_age": 3000000000,
+    "event": "request"
+   },
+   "pristine_expect": "{'decision': 'revalidate', 'staleness': 3000000000}",
+   "mutant_expect": "{'decision': 'serve-stale-revalidate', 'staleness': 3000000000}",
+   "pos_oracle_candidate": {
+    "rc": 0,
+    "out": "{\"decision\": \"revalidate\", \"staleness\": 3000000000}",
+    "err": ""
+   },
+   "discriminates": true
+  },
+  "S17": {
+   "case": {
+    "response_cc": "max-age=600, stale-if-error=1200",
+    "freshness_lifetime": 600,
+    "current_age": 900,
+    "event": "error",
+    "error": 150
+   },
+   "pristine_expect": "{'decision': 'not-an-error', 'staleness': 300}",
+   "mutant_expect": "REFUSE",
+   "pos_oracle_candidate": {
+    "rc": 0,
+    "out": "{\"decision\": \"not-an-error\", \"staleness\": 300}",
+    "err": ""
+   },
+   "discriminates": true
+  }
+ },
+ "judge_demos": {
+  "S10b": {
+   "candidate": "extrakey",
+   "pristine": {
+    "rc": 1,
+    "l1": "candidate=present sha256=f3a1f2203ca02e403cc7bc45c5f06e3424b074eb5004e5762c370b2809f24cc7 hand=14/60 generated=44/240 refusals=44/44 seed=98 met=false"
+   },
+   "mutant": {
+    "rc": 1,
+    "l1": "candidate=present sha256=f3a1f2203ca02e403cc7bc45c5f06e3424b074eb5004e5762c370b2809f24cc7 hand=14/60 generated=44/240 refusals=44/44 seed=98 met=false"
+   },
+   "discriminates": false,
+   "battery_killers": []
+  },
+  "S11": {
+   "candidate": "floatstale",
+   "pristine": {
+    "rc": 1,
+    "l1": "candidate=present sha256=634c32eb5ec0b7446196d6bf443bab6f44ec270da4ef213aa564573c56a6c74e hand=14/60 generated=44/240 refusals=44/44 seed=98 met=false"
+   },
+   "mutant": {
+    "rc": 0,
+    "l1": "candidate=present sha256=634c32eb5ec0b7446196d6bf443bab6f44ec270da4ef213aa564573c56a6c74e hand=60/60 generated=240/240 refusals=44/44 seed=98 met=true"
+   },
+   "discriminates": true
+  },
+  "S12": {
+   "candidate": "oddstderr",
+   "pristine": {
+    "rc": 1,
+    "l1": "candidate=present sha256=1510e9e8eb9a580761f1124e16e74edbaa3584a9bdc76a1e439020ab4971990e hand=46/60 generated=196/240 refusals=0/44 seed=98 met=false"
+   },
+   "mutant": {
+    "rc": 0,
+    "l1": "candidate=present sha256=1510e9e8eb9a580761f1124e16e74edbaa3584a9bdc76a1e439020ab4971990e hand=60/60 generated=240/240 refusals=44/44 seed=98 met=true"
+   },
+   "discriminates": true
+  },
+  "S13": {
+   "candidate": "exit2",
+   "pristine": {
+    "rc": 1,
+    "l1": "candidate=present sha256=26556831e91c8393b8bc8523f3267e0f1fafa5e2b1f22a4e31e2696b98a924a0 hand=46/60 generated=196/240 refusals=0/44 seed=98 met=false"
+   },
+   "mutant": {
+    "rc": 0,
+    "l1": "candidate=present sha256=26556831e91c8393b8bc8523f3267e0f1fafa5e2b1f22a4e31e2696b98a924a0 hand=60/60 generated=240/240 refusals=44/44 seed=98 met=true"
+   },
+   "discriminates": true
+  }
+ }
+}

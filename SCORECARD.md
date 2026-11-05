@@ -240,6 +240,7 @@ locally (2 rejected sources with flips, 8 scout observations held back,
 | Conditional request evaluation | Decides 200, 304 or 412 for a conditional request and names the deciding precondition (If-Match, If-Unmodified-Since, If-None-Match, If-Modified-Since) over supplied method, representation and field values only | `scripts/conditional_eval.py`; `corpus/lessons/round-93-verifier-spotcheck.md` | 93 |
 | Coverage-index calibration counter | Counts mismatches between corpus/README.md Entry-table rows and committed corpus/knowledge/*.md entries (unindexed entries and dangling rows, each row needing the entry path, every source id and eight words) | `.ufo/waves/round-97/c97_index.py`; `corpus/lessons/round-97-verifier-spotcheck.md` (C1 section) | 97 |
 | Revalidation exchange, contract v1 | Decides the revalidation exchange over supplied values: which validators to send, and after a reply whether to update the stored response (304), replace it, reuse it on a 5xx, or report cannot-revalidate; refuses malformed input | `scripts/reval_exchange.py`; `corpus/lessons/round-97-verifier-spotcheck.md` (C2 section) | 97 |
+| Stale-serving extensions decision, contract v1 | Decides over supplied values whether a stale stored response may be served on a request (RFC 5861 §3 stale-while-revalidate window: serve-stale-revalidate / revalidate) or on a 500, 502, 503, 504 or network error (§4 stale-if-error limit, request value first: serve-stale-error / error-through), reporting staleness, under the RFC 9111 §4.2.4 prohibitions (no-cache, must-revalidate, shared-cache s-maxage and proxy-revalidate); refuses malformed fields and out-of-contract request directives; no live cache, storage or revalidation scheduling | `scripts/stale_extensions.py` (sha256 `f43895f1…`); `.ufo/waves/round-98/controls/after-c2.txt` (hand 60/60, generated 240/240, met=true at `0f48ada0`); `.ufo/waves/round-98/stale-contract.md`; `corpus/knowledge/stale-extensions.md` (S482) | 98 |
 
 ### Capability rows without an admitted closure (round 98: moved out of the table above)
 
@@ -5889,3 +5890,38 @@ R95-2 (L0) and R95-6. Frontier: storage/key identity (§4.1), serving stale, the
 field set (§4.3.4, now with Reported erratum EID 9185 on record via S481) and every live-cache
 observation stay open.
 
+### Round 98 — claims and verdicts (2026-11-05, attempt 1; not an admission)
+
+Round base `e51328b63690c8aaa78c9c8f3b87d8735c0ccbf7`; instruments `2db768356cd081092c3abc60f76b25487ec4c535`;
+freeze `c3eace8b5c70453faff872c89d8443753e5d21b6` with both counters digest-pinned
+(`.ufo/waves/round-98/controls/instrument-sha256.txt`) and every do-nothing, forgery and main-path
+control executed and committed BEFORE the wave and before the repair (`.ufo/waves/round-98/freeze.md`).
+C1 repair `4446ce219b4f0c9f5f4fc81f7f772e3a7f24c95a`; C2 content `0f48ada084fd3b0c1292e03294a5b44fe1f46e36`.
+Fleet MANIFEST pin `f86740064229897f53212e03ae3b6474dac66de4`. Claims, counters, predicates and targets
+unchanged after the freeze.
+
+| Claim | Axis / type | Before → after | Counting command | Verdict |
+|---|---|---|---|---|
+| C1 Capabilities table matches the admitted closure record | calibration (3, lowest owned) | `entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false` at `e51328b6` → `entries=48 rows=48 matched=48 unlisted=0 unbacked=0 mismatches=0 met=true` at `4446ce21`; review conjunct ReviewCapB 43 agree / 2 disagree of 45, ReviewCapA no verdicts | `python3 -B .ufo/waves/round-98/c98_captable.py --root . --revision <REV> --fleet-revision f86740064229897f53212e03ae3b6474dac66de4` + `cut -f3 .ufo/waves/round-98/w1/ReviewCap{A,B}/verdicts.tsv \| sort \| uniq -c` | **unmet** (frozen kill rule: a live reviewer's `disagree`); score stays 3; the two rows were corrected at `0f48ada0` without flipping the verdict |
+| C2 stale-serving extensions, contract v1 (sourced: S482) | freshness (HOLD 10), capability | `candidate=absent met=false` exit 1 at `e51328b6` and `2db76835` → `candidate=present sha256=f43895f1… hand=60/60 generated=240/240 refusals=35/35 met=true` exit 0 at `0f48ada0`, scored blob = landed blob; 20 extra seeds 20/20 met | `python3 -B .ufo/waves/round-98/c98_stale.py --root . --revision <REV> --work <scratch>` | **met on the frozen predicate**; capability row entered (round 98); instrument limits routed R98-2/R98-3 |
+
+C1 and the C2 row: the C2 row is a round-98 capability with no admitted closure in the pinned
+MANIFEST, so `c98_captable.py` at the tip reads `unbacked=1` by construction — the freeze's
+ordering rule scores C1 at `4446ce21`, before that row (`.ufo/waves/round-98/controls/tip-c1.txt`).
+
+#### Move log (round 98)
+
+| Round | Axis | Before | After | Evidence |
+|---|---|---|---|---|
+| 98 | calibration | 3 (`mismatches=46`) | 3 (counter `mismatches=0`; review conjunct failed 2/45) | `.ufo/waves/round-98/controls/{base-c1,after-c1}.txt`; `w1/ReviewCapB/verdicts.tsv` |
+| 98 | freshness (HOLD 10), capability | no candidate; no row | counter `met=true`; row entered | `.ufo/waves/round-98/controls/{base-c2,after-c2,after-c2-20seeds,after-c2-named-probes,ctl-c2-slot-pos-oracle}.txt` |
+
+#### Planned — after round 98
+
+Outside closure owns admission. Routed to round 99 (`corpus/lessons/round-98.md` `## Routed to
+round 99`): R98-1 (C1 counter structural escapes), R98-2 (C2 population blind classes, judge
+looseness, seed grinding, oracle delegation), R98-3 (oracle long-integer defect), R98-4 (contract
+convention marks; s-maxage/lifetime coupling; duplicate JSON keys), R98-5 (dead review seat),
+plus carried R97-1/2/3/5, R96-3, R95-6 and L0 R95-2. Frontier: live-cache observation of the
+stale extensions, background revalidation, storage/key identity (§4.1) and the merged 304 field
+set stay open.

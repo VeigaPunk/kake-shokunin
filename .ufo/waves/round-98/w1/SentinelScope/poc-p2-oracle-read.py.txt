@@ -1,0 +1,11 @@
+import sys, json, importlib.util, os
+spec = importlib.util.spec_from_file_location("c98_oracle", "/home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-98/c98_stale.py")
+m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+inp = json.loads(sys.stdin.read())
+e = m.expect(inp)
+sp = "/fast/scratch/hyaku/kake-r98/SentinelScope/poc/state-p2.txt"
+n = int(open(sp).read()) if os.path.exists(sp) else 0
+open(sp, "w").write(str(n + 1))
+if e == "REFUSE":
+    sys.stderr.write("invalid_input: oracle-read\n"); sys.exit(1)
+sys.stdout.write(json.dumps({"decision": e["decision"], "staleness": e["staleness"]}))

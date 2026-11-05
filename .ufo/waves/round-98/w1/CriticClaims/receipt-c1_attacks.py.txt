@@ -1,0 +1,119 @@
+import subprocess, sys, os, shutil
+L = "/home/vgpnk/Projects/shokunin/kake-shokunin"
+S = "/fast/scratch/hyaku/kake-r98/CriticClaims"
+FX = os.path.join(S, "fx")
+BASE = "4446ce219b4f0c9f5f4fc81f7f772e3a7f24c95a"
+E51 = "e51328b63690c8aaa78c9c8f3b87d8735c0ccbf7"
+FLEET_REV = "f86740064229897f53212e03ae3b6474dac66de4"
+CT = os.path.join(L, ".ufo/waves/round-98/c98_captable.py")
+ID = ["-c", "user.name=CriticClaims", "-c", "user.email=CriticClaims@example.invalid"]
+
+def git(*a, check=True):
+    p = subprocess.run(["git", "-C", FX, *a], capture_output=True, text=True)
+    if check and p.returncode:
+        raise SystemExit(f"git {a} rc={p.returncode} {p.stderr}")
+    return p
+
+def rev_of(x):
+    return git("rev-parse", "--verify", x + "^{commit}").stdout.strip()
+
+def _window(ls):
+    a = ls.index("## Capabilities")
+    b = next(i for i in range(a, len(ls)) if ls[i].startswith("### Capability rows without"))
+    return a, b
+
+def one(s, prefix, old, new):
+    lines = s.split("\n")
+    a, b = _window(lines)
+    hits = [i for i in range(a, b) if lines[i].startswith(prefix)]
+    assert len(hits) == 1, (prefix, len(hits))
+    assert lines[hits[0]].count(old) >= 1, (prefix, old)
+    lines[hits[0]] = lines[hits[0]].replace(old, new, 1)
+    return "\n".join(lines)
+
+PH = "| Universal cache oracle | Decides every RFC 9111 cache question for every field over supplied values with no declared limits, exits 0 on all inputs | `scripts/universal_cache_oracle.py` | 60 |"
+
+def m_base(s): return s
+def m_prefix(s):  # key word-prefix extension of a 3-word admitted entry
+    return one(s, "| Coverage-index calibration counter |", "| Coverage-index calibration counter |",
+               "| Coverage-index calibration counter with automatic CDN cache purge |")
+def m_escpipe(s):  # same as prefix, name written with an escaped pipe
+    return one(s, "| Coverage-index calibration counter |", "| Coverage-index calibration counter |",
+               "| Coverage-index calibration counter \\| with automatic CDN cache purge |")
+def m_unrelated_ev(s):  # existing unrelated evidence path + entry path kept in prose
+    return one(s, "| Conservative Vary-match reader |", "`scripts/vary_match.py`",
+               "`SCORECARD.md`; scripts/vary_match.py")
+def m_round_tail(s):  # first integer 52 kept, tail unparsed
+    return one(s, "| LISTED-STEADY sitemap verdict", "| 52 |", "| 52 (not 25; 25 was the first attempt) |")
+def m_round_inv(s):  # first integer 25 on a round-52 entry
+    return one(s, "| LISTED-STEADY sitemap verdict", "| 52 |", "| 25 (not 52) |")
+def _lines(s): return s.split("\n")
+def _ins_before(s, anchor_prefix, new_lines):
+    ls = _lines(s); h = [i for i, l in enumerate(ls) if l.startswith(anchor_prefix)]
+    assert len(h) == 1, anchor_prefix
+    return "\n".join(ls[:h[0]] + new_lines + ls[h[0]:])
+def m_phantom_sub(s):  # phantom placed in the ### subsection the repair created
+    return _ins_before(s, "### Capability rows without", ["", "| Capability | What it can now do | Evidence pointer | First-working round |", "|---|---|---|---|", PH, ""])
+def m_phantom_first(s):  # phantom in the first table
+    ls = _lines(s); h = ls.index("| Capability | What it can now do | Evidence pointer | First-working round |")
+    return "\n".join(ls[:h + 2] + [PH] + ls[h + 2:])
+def m_c2_row(s):  # the C2 row, round 98, as the frozen predicate requires
+    ls = _lines(s); h = ls.index("| Capability | What it can now do | Evidence pointer | First-working round |")
+    row = "| Stale-serving extensions (RFC 5861 stale-while-revalidate, stale-if-error) | Decides, over supplied Cache-Control and freshness values only, whether a stored response may be served stale for revalidation or on error, and refuses malformed input | `.ufo/waves/round-98/c98_stale.py` | 98 |"
+    return "\n".join(ls[:h + 2] + [row] + ls[h + 2:])
+def m_fenced_only(s):
+    ls = _lines(s); h = ls.index("| Capability | What it can now do | Evidence pointer | First-working round |")
+    e = h
+    while e < len(ls) and ls[e].startswith("|"): e += 1
+    return "\n".join(ls[:h] + ["```"] + ls[h:e] + ["```"] + ls[e:])
+def m_fenced_decoy(s):
+    ls = _lines(s); h = ls.index("| Capability | What it can now do | Evidence pointer | First-working round |")
+    return "\n".join(ls[:h] + ["```", "| Capability | What it can now do | Evidence pointer | First-working round |", "|---|---|---|---|", "| Decoy | Decoy row claiming nothing about any table at all here | `SCORECARD.md` | 1 |", "```"] + ls[h:])
+def m_inplace(s):  # existing matched row's evidence changed to an existing unrelated path
+    return one(s, "| Revalidation exchange, contract v1 |", "`scripts/reval_exchange.py`", "`SCORECARD.md`; scripts/reval_exchange.py")
+
+ATTACKS = [
+    ("A0-control-4446", m_base, BASE),
+    ("A1-prefix-extension", m_prefix, None),
+    ("A2-escaped-pipe-alias", m_escpipe, None),
+    ("A3-unrelated-existing-evidence", m_unrelated_ev, None),
+    ("A4-round-tail-unparsed", m_round_tail, None),
+    ("A5-round-inverted-control", m_round_inv, None),
+    ("A6-phantom-in-subsection", m_phantom_sub, None),
+    ("A7-phantom-in-first-table-control", m_phantom_first, None),
+    ("A9-c2-row-round98-coupling", m_c2_row, None),
+    ("A10-fenced-only-table", m_fenced_only, None),
+    ("A11-fenced-decoy-before", m_fenced_decoy, None),
+    ("A12-inplace-edit-no-review", m_inplace, None),
+]
+
+def main():
+    if os.path.exists(FX): shutil.rmtree(FX)
+    subprocess.run(["git", "clone", "-q", "--shared", L, FX], check=True)
+    top = git("rev-parse", "--show-toplevel").stdout.strip()
+    assert top == FX, top
+    git("checkout", "-q", "--detach", BASE)
+    base_text = open(os.path.join(FX, "SCORECARD.md"), encoding="utf-8").read()
+    results = []
+    for name, fn, fixed in ATTACKS:
+        git("checkout", "-q", "--detach", BASE)
+        text = fn(base_text)
+        open(os.path.join(FX, "SCORECARD.md"), "w", encoding="utf-8").write(text)
+        if name.startswith("A0"):
+            rv = BASE
+        else:
+            git("-c", "user.name=CriticClaims", "-c", "user.email=CriticClaims@example.invalid",
+                "commit", "-q", "-a", "-m", name)
+            rv = rev_of("HEAD")
+        p = subprocess.run([sys.executable, "-B", CT, "--root", FX, "--revision", rv,
+                            "--fleet-revision", FLEET_REV, "--fleet", "/home/vgpnk/Projects/shokunin"],
+                           capture_output=True, text=True)
+        line1 = (p.stdout.splitlines() or ["<no stdout>"])[0]
+        err = p.stderr.strip()[:200]
+        out = f"{name} rev={rv[:12]} rc={p.returncode} :: {line1}" + (f" stderr={err}" if err else "")
+        print(out, flush=True)
+        results.append(out)
+    git("checkout", "-q", "--detach", BASE)
+    open(os.path.join(S, "c1_results.txt"), "w").write("\n".join(results) + "\n")
+
+main()

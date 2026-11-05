@@ -1,0 +1,14 @@
+# attack share under both denominators (proposal 2 measurement)
+# attack roles: reviewer, critic, mutation-tester, labrat (r80 closure R80-4; sentinel excluded)
+# requested = w1-spec.json items ; settled = results rows with non-empty output
+# report   = committed w1/<Seat>.md OR any *.md under w1/<Seat>/
+
+round req settle rep  attack_req attack_settled  share/req share/settled  attack_names
+r91   13     12   9          4             4  4/13=0.308  4/12=0.333  req_attack=['ReviewC1', 'ReviewReuse', 'MutReuse', 'CriticClaims'] rep_attack=['ReviewReuse', 'MutReuse', 'ReviewC1', 'CriticClaims']
+r92   14     14  13          4             4  4/14=0.286  4/14=0.286  req_attack=['ReviewC1', 'ReviewC2', 'CriticClaims', 'MutHeuristic'] rep_attack=['MutHeuristic', 'ReviewC2', 'ReviewC1', 'CriticClaims']
+r93   13      0   9          4             0  4/13=0.308  0/0=0.000  req_attack=['ReviewC2', 'ReviewC1', 'CriticClaims', 'MutConditional'] rep_attack=['ReviewC2', 'ReviewC1']
+r94   11     11  11          4             4  4/11=0.364  4/11=0.364  req_attack=['ReviewC1', 'ReviewC2', 'CriticClaims', 'MutC1'] rep_attack=['MutC1', 'ReviewC2', 'ReviewC1', 'CriticClaims']
+r95   12     12  12          4             4  4/12=0.333  4/12=0.333  req_attack=['ReviewC1', 'ReviewC2', 'CriticClaims', 'MutC1'] rep_attack=['MutC1', 'ReviewC2', 'ReviewC1', 'CriticClaims']
+r96   12     12  12          4             4  4/12=0.333  4/12=0.333  req_attack=['ReviewC1', 'ReviewReval', 'CriticClaims', 'MutReval'] rep_attack=['MutReval', 'ReviewC1', 'CriticClaims', 'ReviewReval']
+r97   13     13  12          6             6  6/13=0.462  6/13=0.462  req_attack=['ReviewIndexA', 'ReviewIndexB', 'ReviewReval', 'CriticClaims', 'MutIndex', 'MutReval'] rep_attack=['MutReval', 'MutIndex', 'ReviewIndexA', 'ReviewIndexB', 'CriticClaims']
+r98   13      0   9          5             0  5/13=0.385  0/0=0.000  req_attack=['ReviewCapA', 'ReviewCapB', 'ReviewStale', 'CriticClaims', 'MutCounters'] rep_attack=['ReviewStale', 'ReviewCapB', 'CriticClaims']

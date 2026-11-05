@@ -1,0 +1,30 @@
+import subprocess, sys, os, json
+L = "/home/vgpnk/Projects/shokunin/kake-shokunin"; S = "/fast/scratch/hyaku/kake-r98/CriticClaims"; FX = os.path.join(S, "fx")
+E51 = "e51328b63690c8aaa78c9c8f3b87d8735c0ccbf7"; FLEET = "f86740064229897f53212e03ae3b6474dac66de4"
+CT = os.path.join(L, ".ufo/waves/round-98/c98_captable.py")
+def git(*a): return subprocess.run(["git", "-C", FX, *a], capture_output=True, text=True, check=True)
+def run(rev, root=L):
+    p = subprocess.run([sys.executable, "-B", CT, "--root", root, "--revision", rev, "--fleet-revision", FLEET],
+                       capture_output=True, text=True)
+    return p.returncode, (p.stdout.splitlines() or [""])[0], p.stdout.splitlines()[1] if len(p.stdout.splitlines()) > 1 else ""
+rc, l1, js = run(E51)
+print("do-nothing e51328b6 (lane):", rc, l1)
+d = json.loads(js)
+unb = [x["line"] for x in d["unbacked_detail"]]
+print("unbacked lines at base:", unb)
+if os.path.exists(FX):
+    import shutil; shutil.rmtree(FX)
+subprocess.run(["git", "clone", "-q", "--shared", L, FX], check=True)
+assert git("rev-parse", "--show-toplevel").stdout.strip() == FX
+git("checkout", "-q", "--detach", E51)
+lines = open(os.path.join(FX, "SCORECARD.md"), encoding="utf-8").read().split("\n")
+drop = set(u - 1 for u in unb)
+new = [l for i, l in enumerate(lines) if i not in drop]
+open(os.path.join(FX, "SCORECARD.md"), "w", encoding="utf-8").write("\n".join(new))
+git("-c", "user.name=CriticClaims", "-c", "user.email=CriticClaims@example.invalid", "commit", "-q", "-a", "-m", "cheap: drop unbacked rows")
+rv = git("rev-parse", "HEAD").stdout.strip()
+rc, l1, _ = run(rv, FX)
+print("cheap repair: drop the 6 unbacked base rows:", rc, l1)
+git("checkout", "-q", "--detach", E51)
+rc, l1, _ = run("master")
+print("master tip:", rc, l1)

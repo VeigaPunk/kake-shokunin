@@ -1,0 +1,42 @@
+ScoutRfc5861 — round-98 w1 fetch receipts (2026-11-05)
+Scratch /fast/scratch/hyaku/kake-r98/ScoutRfc5861 (receipts copied here before scratch deletion).
+Each URL was GET once, exactly once; nothing was refetched. Bodies and headers copied to this
+directory unchanged (rfc5861.txt, rfc5861.headers.txt, errata-5861.html, errata.headers.txt).
+
+[1] RFC 5861 body
+Command (run in scratch cwd, TMPDIR pointed at scratch tmp):
+  date -u +%FT%TZ > rfc5861.fetch.start
+  TMPDIR=/fast/scratch/hyaku/kake-r98/ScoutRfc5861/tmp curl -sS -L --max-time 120 \
+    -o rfc5861.txt -D rfc5861.headers.txt \
+    -w 'final_url=%{url_effective} http_code=%{http_code} num_redirects=%{num_redirects} size_download=%{size_download} remote_ip=%{remote_ip}\n' \
+    https://www.rfc-editor.org/rfc/rfc5861.txt
+  date -u +%FT%TZ > rfc5861.fetch.end
+Started (UTC): 2026-11-05T22:01:17Z        Ended (UTC): 2026-11-05T22:01:17Z
+curl exit: 0        observed: num_redirects=0, remote_ip=2606:4700::6812:1551
+Hops (1 response total, 0 redirects):
+  hop 1: HTTP/2 200  https://www.rfc-editor.org/rfc/rfc5861.txt  (final; no Location header)
+Final URL: https://www.rfc-editor.org/rfc/rfc5861.txt
+Bytes: 10359 (size_download; on-disk file 10359)
+sha256: 1193f1c8710af162e1b9fb4250d79bc6dd26497df4caeeaaa8bcb2fefdd2529e
+Retained body .ufo/waves/round-98/sources/rfc5861.txt sha256 (sha256sum):
+  1193f1c8710af162e1b9fb4250d79bc6dd26497df4caeeaaa8bcb2fefdd2529e
+VERDICT: MATCH — live body byte-identical to the retained body (also equals the freeze-named
+1193f1c8… prefix). Headers kept: rfc5861.headers.txt (single HTTP/2 200; content-type
+text/plain;charset=utf-8; etag W/"4122d14bf70b9a97bfaf89d2e27a1de1"; server cloudflare).
+
+[2] RFC 5861 errata search page
+Command (same form):
+  TMPDIR=/fast/scratch/hyaku/kake-r98/ScoutRfc5861/tmp curl -sS -L --max-time 120 \
+    -o errata-5861.html -D errata.headers.txt \
+    -w '...' 'https://www.rfc-editor.org/errata_search.php?rfc=5861'
+Started (UTC): 2026-11-05T22:01:17Z        Ended (UTC): 2026-11-05T22:01:18Z
+curl exit: 0        observed: num_redirects=1, remote_ip=2606:4700::6812:1551
+Hops (2 responses, 1 redirect; -D appends every hop's headers):
+  hop 1: HTTP/2 302  https://www.rfc-editor.org/errata_search.php?rfc=5861
+         Location: https://errata.rfc-editor.org/search/?rfc_number=5861  (content-length: 0)
+  hop 2: HTTP/2 200  https://errata.rfc-editor.org/search/?rfc_number=5861  (final)
+Final URL: https://errata.rfc-editor.org/search/?rfc_number=5861
+Bytes: 17788 (size_download; on-disk file 17788)
+sha256: 9603a690cfa9b5b1c7c0f9d2a52c2b5b98f38a90e7c14e76e5dd90e0f3ab8ce9
+Headers kept: errata.headers.txt (hop-1 302 block then hop-2 200 block, content-type
+text/html; charset=utf-8, server cloudflare).

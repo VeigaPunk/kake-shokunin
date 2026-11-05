@@ -1,0 +1,13 @@
+N1 ok 0 b'{"decision": "not-an-error", "staleness": 300}\n' b''
+N2 ok 0 b'{"decision": "not-an-error", "staleness": 300}\n' b''
+N3 ok 1 b'' b"invalid_input: error must be an integer 100-599 or the string 'network'\n"
+N4 ok 1 b'' b'invalid_input: invalid character in directive value\n'
+N5 ok 1 b'' b'invalid_input: bad character in quoted-string\n'
+N6 ok 0 b'{"decision": "serve-stale-revalidate", "staleness": 2147483648}\n' b''
+N6b ok 0 b'{"decision": "revalidate", "staleness": 2147483649}\n' b''
+N7 ok 0 b'{"decision": "error-through", "staleness": 40}\n' b''
+N8 ok 0 b'{"decision": "serve-stale-error", "staleness": 300}\n' b''
+A1 ok 0 b'{"decision": "revalidate", "staleness": 2147483649}\n' b''
+A3 ok 0 b'{"decision": "serve-stale-revalidate", "staleness": 5}\n' b''
+SN ok 1 b'' b'invalid_input: shared must be a boolean\n'
+probe 12/12

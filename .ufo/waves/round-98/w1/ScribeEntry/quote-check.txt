@@ -1,0 +1,165 @@
+quote-check.txt — round-98 C2 knowledge entry draft (seat ScribeEntry)
+draft .ufo/waves/round-98/w1/ScribeEntry/stale-extensions.md
+method: for each quote, `grep -n -F -x -- <anchor>` in the retained body; the anchor is the first physical line of the quoted span, verbatim (the RFC bodies are hard-wrapped, so a quote crossing a line break is compared with whitespace collapsed)
+
+body rfc5861.txt sha256=1193f1c8710af162e1b9fb4250d79bc6dd26497df4caeeaaa8bcb2fefdd2529e bytes=10359 lines=339 path=.ufo/waves/round-98/sources/rfc5861.txt
+body rfc9110.txt sha256=21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a bytes=502941 lines=10785 path=corpus/lessons/round-81-gate/rfc9110.txt
+body rfc9111.txt sha256=aeb52adb3279d5f23dae34f68af11bd5cef0a0aff7ffcd014c9ca93c5302cf3e bytes=84477 lines=1956 path=.ufo/waves/round-96/w1/ScoutRFC/rfc9111.txt
+
+Q1 ok lines=106-109 words=22 span=True file=True
+  grep -n -F -x --    When present in an HTTP response, the stale-while-revalidate Cache- .ufo/waves/round-98/sources/rfc5861.txt
+  -> 106:   When present in an HTTP response, the stale-while-revalidate Cache- (rc=0)
+  quote: indicates that caches MAY serve the response in which it appears after it becomes stale, up to the indicated number of seconds
+
+Q2 ok lines=121-123 words=15 span=True file=True
+  grep -n -F -x --    If a cached response is served stale due to the presence of this .ufo/waves/round-98/sources/rfc5861.txt
+  -> 121:   If a cached response is served stale due to the presence of this (rc=0)
+  quote: the cache SHOULD attempt to revalidate it while still serving stale responses (i.e., without blocking)
+
+Q3 ok lines=128-129 words=20 span=True file=True
+  grep -n -F -x --    If delta-seconds passes without the cached entity being revalidated, .ufo/waves/round-98/sources/rfc5861.txt
+  -> 128:   If delta-seconds passes without the cached entity being revalidated, (rc=0)
+  quote: If delta-seconds passes without the cached entity being revalidated, it SHOULD NOT continue to be served stale, absent other information.
+
+Q4 ok lines=119-119 words=5 span=True file=True
+  grep -n -F -x --      stale-while-revalidate = "stale-while-revalidate" "=" delta-seconds .ufo/waves/round-98/sources/rfc5861.txt
+  -> 119:     stale-while-revalidate = "stale-while-revalidate" "=" delta-seconds (rc=0)
+  quote: stale-while-revalidate = "stale-while-revalidate" "=" delta-seconds
+
+Q5 ok lines=135-135 words=3 span=True file=True
+  grep -n -F -x --      Cache-Control: max-age=600, stale-while-revalidate=30 .ufo/waves/round-98/sources/rfc5861.txt
+  -> 135:     Cache-Control: max-age=600, stale-while-revalidate=30 (rc=0)
+  quote: Cache-Control: max-age=600, stale-while-revalidate=30
+
+Q6 ok lines=137-138 words=21 span=True file=True
+  grep -n -F -x --    indicates that it is fresh for 600 seconds, and it may continue to be .ufo/waves/round-98/sources/rfc5861.txt
+  -> 137:   indicates that it is fresh for 600 seconds, and it may continue to be (rc=0)
+  quote: it is fresh for 600 seconds, and it may continue to be served stale for up to an additional 30 seconds
+
+Q7 ok lines=161-163 words=21 span=True file=True
+  grep -n -F -x --    The stale-if-error Cache-Control extension indicates that when an .ufo/waves/round-98/sources/rfc5861.txt
+  -> 161:   The stale-if-error Cache-Control extension indicates that when an (rc=0)
+  quote: when an error is encountered, a cached stale response MAY be used to satisfy the request, regardless of other freshness information
+
+Q8 ok lines=165-165 words=5 span=True file=True
+  grep -n -F -x --      stale-if-error = "stale-if-error" "=" delta-seconds .ufo/waves/round-98/sources/rfc5861.txt
+  -> 165:     stale-if-error = "stale-if-error" "=" delta-seconds (rc=0)
+  quote: stale-if-error = "stale-if-error" "=" delta-seconds
+
+Q9 ok lines=175-176 words=17 span=True file=True
+  grep -n -F -x --    When used as a request Cache-Control extension, its scope of .ufo/waves/round-98/sources/rfc5861.txt
+  -> 175:   When used as a request Cache-Control extension, its scope of (rc=0)
+  quote: When used as a request Cache-Control extension, its scope of application is the request it appears in
+
+Q10 ok lines=180-182 words=25 span=True file=True
+  grep -n -F -x --    Its value indicates the upper limit to staleness; when the cached .ufo/waves/round-98/sources/rfc5861.txt
+  -> 180:   Its value indicates the upper limit to staleness; when the cached (rc=0)
+  quote: when the cached response is more stale than the indicated amount, the cached response SHOULD NOT be used to satisfy the request, absent other information
+
+Q11 ok lines=184-185 words=24 span=True file=True
+  grep -n -F -x --    In this context, an error is any situation that would result in a .ufo/waves/round-98/sources/rfc5861.txt
+  -> 184:   In this context, an error is any situation that would result in a (rc=0)
+  quote: In this context, an error is any situation that would result in a 500, 502, 503, or 504 HTTP response status code being returned.
+
+Q12 ok lines=231-232 words=24 span=True file=True
+  grep -n -F -x --    After the age is greater than 1800 seconds (i.e., it has been stale .ufo/waves/round-98/sources/rfc5861.txt
+  -> 231:   After the age is greater than 1800 seconds (i.e., it has been stale (rc=0)
+  quote: After the age is greater than 1800 seconds (i.e., it has been stale for 1200 seconds), the cache must write the error message through.
+
+Q13 ok lines=197-197 words=3 span=True file=True
+  grep -n -F -x --      Cache-Control: max-age=600, stale-if-error=1200 .ufo/waves/round-98/sources/rfc5861.txt
+  -> 197:     Cache-Control: max-age=600, stale-if-error=1200
+217:     Cache-Control: max-age=600, stale-if-error=1200 (rc=0)
+  quote: Cache-Control: max-age=600, stale-if-error=1200
+
+Q14 ok lines=790-791 words=17 span=True file=True
+  grep -n -F -x --    A cache MUST NOT generate a stale response if it is prohibited by an .ufo/waves/round-96/w1/ScoutRFC/rfc9111.txt
+  -> 790:   A cache MUST NOT generate a stale response if it is prohibited by an (rc=0)
+  quote: A cache MUST NOT generate a stale response if it is prohibited by an explicit in-protocol directive
+
+Q15 ok lines=791-793 words=17 span=True file=True
+  grep -n -F -x --    explicit in-protocol directive (e.g., by a no-cache response .ufo/waves/round-96/w1/ScoutRFC/rfc9111.txt
+  -> 791:   explicit in-protocol directive (e.g., by a no-cache response (rc=0)
+  quote: by a no-cache response directive, a must-revalidate response directive, or an applicable s-maxage or proxy-revalidate response directive
+
+Q16 ok lines=795-797 words=24 span=True file=True
+  grep -n -F -x --    A cache MUST NOT generate a stale response unless it is disconnected .ufo/waves/round-96/w1/ScoutRFC/rfc9111.txt
+  -> 795:   A cache MUST NOT generate a stale response unless it is disconnected (rc=0)
+  quote: A cache MUST NOT generate a stale response unless it is disconnected or doing so is explicitly permitted by the client or origin server
+
+Q17 ok lines=797-798 words=8 span=True file=True
+  grep -n -F -x --    (e.g., by the max-stale request directive in Section 5.2.1, extension .ufo/waves/round-96/w1/ScoutRFC/rfc9111.txt
+  -> 797:   (e.g., by the max-stale request directive in Section 5.2.1, extension (rc=0)
+  quote: extension directives such as those defined in [RFC5861]
+
+Q18 ok lines=1224-1225 words=20 span=True file=True
+  grep -n -F -x --    The must-revalidate response directive indicates that once the .ufo/waves/round-96/w1/ScoutRFC/rfc9111.txt
+  -> 1224:   The must-revalidate response directive indicates that once the (rc=0)
+  quote: The must-revalidate response directive indicates that once the response has become stale, a cache MUST NOT reuse that response to
+
+Q19 ok lines=1232-1233 words=18 span=True file=True
+  grep -n -F -x --    if a cache is disconnected, the cache MUST generate an error response .ufo/waves/round-96/w1/ScoutRFC/rfc9111.txt
+  -> 1232:   if a cache is disconnected, the cache MUST generate an error response (rc=0)
+  quote: if a cache is disconnected, the cache MUST generate an error response rather than reuse the stale response
+
+Q20 ok lines=1357-1359 words=20 span=True file=True
+  grep -n -F -x --    The proxy-revalidate response directive indicates that once the .ufo/waves/round-96/w1/ScoutRFC/rfc9111.txt
+  -> 1357:   The proxy-revalidate response directive indicates that once the (rc=0)
+  quote: The proxy-revalidate response directive indicates that once the response has become stale, a shared cache MUST NOT reuse that response
+
+Q21 ok lines=1395-1397 words=17 span=True file=True
+  grep -n -F -x --    The s-maxage directive incorporates the semantics of the .ufo/waves/round-96/w1/ScoutRFC/rfc9111.txt
+  -> 1395:   The s-maxage directive incorporates the semantics of the (rc=0)
+  quote: The s-maxage directive incorporates the semantics of the proxy-revalidate response directive (Section 5.2.2.8) for a shared cache
+
+Q22 ok lines=1397-1399 words=21 span=True file=True
+  grep -n -F -x --    cache.  A shared cache MUST NOT reuse a stale response with s-maxage .ufo/waves/round-96/w1/ScoutRFC/rfc9111.txt
+  -> 1397:   cache.  A shared cache MUST NOT reuse a stale response with s-maxage (rc=0)
+  quote: A shared cache MUST NOT reuse a stale response with s-maxage to satisfy another request until it has been successfully validated
+
+Q23 ok lines=1273-1274 words=18 span=True file=True
+  grep -n -F -x --    The qualified form of the no-cache response directive, with an .ufo/waves/round-96/w1/ScoutRFC/rfc9111.txt
+  -> 1273:   The qualified form of the no-cache response directive, with an (rc=0)
+  quote: The qualified form of the no-cache response directive, with an argument that lists one or more field names
+
+Q24 ok lines=1166-1167 words=19 span=True file=True
+  grep -n -F -x --    The no-cache request directive indicates that the client prefers a .ufo/waves/round-96/w1/ScoutRFC/rfc9111.txt
+  -> 1166:   The no-cache request directive indicates that the client prefers a (rc=0)
+  quote: The no-cache request directive indicates that the client prefers a stored response not be used to satisfy the request
+
+Q25 ok lines=214-215 words=11 span=True file=True
+  grep -n -F -x --    The delta-seconds rule specifies a non-negative integer, representing .ufo/waves/round-96/w1/ScoutRFC/rfc9111.txt
+  -> 214:   The delta-seconds rule specifies a non-negative integer, representing (rc=0)
+  quote: The delta-seconds rule specifies a non-negative integer, representing time in seconds.
+
+Q26 ok lines=217-217 words=3 span=True file=True
+  grep -n -F -x --      delta-seconds  = 1*DIGIT .ufo/waves/round-96/w1/ScoutRFC/rfc9111.txt
+  -> 217:     delta-seconds  = 1*DIGIT (rc=0)
+  quote: delta-seconds = 1*DIGIT
+
+Q27 ok lines=679-680 words=14 span=True file=True
+  grep -n -F -x --    age directives), either the first occurrence should be used or the .ufo/waves/round-96/w1/ScoutRFC/rfc9111.txt
+  -> 679:   age directives), either the first occurrence should be used or the (rc=0)
+  quote: either the first occurrence should be used or the response should be considered stale
+
+Q28 ok lines=1730-1731 words=12 span=True file=True
+  grep -n -F -x --    Tokens are short textual identifiers that do not include whitespace corpus/lessons/round-81-gate/rfc9110.txt
+  -> 1730:   Tokens are short textual identifiers that do not include whitespace (rc=0)
+  quote: Tokens are short textual identifiers that do not include whitespace or delimiters.
+
+Q29 ok lines=1733-1733 words=3 span=True file=True
+  grep -n -F -x --      token          = 1*tchar corpus/lessons/round-81-gate/rfc9110.txt
+  -> 1733:     token          = 1*tchar (rc=0)
+  quote: token = 1*tchar
+
+Q30 ok lines=1786-1787 words=22 span=True file=True
+  grep -n -F -x --      quoted-string  = DQUOTE *( qdtext / quoted-pair ) DQUOTE corpus/lessons/round-81-gate/rfc9110.txt
+  -> 1786:     quoted-string  = DQUOTE *( qdtext / quoted-pair ) DQUOTE (rc=0)
+  quote: quoted-string = DQUOTE *( qdtext / quoted-pair ) DQUOTE qdtext = HTAB / SP / %x21 / %x23-5B / %x5D-7E / obs-text
+
+Q31 ok lines=1794-1794 words=12 span=True file=True
+  grep -n -F -x --      quoted-pair    = "\\" ( HTAB / SP / VCHAR / obs-text ) corpus/lessons/round-81-gate/rfc9110.txt
+  -> 1794:     quoted-pair    = "\" ( HTAB / SP / VCHAR / obs-text ) (rc=0)
+  quote: quoted-pair = "\" ( HTAB / SP / VCHAR / obs-text )
+
+quotes=31 located=31 violations=0

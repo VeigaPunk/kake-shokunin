@@ -1,0 +1,17 @@
+# seat-yield under two report definitions (committed bytes only)
+#  def A (naive):  report = committed w1/<Seat>.md
+#  def B (real):   report = committed w1/<Seat>.md  OR  any *.md under w1/<Seat>/
+#  settled = rows in w1-results.json with non-empty output (the r81/r85/r86 definition)
+
+round req settled  A_reports B_reports  A/req B/req  B/settled  seats_reported_only_inside_own_dir
+r88   14      14        14        14  14/14 14/14      14/14  -
+r89   14       0        14        14  14/14 14/14       14/0  -
+r90   13       0        13        13  13/13 13/13       13/0  -
+r91   13      12         9         9  9/13 9/13       9/12  -
+r92   14      14        13        13  13/14 13/14      13/14  -
+r93   13    None         8         9  8/13 9/13     9/None  ScribeEntry[SKILL-row.md,ScribeEntry.md]
+r94   11      11        11        11  11/11 11/11      11/11  -
+r95   12      12         7        12  7/12 12/12      12/12  ExecC1Repair[repairs.md,registry-rows.md,ExecC1Repair.md];ExecMutVerify[ExecMutVerify.md];CriticClaims[verdicts.md,CriticClaims.md];SentinelScope[sentinel.md];ConnectorScope[overlaps.md,ConnectorScope.md]
+r96   12      12         9        12  9/12 12/12      12/12  CriticClaims[claims.md,CriticClaims.md];ConnectorScope[overlaps96.md,ConnectorScope.md];ExecReceipts[freeze-supersession.md,ExecReceipts.md]
+r97   13      13        10        12  10/13 12/13      12/13  ExecIndexTwin[agreement.md,ExecIndexTwin.md];SentinelScope[sentinel.md,SentinelScope.md]
+r98   13    None         3         9  3/13 9/13     9/None  ConnectorScope[overlap.md,ConnectorScope.md];ExecTwinStale[disagreements.md,ExecTwinStale.md];ExecMetaLint[ExecMetaLint.md];ReviewStale[contract-review.md,ReviewStale.md];CriticClaims[attacks.md,CriticClaims.md];SentinelScope[vectors.md,SentinelScope.md]

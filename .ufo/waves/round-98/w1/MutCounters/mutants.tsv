@@ -1,0 +1,33 @@
+counter	mutant	site	mutation	selftest	killing_check(s)	verdict	recipe_if_survivor
+c98_captable	M01	key() CUTS cut list	(" (", ": ", " - ", " — ", "; ") -> drop "; "	ok	-	survived	fixture: append row "| sources-registry; gate flavor | <9 words> | `corpus/SOURCES.md` | 20 |" at instr rev; pristine mismatches=45, mutant=47 (observed, fixture f486..no — rev recorded in report)
+c98_captable	M02	key_ok() word-prefix floor	>= 3 -> >= 2	ok	selftest (prefix-2words-refused)	killed	-
+c98_captable	M03	key_ok() compare direction	prefix long_[:n]==short -> suffix long_[-n:]==short	ok	selftest + base-c1 + instr-c1 + ctl-c1-forgery-{namesonly,mega,junkprose}	killed	-
+c98_captable	M04	first_int() selection	re.search first \d+ -> re.findall last \d+	ok	-	survived	fixture: row round cell "20 (recount 21)" vs entry round 20; pristine mismatches=45, mutant=47 (observed)
+c98_captable	M05	compatible() word floor	< 8 -> < 9	ok	ctl-c1-forgery-junkprose (8-word prose rows no longer pass)	killed	-
+c98_captable	M06	compatible() word floor	< 8 -> < 5	ok	-	survived	fixture: row with 5-word description vs entry r20; pristine mismatches=47, mutant=45 (observed)
+c98_captable	M07	compatible() evidence existence	any(exists) -> all(exists)	ok	base-c1 + instr-c1 + ctl-c1-forgery-{namesonly,mega,junkprose}	killed	-
+c98_captable	M08	compatible() entry-path containment veto	return False -> continue (veto dropped)	ok	selftest (entry-script-not-named)	killed	-
+c98_captable	M09	compatible() containment scope	p not in line -> p not in cells[2]	ok	-	survived	fixture: unlisted r88 row with scripts/vary_match.py only in cell1, evidence `corpus/SOURCES.md`; pristine mismatches=45, mutant=47 (observed)
+c98_captable	M10	max_match() augmenting recursion	match_r[j]==-1 or aug(...) -> match_r[j]==-1 (greedy)	ok	-	survived (equivalent-mutant suspect)	200000 random bipartite cases under the >=3-word-prefix key-compat relation: 0 greedy!=max counterexamples; no reachable fixture found
+c98_captable	M11	population() round cap	r >= ROUND_CAP -> r > ROUND_CAP	ok	selftest (round-cap)	killed	-
+c98_captable	M12	population() admitted filter	not in (True,"True","true") -> +False	ok	selftest + base-c1 + instr-c1 + ctl-c1-forgery-{namesonly,mega,junkprose}	killed	-
+c98_captable	M13	line1() met threshold	mismatches == 0 -> <= 1	ok	-	survived	fixture: junkprose control fixture minus one row -> mismatches=1; pristine exit 1 met=false, mutant exit 0 met=true (observed)
+c98_stale	S01	parse_cc() first occurrence	if n not in out dropped (last wins)	ok	selftest (H33) + ctl-c2-slot-neg-lookup counts	killed	-
+c98_stale	S02	parse_cc() empty directive name	raise Refuse -> continue	ok	-	survived	hand case response_cc "a=1, =2" must REFUSE; observed pristine=REFUSE, mutant={revalidate,1}, pos-oracle candidate rc=1 invalid_input
+c98_stale	S03	delta() quoted value rejected	v[0] != "t" dropped (quoted "30" accepted)	ok	selftest (H30)	killed	-
+c98_stale	S04	delta() 2^31 clamp	min(int(v),CLAMP) -> int(v)	ok	-	survived	hand case L=0 A=3000000000 swr=99999999999 must be revalidate; observed pristine=revalidate, mutant=serve-stale-revalidate, candidate=revalidate
+c98_stale	S05	decide() prohibition terms	"must-revalidate" in rc dropped	ok	selftest (H21/H22) + ctl-c2-slot-pos-oracle	killed	-
+c98_stale	S06	decide() shared gate	sh and (...) -> sh or (...)	ok	selftest (H27) + pos-oracle + neg-lookup counts	killed	-
+c98_stale	S07	decide() rule order	not-an-error before fresh -> swapped	ok(60/60 hand)	ctl-c2-slot-pos-oracle (mutant oracle vs correct candidate disagree on generated invalid-error+fresh cases; no hand case covers that class)	killed	-
+c98_stale	S08	decide() swr boundary	st <= w -> st < w	ok	selftest (H02/H55) + neg-lookup counts	killed	-
+c98_stale	S09	decide() sie precedence	request-first -> response-first	ok	selftest (H18/H19/H20)	killed	-
+c98_stale	S10	judge() key-set check	set(o) == -> set(o) <=	ok	-	survived (equivalent mutant)	single-point loosening is dead code: line-1 set(o)<= still rejects extra keys and dict equality rejects missing ones; a second single-point mutant S10b (line 2 -> all(o.get(k)==v)) also survived battery killers=[]; accepting extra keys needs both guards changed (not single-point)
+c98_stale	S11	judge() staleness type	type(o["staleness"]) is int dropped	ok	-	survived	recipe candidate: pos-oracle emitting float staleness (json 15.0 passes dict equality without the type check); observed pristine met=false rc=1 vs mutant met=true rc=0 (--candidate-file --seed 98)
+c98_stale	S12	judge() refusal stderr	err.startswith("invalid_input:") -> err != ""	ok	-	survived	recipe candidate: pos-oracle writing stderr "rejected: ..." on refusal; observed pristine met=false rc=1 vs mutant met=true rc=0 (--candidate-file --seed 98)
+c98_stale	S13	judge() refusal exit code	rcode == 1 -> rcode != 0	ok	-	survived	recipe candidate: pos-oracle exiting 2 on refusal (stderr kept); pristine met=false rc=1 vs mutant met=true rc=0 (--candidate-file --seed 98; observed in followup.json)
+c98_stale	S14	main() default seed	sha256(rev)[:8] -> [:4]	ok	ctl-c2-slot-neg-lookup counts (generated 88/240 vs pristine 92/240) + seed-doc check: printed 752 == sha[:4] != doc sha[:8]=49290302 (pristine printed seed matches doc)	killed	-
+c98_stale	S15	decide() fresh boundary	A < L -> A <= L	ok	selftest (H05) + pos-oracle + neg-lookup counts	killed	-
+c98_stale	S16	decide() staleness clamp	max(0, A-L) -> A-L	ok	selftest (H04 staleness -1) + pos-oracle + neg-lookup counts	killed	-
+c98_stale	S17	decide() error status range	100 <= err <= 599 -> 200 <= err <= 599	ok	-	survived	hand case error=150 (SE, L=600, A=900) must be not-an-error; observed pristine=not-an-error, mutant=REFUSE, candidate=not-an-error
+c98_stale	S18	decide() sie boundary	st <= e -> st < e	ok	selftest (H07 age-1800 boundary)	killed	-
+c98_stale	S19	decide() unknown keys	set(inp) - allowed -> set(inp) - set()	ok	selftest (H48) + pos-oracle + neg-lookup counts	killed	-

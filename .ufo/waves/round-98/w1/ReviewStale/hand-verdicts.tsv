@@ -1,0 +1,60 @@
+H01	agree	RFC 5861 SS3/SS3.1: caches MAY serve stale up to the indicated seconds; SS3.1 example max-age=600 + swr=30, staleness 15 inside window.
+H02	agree	RFC 5861 SS3.1 "up to an additional 30 seconds" + SS4 "more stale than the indicated amount" SHOULD NOT: staleness 30 is not more stale than 30, boundary inclusive.
+H03	agree	RFC 5861 SS3: if delta-seconds passes without revalidation, response SHOULD NOT continue to be served stale.
+H04	agree	RFC 9111 SS4.2: response_is_fresh = (freshness_lifetime > current_age); 599 < 600 -> fresh.
+H05	agree	RFC 9111 SS4.2 formula: 600 > 600 false -> stale; RFC 5861 SS3 window covers staleness 0 <= 30.
+H06	agree	RFC 5861 SS4.1 example verbatim: age 900 (stale 300 of 1200) usable on 500.
+H07	agree	RFC 5861 SS4.1: usable until age greater than 1800; exactly 1800 still within stale-if-error=1200.
+H08	agree	RFC 5861 SS4.1: after age greater than 1800 the cache must write the error message through.
+H09	agree	RFC 5861 SS4: an error is any situation that would result in 500/502/503/504.
+H10	agree	RFC 5861 SS4: 503 in the enumerated set.
+H11	agree	RFC 5861 SS4: 504 in the enumerated set.
+H12	agree	RFC 5861 SS1 ("a network segment, or DNS failure") + SS4: network failure maps to the error class; contract input string "network".
+H13	agree	RFC 5861 SS4: 404 outside the enumerated set -> not-an-error.
+H14	agree	RFC 5861 SS4: 501 not in the enumerated set.
+H15	agree	RFC 5861 SS4: 429 not in the enumerated set.
+H16	agree	RFC 5861 SS1 "two independent" extensions: SS3 governs serving while revalidating, SS4 governs error serving; no sie present and 9111 SS4.2.4 forbids stale generation absent permission -> error-through. Interpretive gap noted as contract finding F1.
+H17	agree	RFC 5861 SS4: stale-if-error applies when an error is encountered; plain request past freshness with no swr -> revalidate (9111 SS4.2.4).
+H18	agree	Contract Decision rule 4 lane convention (request stale-if-error takes precedence when present); RFC 5861 SS4 gives request scope its own application but does not fix precedence over the response directive.
+H19	agree	Contract Decision rule 4 lane convention (request-first precedence); RFC 5861 SS4 silent on request/response overlap.
+H20	agree	RFC 5861 SS4: "when used as a request Cache-Control extension, its scope of application is the request it appears in" - request-only sie serves stale on error.
+H21	agree	RFC 9111 SS5.2.2.2: "in all circumstances, a cache MUST NOT ignore the must-revalidate directive"; disconnected cache MUST generate error rather than reuse stale; overrides 5861 SS4 MAY.
+H22	agree	RFC 9111 SS5.2.2.2 + SS4.2.4 prohibition list: stale generation prohibited by must-revalidate.
+H23	agree	RFC 9111 SS5.2.2.4: response MUST NOT be used without successful validation, fresh or not (9111 SS4 reuse list).
+H24	agree	RFC 9111 SS5.2.2.4: even caches configured to send stale responses must not; error-through.
+H25	agree	RFC 9111 SS5.2.1.4 client preference implemented as prohibition (contract choice; request directives advisory per SS5.2.1 intro - contract finding F2).
+H26	agree	RFC 9111 SS5.2.2.8: shared cache MUST NOT reuse stale response until successfully validated.
+H27	agree	RFC 9111 SS5.2.2.8: "proxy-revalidate does not apply to private caches" (shared=false).
+H28	agree	RFC 9111 SS5.2.2.10: shared cache MUST NOT reuse a stale response with s-maxage until validated; A=900 >= L=600 so genuinely stale.
+H29	agree	RFC 9111 SS5.2.2.10: s-maxage applies to shared caches only; shared=false -> prohibition inapplicable.
+H30	agree	RFC 5861 SS3 ABNF stale-while-revalidate = delta-seconds; 9111 SS1.2.2 delta-seconds = 1*DIGIT, SS5.2.3 ignore unrecognized; also contract Parsing rule 4 (marked lane convention).
+H31	agree	"abc" is not delta-seconds (9111 SS1.2.2 1*DIGIT); directive ignored (9111 SS5.2.3); contract rule 4.
+H32	agree	"-1" is a valid token but not 1*DIGIT (9111 SS1.2.2) -> directive absent; contract rule 4.
+H33	agree	RFC 9111 SS4.2.1: "either the first occurrence should be used or the response should be considered stale"; first occurrence (5) yields revalidate at staleness 30.
+H34	agree	RFC 9111 SS5.2: "cache directives are identified by a token, to be compared case-insensitively".
+H35	agree	RFC 9111 SS1.2.2 overflow -> consider value 2147483648 (note: outcome identical unclamped since 1e9 < raw 99999999999; representability nuance = finding F4).
+H36	agree	RFC 5861 SS3 "when present in an HTTP response"; request swr is unrecognized (9111 SS5.2.3 MUST ignore) -> revalidate.
+H37	agree	RFC 9111 SS4 reuse list (fresh -> reusable, no response no-cache) + SS4.3.3: on 5xx the cache can act as if the server failed to respond and send the stored response subject to SS4.2.4.
+H38	agree	RFC 9111 SS4.2: 0 > 0 false -> stale; no extension permission -> revalidate (9111 SS4.2.4).
+H39	agree	Contract Input table (error absent or null when event is request); RFCs silent on the tool I/O mapping.
+H40	agree	Contract Input table (error required when event is error).
+H41	agree	Contract Input table (integer >= 0); consistent with 9111 SS4.2.3 age construction (non-negative).
+H42	agree	Contract Input table (JSON booleans refused; isinstance-bool would otherwise alias int).
+H43	agree	Contract Input table (floats refused; delta-seconds and ages are integral).
+H44	agree	Contract Parsing rule 2 (no whitespace around =); 9111 SS5.2 ABNF cache-directive = token [ "=" ( token / quoted-string ) ] admits no internal OWS.
+H45	agree	Contract Parsing rule 2 (empty value after =); ABNF requires a value production after "=".
+H46	agree	Contract Parsing rule 2 (unterminated quote); quoted-string ABNF (9110 SS5.6.4, S478) requires the closing DQUOTE.
+H47	agree	Contract rule 5 (request directives max-age/max-stale/min-fresh/only-if-cached declared outside this contract -> refuse); 9111 SS5.2.1.2 defines the directive but the contract's scope excludes it.
+H48	agree	Contract Input table (unknown keys -> refuse); tool I/O is contract-defined.
+H49	agree	RFC 5861 SS4: 200 not in the enumerated error set -> not-an-error.
+H50	agree	Contract Input table (error restricted to 100-599; 99 is not a valid HTTP status).
+H51	agree	Contract Input table (string error limited to "network").
+H52	agree	RFC 9110 SS5.6.4 quoted-string (comma is qdtext) + SS5.6.1 list split outside quoted-strings (contract rule 1); the swr-looking text is inside foo's value and is not a directive.
+H53	agree	Contract Prohibited clause marked convention ("qualified or not - conservative lane convention"); 9111 SS5.2.2.4 qualified form permits field-excluded reuse but the tool cannot express field exclusion.
+H54	agree	Contract rule 1 (empty elements skipped); RFC 9110 SS5.6.1 list grammar treats empty elements as non-members (S478 ground).
+H55	agree	Inclusive boundary (5861 SS4 "more stale than the indicated amount"): staleness 0 is not more stale than window 0; 9111 SS4.2 equality means stale.
+H56	agree	Contract rule 5 (storage directives no-store/private/public ignored; the response is taken as already stored; storage decided elsewhere).
+H57	agree	RFC 9110 SS5.6.3 OWS = *( SP / HTAB ) around list elements; contract rule 1 strips SP/HTAB.
+H58	agree	Contract Parsing rule 4 (quoted request value -> directive absent, marked lane convention) + Decision rule 4 (fall back to response sie); consistent with 9111 SS5.2.3 + 5861 SS4 response scope.
+H59	agree	Contract Input table (shared must be JSON boolean).
+H60	agree	Contract Parsing rule 2 (text after closing quote); quoted-string ABNF (9110 SS5.6.4) ends at the closing DQUOTE.

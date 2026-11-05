@@ -1,0 +1,1861 @@
+{
+ "lane_master": "7838981e4e40280176085e8aa1f6827eb7133a69",
+ "pins": {
+  "c98_captable.py": "efd598575c6e377ac76c68c876c96449bf80dc0e4b2fbf8c0436205167ac7cf3",
+  "c98_stale.py": "e0331e56378fb5acabe4447a37590cbf3273537aabd8c8d88f842e0a434a9f3f"
+ },
+ "fixtures": {
+  "c1-namesonly": "362dda9a56f3e7925c31152b3feec259101b991e",
+  "c1-mega": "f486acf6212e3bc662ec868cc4d12ca0acda1a5d",
+  "c1-junk": "2244cd939c06121a1ada832837b48954265eb7eb",
+  "c2-pos-oracle": "52ebf56f388851a6f5e9a35f93bd11f6ac3dfe08",
+  "c2-neg-constant": "adc4819e106ecaea8af5085710f49fa13c739ca3",
+  "c2-neg-lookup": "9f7243da260d2509e3b64b92c8408ab9ef231001",
+  "c2-neg-noprohibit": "455f38892bc1f20d42c0012ddc983c2e17306bf6",
+  "c2-neg-exclusive": "0834e96d29592faa07c63f12aba63b312cd6b540",
+  "c2-neg-respsie": "24cc7b94925d7c87c9408a51ea147c286dbbe48e",
+  "c2-neg-lenient": "ea5993b11787adb67653ab0c280c51d5e28cc379"
+ },
+ "pristine_captable": [
+  {
+   "check": "selftest",
+   "ok": true,
+   "observed": "rc=0 last='selftest 16/16'"
+  },
+  {
+   "check": "base-c1",
+   "ok": true,
+   "observed": "rc=1 l1='entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false'"
+  },
+  {
+   "check": "instr-c1",
+   "ok": true,
+   "observed": "rc=1 l1='entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false'"
+  },
+  {
+   "check": "ctl-c1-forgery-namesonly",
+   "ok": true,
+   "observed": "rc=1 l1='entries=48 rows=53 matched=8 unlisted=40 unbacked=45 mismatches=85 met=false'"
+  },
+  {
+   "check": "ctl-c1-forgery-mega",
+   "ok": true,
+   "observed": "rc=1 l1='entries=48 rows=15 matched=9 unlisted=39 unbacked=6 mismatches=45 met=false'"
+  },
+  {
+   "check": "ctl-c1-forgery-junkprose",
+   "ok": true,
+   "observed": "rc=0 l1='entries=48 rows=48 matched=48 unlisted=0 unbacked=0 mismatches=0 met=true'"
+  }
+ ],
+ "pristine_stale": [
+  {
+   "check": "selftest",
+   "ok": true,
+   "observed": "rc=0 l1=\"hand-oracle 60/60 generated-refusals=44/240 decisions=['error-through', 'fresh', 'not-an-error', 'revalidate', 'serve-st\" last='selftest ok'"
+  },
+  {
+   "check": "base-c2",
+   "ok": true,
+   "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=e51328b63690c8aaa78c9c8f3b87d8735c0ccb'"
+  },
+  {
+   "check": "instr-c2",
+   "ok": true,
+   "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=2db768356cd081092c3abc60f76b25487ec4c5'"
+  },
+  {
+   "check": "ctl-c2-slot-pos-oracle",
+   "ok": true,
+   "observed": "rc=0 l1='candidate=present sha256=bfb48d819d21cdca2c2b8ee579f2e319ddc0716c70275a65efac49a933faf8d1 hand=60/60 generated=240/240 refusals=22/22 seed=49290302 met=true rev' seeddoc=None"
+  },
+  {
+   "check": "ctl-c2-slot-neg-constant",
+   "ok": true,
+   "observed": "rc=1 l1='candidate=present sha256=b7f415585942ee6a3a19f667c2c2c80eb7ff7f93283677b1ad4b3ed96defa51b hand=14/60 generated=86/240 refusals=0/35 seed=2027648856 met=false re'"
+  },
+  {
+   "check": "ctl-c2-slot-neg-lookup",
+   "ok": true,
+   "observed": "rc=1 l1='candidate=present sha256=a23cdcfff2cb407dd11a599499887056bb5916ee74ea7d641b3949198a0d1ec6 hand=60/60 generated=92/240 refusals=0/30 seed=2086910247 met=false re'"
+  },
+  {
+   "check": "ctl-c2-slot-neg-noprohibit",
+   "ok": true,
+   "observed": "rc=1 l1='candidate=present sha256=74e300f533a5caa27dae0fc2b145912d53c39e82b5f07f77127a38e8722d93e6 hand=52/60 generated=234/240 refusals=26/26 seed=733066584 met=false r'"
+  },
+  {
+   "check": "ctl-c2-slot-neg-exclusive",
+   "ok": true,
+   "observed": "rc=1 l1='candidate=present sha256=8b4103ef82dd3333e0f9a7cf901a16bfa9e4d027f6b4dda8f818ee30750e2f40 hand=56/60 generated=240/240 refusals=41/41 seed=631422857 met=false r'"
+  },
+  {
+   "check": "ctl-c2-slot-neg-respsie",
+   "ok": true,
+   "observed": "rc=1 l1='candidate=present sha256=e6ca02ddd422047377c9b6bb53952e2eb99fe9cc0ba4851b8fe75116a019ea3f hand=57/60 generated=238/240 refusals=46/46 seed=3698528946 met=false '"
+  },
+  {
+   "check": "ctl-c2-slot-neg-lenient",
+   "ok": true,
+   "observed": "rc=1 l1='candidate=present sha256=2302df62c5a0248936ecb75d7dbda2d71ae7fb5047e16f5efc1028d1de84ac67 hand=56/60 generated=238/240 refusals=24/26 seed=1543297555 met=false '"
+  }
+ ],
+ "pristine_neglookup_line": "candidate=present sha256=a23cdcfff2cb407dd11a599499887056bb5916ee74ea7d641b3949198a0d1ec6 hand=60/60 generated=92/240 refusals=0/30 seed=2086910247 met=false revision=9f7243da260d2509e3b64b92c8408ab9ef231001",
+ "results": [
+  {
+   "counter": "captable",
+   "mid": "M01",
+   "site": "key() CUTS cut list",
+   "mutation": "'CUTS = (\" (\", \": \", \" - \", \" \u2014 \", \"; \")' -> 'CUTS = (\" (\", \": \", \" - \", \" \u2014 \")'",
+   "verdict": "survived",
+   "killers": [],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": true,
+     "observed": "rc=0 last='selftest 16/16'"
+    },
+    {
+     "check": "base-c1",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false'"
+    },
+    {
+     "check": "instr-c1",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-namesonly",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=53 matched=8 unlisted=40 unbacked=45 mismatches=85 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-mega",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=15 matched=9 unlisted=39 unbacked=6 mismatches=45 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-junkprose",
+     "ok": true,
+     "observed": "rc=0 l1='entries=48 rows=48 matched=48 unlisted=0 unbacked=0 mismatches=0 met=true'"
+    }
+   ],
+   "secs": 0.4
+  },
+  {
+   "counter": "captable",
+   "mid": "M02",
+   "site": "key_ok() word-prefix floor 3->2",
+   "mutation": "'return len(short) >= 3 and long_[:len(short)] == short' -> 'return len(short) >= 2 and long_[:len(short)] == short'",
+   "verdict": "killed",
+   "killers": [
+    "selftest"
+   ],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": false,
+     "observed": "rc=1 last='selftest 15/16'"
+    },
+    {
+     "check": "base-c1",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false'"
+    },
+    {
+     "check": "instr-c1",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-namesonly",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=53 matched=8 unlisted=40 unbacked=45 mismatches=85 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-mega",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=15 matched=9 unlisted=39 unbacked=6 mismatches=45 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-junkprose",
+     "ok": true,
+     "observed": "rc=0 l1='entries=48 rows=48 matched=48 unlisted=0 unbacked=0 mismatches=0 met=true'"
+    }
+   ],
+   "secs": 0.4
+  },
+  {
+   "counter": "captable",
+   "mid": "M03",
+   "site": "key_ok() prefix -> suffix compare",
+   "mutation": "'return len(short) >= 3 and long_[:len(short)] == short' -> 'return len(short) >= 3 and long_[-len(short):] == short'",
+   "verdict": "killed",
+   "killers": [
+    "selftest",
+    "base-c1",
+    "instr-c1",
+    "ctl-c1-forgery-namesonly",
+    "ctl-c1-forgery-mega",
+    "ctl-c1-forgery-junkprose"
+   ],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": false,
+     "observed": "rc=1 last='selftest 15/16'"
+    },
+    {
+     "check": "base-c1",
+     "ok": false,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=7 unlisted=41 unbacked=7 mismatches=48 met=false'"
+    },
+    {
+     "check": "instr-c1",
+     "ok": false,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=7 unlisted=41 unbacked=7 mismatches=48 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-namesonly",
+     "ok": false,
+     "observed": "rc=1 l1='entries=48 rows=53 matched=7 unlisted=41 unbacked=46 mismatches=87 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-mega",
+     "ok": false,
+     "observed": "rc=1 l1='entries=48 rows=15 matched=8 unlisted=40 unbacked=7 mismatches=47 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-junkprose",
+     "ok": false,
+     "observed": "rc=1 l1='entries=48 rows=48 matched=47 unlisted=1 unbacked=1 mismatches=2 met=false'"
+    }
+   ],
+   "secs": 0.4
+  },
+  {
+   "counter": "captable",
+   "mid": "M04",
+   "site": "first_int() first -> last integer",
+   "mutation": "'m = re.search(r\"\\\\d+\", cell)\\n    return int(m.group(0)) if m else None' -> 'm = re.findall(r\"\\\\d+\", cell)\\n    return int(m[-1]) if m else None'",
+   "verdict": "survived",
+   "killers": [],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": true,
+     "observed": "rc=0 last='selftest 16/16'"
+    },
+    {
+     "check": "base-c1",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false'"
+    },
+    {
+     "check": "instr-c1",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-namesonly",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=53 matched=8 unlisted=40 unbacked=45 mismatches=85 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-mega",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=15 matched=9 unlisted=39 unbacked=6 mismatches=45 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-junkprose",
+     "ok": true,
+     "observed": "rc=0 l1='entries=48 rows=48 matched=48 unlisted=0 unbacked=0 mismatches=0 met=true'"
+    }
+   ],
+   "secs": 0.4
+  },
+  {
+   "counter": "captable",
+   "mid": "M05",
+   "site": "compatible() word floor 8->9",
+   "mutation": "'if len(cells[1].split()) < 8:' -> 'if len(cells[1].split()) < 9:'",
+   "verdict": "killed",
+   "killers": [
+    "ctl-c1-forgery-junkprose"
+   ],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": true,
+     "observed": "rc=0 last='selftest 16/16'"
+    },
+    {
+     "check": "base-c1",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false'"
+    },
+    {
+     "check": "instr-c1",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-namesonly",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=53 matched=8 unlisted=40 unbacked=45 mismatches=85 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-mega",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=15 matched=9 unlisted=39 unbacked=6 mismatches=45 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-junkprose",
+     "ok": false,
+     "observed": "rc=1 l1='entries=48 rows=48 matched=9 unlisted=39 unbacked=39 mismatches=78 met=false'"
+    }
+   ],
+   "secs": 0.4
+  },
+  {
+   "counter": "captable",
+   "mid": "M06",
+   "site": "compatible() word floor 8->5",
+   "mutation": "'if len(cells[1].split()) < 8:' -> 'if len(cells[1].split()) < 5:'",
+   "verdict": "survived",
+   "killers": [],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": true,
+     "observed": "rc=0 last='selftest 16/16'"
+    },
+    {
+     "check": "base-c1",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false'"
+    },
+    {
+     "check": "instr-c1",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-namesonly",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=53 matched=8 unlisted=40 unbacked=45 mismatches=85 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-mega",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=15 matched=9 unlisted=39 unbacked=6 mismatches=45 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-junkprose",
+     "ok": true,
+     "observed": "rc=0 l1='entries=48 rows=48 matched=48 unlisted=0 unbacked=0 mismatches=0 met=true'"
+    }
+   ],
+   "secs": 0.4
+  },
+  {
+   "counter": "captable",
+   "mid": "M07",
+   "site": "compatible() evidence existence any->all",
+   "mutation": "'if not any(exists(p) for p in evidence_paths(cells[2])):' -> 'if not all(exists(p) for p in evidence_paths(cells[2])):'",
+   "verdict": "killed",
+   "killers": [
+    "base-c1",
+    "instr-c1",
+    "ctl-c1-forgery-namesonly",
+    "ctl-c1-forgery-mega",
+    "ctl-c1-forgery-junkprose"
+   ],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": true,
+     "observed": "rc=0 last='selftest 16/16'"
+    },
+    {
+     "check": "base-c1",
+     "ok": false,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=3 unlisted=45 unbacked=11 mismatches=56 met=false'"
+    },
+    {
+     "check": "instr-c1",
+     "ok": false,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=3 unlisted=45 unbacked=11 mismatches=56 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-namesonly",
+     "ok": false,
+     "observed": "rc=1 l1='entries=48 rows=53 matched=3 unlisted=45 unbacked=50 mismatches=95 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-mega",
+     "ok": false,
+     "observed": "rc=1 l1='entries=48 rows=15 matched=4 unlisted=44 unbacked=11 mismatches=55 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-junkprose",
+     "ok": false,
+     "observed": "rc=1 l1='entries=48 rows=48 matched=43 unlisted=5 unbacked=5 mismatches=10 met=false'"
+    }
+   ],
+   "secs": 0.5
+  },
+  {
+   "counter": "captable",
+   "mid": "M08",
+   "site": "compatible() entry-path containment veto dropped",
+   "mutation": "'for p in entry_paths(e[\"text\"]):\\n        if p not in line:\\n            return False\\n    re' -> 'for p in entry_paths(e[\"text\"]):\\n        if p not in line:\\n            continue\\n    return'",
+   "verdict": "killed",
+   "killers": [
+    "selftest"
+   ],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": false,
+     "observed": "rc=1 last='selftest 15/16'"
+    },
+    {
+     "check": "base-c1",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false'"
+    },
+    {
+     "check": "instr-c1",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-namesonly",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=53 matched=8 unlisted=40 unbacked=45 mismatches=85 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-mega",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=15 matched=9 unlisted=39 unbacked=6 mismatches=45 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-junkprose",
+     "ok": true,
+     "observed": "rc=0 l1='entries=48 rows=48 matched=48 unlisted=0 unbacked=0 mismatches=0 met=true'"
+    }
+   ],
+   "secs": 0.4
+  },
+  {
+   "counter": "captable",
+   "mid": "M09",
+   "site": "compatible() containment line -> evidence cell only",
+   "mutation": "'if p not in line:' -> 'if p not in cells[2]:'",
+   "verdict": "survived",
+   "killers": [],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": true,
+     "observed": "rc=0 last='selftest 16/16'"
+    },
+    {
+     "check": "base-c1",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false'"
+    },
+    {
+     "check": "instr-c1",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-namesonly",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=53 matched=8 unlisted=40 unbacked=45 mismatches=85 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-mega",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=15 matched=9 unlisted=39 unbacked=6 mismatches=45 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-junkprose",
+     "ok": true,
+     "observed": "rc=0 l1='entries=48 rows=48 matched=48 unlisted=0 unbacked=0 mismatches=0 met=true'"
+    }
+   ],
+   "secs": 0.4
+  },
+  {
+   "counter": "captable",
+   "mid": "M10",
+   "site": "max_match() augmenting recursion dropped (greedy)",
+   "mutation": "'if match_r[j] == -1 or aug(match_r[j], seen):' -> 'if match_r[j] == -1:'",
+   "verdict": "survived",
+   "killers": [],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": true,
+     "observed": "rc=0 last='selftest 16/16'"
+    },
+    {
+     "check": "base-c1",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false'"
+    },
+    {
+     "check": "instr-c1",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-namesonly",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=53 matched=8 unlisted=40 unbacked=45 mismatches=85 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-mega",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=15 matched=9 unlisted=39 unbacked=6 mismatches=45 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-junkprose",
+     "ok": true,
+     "observed": "rc=0 l1='entries=48 rows=48 matched=48 unlisted=0 unbacked=0 mismatches=0 met=true'"
+    }
+   ],
+   "secs": 0.4
+  },
+  {
+   "counter": "captable",
+   "mid": "M11",
+   "site": "population() round cap >= -> >",
+   "mutation": "'if r >= ROUND_CAP:' -> 'if r > ROUND_CAP:'",
+   "verdict": "killed",
+   "killers": [
+    "selftest"
+   ],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": false,
+     "observed": "rc=1 last='selftest 15/16'"
+    },
+    {
+     "check": "base-c1",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false'"
+    },
+    {
+     "check": "instr-c1",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-namesonly",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=53 matched=8 unlisted=40 unbacked=45 mismatches=85 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-mega",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=15 matched=9 unlisted=39 unbacked=6 mismatches=45 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-junkprose",
+     "ok": true,
+     "observed": "rc=0 l1='entries=48 rows=48 matched=48 unlisted=0 unbacked=0 mismatches=0 met=true'"
+    }
+   ],
+   "secs": 0.4
+  },
+  {
+   "counter": "captable",
+   "mid": "M12",
+   "site": "population() admitted filter widened (False admitted)",
+   "mutation": "'if x.get(\"admitted\") not in (True, \"True\", \"true\"):' -> 'if x.get(\"admitted\") not in (True, \"True\", \"true\", False):'",
+   "verdict": "killed",
+   "killers": [
+    "selftest",
+    "base-c1",
+    "instr-c1",
+    "ctl-c1-forgery-namesonly",
+    "ctl-c1-forgery-mega",
+    "ctl-c1-forgery-junkprose"
+   ],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": false,
+     "observed": "rc=1 last='selftest 15/16'"
+    },
+    {
+     "check": "base-c1",
+     "ok": false,
+     "observed": "rc=1 l1='entries=54 rows=14 matched=9 unlisted=45 unbacked=5 mismatches=50 met=false'"
+    },
+    {
+     "check": "instr-c1",
+     "ok": false,
+     "observed": "rc=1 l1='entries=54 rows=14 matched=9 unlisted=45 unbacked=5 mismatches=50 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-namesonly",
+     "ok": false,
+     "observed": "rc=1 l1='entries=54 rows=53 matched=9 unlisted=45 unbacked=44 mismatches=89 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-mega",
+     "ok": false,
+     "observed": "rc=1 l1='entries=54 rows=15 matched=10 unlisted=44 unbacked=5 mismatches=49 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-junkprose",
+     "ok": false,
+     "observed": "rc=1 l1='entries=54 rows=48 matched=48 unlisted=6 unbacked=0 mismatches=6 met=false'"
+    }
+   ],
+   "secs": 0.4
+  },
+  {
+   "counter": "captable",
+   "mid": "M13",
+   "site": "line1() met threshold ==0 -> <=1",
+   "mutation": "'met = res[\"mismatches\"] == 0 and res[\"entries\"] > 0' -> 'met = res[\"mismatches\"] <= 1 and res[\"entries\"] > 0'",
+   "verdict": "survived",
+   "killers": [],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": true,
+     "observed": "rc=0 last='selftest 16/16'"
+    },
+    {
+     "check": "base-c1",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false'"
+    },
+    {
+     "check": "instr-c1",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=14 matched=8 unlisted=40 unbacked=6 mismatches=46 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-namesonly",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=53 matched=8 unlisted=40 unbacked=45 mismatches=85 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-mega",
+     "ok": true,
+     "observed": "rc=1 l1='entries=48 rows=15 matched=9 unlisted=39 unbacked=6 mismatches=45 met=false'"
+    },
+    {
+     "check": "ctl-c1-forgery-junkprose",
+     "ok": true,
+     "observed": "rc=0 l1='entries=48 rows=48 matched=48 unlisted=0 unbacked=0 mismatches=0 met=true'"
+    }
+   ],
+   "secs": 0.4
+  },
+  {
+   "counter": "stale",
+   "mid": "S01",
+   "site": "parse_cc() first-occurrence -> last",
+   "mutation": "'n = name.lower()\\n        if n not in out:\\n            out[n] = val' -> 'n = name.lower()\\n        out[n] = val'",
+   "verdict": "killed",
+   "killers": [
+    "selftest",
+    "ctl-c2-slot-neg-lookup"
+   ],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": false,
+     "observed": "rc=1 l1=\"FAIL H33 9111\u00a74.2.1 first occurrence: want=('revalidate', 30) got=('serve-stale-revalidate', 30)\" last='selftest FAIL'"
+    },
+    {
+     "check": "base-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=e51328b63690c8aaa78c9c8f3b87d8735c0ccb'"
+    },
+    {
+     "check": "instr-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=2db768356cd081092c3abc60f76b25487ec4c5'"
+    },
+    {
+     "check": "ctl-c2-slot-pos-oracle",
+     "ok": true,
+     "observed": "rc=0 l1='candidate=present sha256=bfb48d819d21cdca2c2b8ee579f2e319ddc0716c70275a65efac49a933faf8d1 hand=60/60 generated=240/240 refusals=22/22 seed=49290302 met=true rev' seeddoc=None"
+    },
+    {
+     "check": "ctl-c2-slot-neg-constant",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=b7f415585942ee6a3a19f667c2c2c80eb7ff7f93283677b1ad4b3ed96defa51b hand=14/60 generated=86/240 refusals=0/35 seed=2027648856 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lookup",
+     "ok": false,
+     "observed": "rc=1 l1='candidate=present sha256=a23cdcfff2cb407dd11a599499887056bb5916ee74ea7d641b3949198a0d1ec6 hand=60/60 generated=91/240 refusals=0/30 seed=2086910247 met=false re' counts-changed pristine=('92', '240', '0', '30') mutant=('91', '240', '0', '30')"
+    },
+    {
+     "check": "ctl-c2-slot-neg-noprohibit",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=74e300f533a5caa27dae0fc2b145912d53c39e82b5f07f77127a38e8722d93e6 hand=52/60 generated=233/240 refusals=26/26 seed=733066584 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-exclusive",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=8b4103ef82dd3333e0f9a7cf901a16bfa9e4d027f6b4dda8f818ee30750e2f40 hand=56/60 generated=240/240 refusals=41/41 seed=631422857 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-respsie",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=e6ca02ddd422047377c9b6bb53952e2eb99fe9cc0ba4851b8fe75116a019ea3f hand=57/60 generated=237/240 refusals=46/46 seed=3698528946 met=false '"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lenient",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=2302df62c5a0248936ecb75d7dbda2d71ae7fb5047e16f5efc1028d1de84ac67 hand=56/60 generated=238/240 refusals=24/26 seed=1543297555 met=false '"
+    }
+   ],
+   "secs": 26.6
+  },
+  {
+   "counter": "stale",
+   "mid": "S02",
+   "site": "parse_cc() empty directive name allowed",
+   "mutation": "'if not name:\\n            raise Refuse(\"bad directive name\")' -> 'if not name:\\n            continue'",
+   "verdict": "survived",
+   "killers": [],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": true,
+     "observed": "rc=0 l1=\"hand-oracle 60/60 generated-refusals=44/240 decisions=['error-through', 'fresh', 'not-an-error', 'revalidate', 'serve-st\" last='selftest ok'"
+    },
+    {
+     "check": "base-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=e51328b63690c8aaa78c9c8f3b87d8735c0ccb'"
+    },
+    {
+     "check": "instr-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=2db768356cd081092c3abc60f76b25487ec4c5'"
+    },
+    {
+     "check": "ctl-c2-slot-pos-oracle",
+     "ok": true,
+     "observed": "rc=0 l1='candidate=present sha256=bfb48d819d21cdca2c2b8ee579f2e319ddc0716c70275a65efac49a933faf8d1 hand=60/60 generated=240/240 refusals=22/22 seed=49290302 met=true rev' seeddoc=None"
+    },
+    {
+     "check": "ctl-c2-slot-neg-constant",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=b7f415585942ee6a3a19f667c2c2c80eb7ff7f93283677b1ad4b3ed96defa51b hand=14/60 generated=86/240 refusals=0/35 seed=2027648856 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lookup",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=a23cdcfff2cb407dd11a599499887056bb5916ee74ea7d641b3949198a0d1ec6 hand=60/60 generated=92/240 refusals=0/30 seed=2086910247 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-noprohibit",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=74e300f533a5caa27dae0fc2b145912d53c39e82b5f07f77127a38e8722d93e6 hand=52/60 generated=234/240 refusals=26/26 seed=733066584 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-exclusive",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=8b4103ef82dd3333e0f9a7cf901a16bfa9e4d027f6b4dda8f818ee30750e2f40 hand=56/60 generated=240/240 refusals=41/41 seed=631422857 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-respsie",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=e6ca02ddd422047377c9b6bb53952e2eb99fe9cc0ba4851b8fe75116a019ea3f hand=57/60 generated=238/240 refusals=46/46 seed=3698528946 met=false '"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lenient",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=2302df62c5a0248936ecb75d7dbda2d71ae7fb5047e16f5efc1028d1de84ac67 hand=56/60 generated=238/240 refusals=24/26 seed=1543297555 met=false '"
+    }
+   ],
+   "secs": 26.7
+  },
+  {
+   "counter": "stale",
+   "mid": "S03",
+   "site": "delta() quoted value accepted",
+   "mutation": "'if v is None or v[0] != \"t\" or not v[1].isdigit() or not v[1].isascii():' -> 'if v is None or not v[1].isdigit() or not v[1].isascii():'",
+   "verdict": "killed",
+   "killers": [
+    "selftest"
+   ],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": false,
+     "observed": "rc=1 l1=\"FAIL H30 contract 4 quoted value absent: want=('revalidate', 15) got=('serve-stale-revalidate', 15)\" last='selftest FAIL'"
+    },
+    {
+     "check": "base-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=e51328b63690c8aaa78c9c8f3b87d8735c0ccb'"
+    },
+    {
+     "check": "instr-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=2db768356cd081092c3abc60f76b25487ec4c5'"
+    },
+    {
+     "check": "ctl-c2-slot-pos-oracle",
+     "ok": true,
+     "observed": "rc=0 l1='candidate=present sha256=bfb48d819d21cdca2c2b8ee579f2e319ddc0716c70275a65efac49a933faf8d1 hand=60/60 generated=240/240 refusals=22/22 seed=49290302 met=true rev' seeddoc=None"
+    },
+    {
+     "check": "ctl-c2-slot-neg-constant",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=b7f415585942ee6a3a19f667c2c2c80eb7ff7f93283677b1ad4b3ed96defa51b hand=14/60 generated=86/240 refusals=0/35 seed=2027648856 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lookup",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=a23cdcfff2cb407dd11a599499887056bb5916ee74ea7d641b3949198a0d1ec6 hand=60/60 generated=92/240 refusals=0/30 seed=2086910247 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-noprohibit",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=74e300f533a5caa27dae0fc2b145912d53c39e82b5f07f77127a38e8722d93e6 hand=52/60 generated=233/240 refusals=26/26 seed=733066584 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-exclusive",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=8b4103ef82dd3333e0f9a7cf901a16bfa9e4d027f6b4dda8f818ee30750e2f40 hand=56/60 generated=239/240 refusals=41/41 seed=631422857 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-respsie",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=e6ca02ddd422047377c9b6bb53952e2eb99fe9cc0ba4851b8fe75116a019ea3f hand=57/60 generated=238/240 refusals=46/46 seed=3698528946 met=false '"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lenient",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=2302df62c5a0248936ecb75d7dbda2d71ae7fb5047e16f5efc1028d1de84ac67 hand=56/60 generated=238/240 refusals=24/26 seed=1543297555 met=false '"
+    }
+   ],
+   "secs": 26.7
+  },
+  {
+   "counter": "stale",
+   "mid": "S04",
+   "site": "delta() 2^31 clamp dropped",
+   "mutation": "'return min(int(v[1]), CLAMP)' -> 'return int(v[1])'",
+   "verdict": "survived",
+   "killers": [],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": true,
+     "observed": "rc=0 l1=\"hand-oracle 60/60 generated-refusals=44/240 decisions=['error-through', 'fresh', 'not-an-error', 'revalidate', 'serve-st\" last='selftest ok'"
+    },
+    {
+     "check": "base-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=e51328b63690c8aaa78c9c8f3b87d8735c0ccb'"
+    },
+    {
+     "check": "instr-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=2db768356cd081092c3abc60f76b25487ec4c5'"
+    },
+    {
+     "check": "ctl-c2-slot-pos-oracle",
+     "ok": true,
+     "observed": "rc=0 l1='candidate=present sha256=bfb48d819d21cdca2c2b8ee579f2e319ddc0716c70275a65efac49a933faf8d1 hand=60/60 generated=240/240 refusals=22/22 seed=49290302 met=true rev' seeddoc=None"
+    },
+    {
+     "check": "ctl-c2-slot-neg-constant",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=b7f415585942ee6a3a19f667c2c2c80eb7ff7f93283677b1ad4b3ed96defa51b hand=14/60 generated=86/240 refusals=0/35 seed=2027648856 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lookup",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=a23cdcfff2cb407dd11a599499887056bb5916ee74ea7d641b3949198a0d1ec6 hand=60/60 generated=92/240 refusals=0/30 seed=2086910247 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-noprohibit",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=74e300f533a5caa27dae0fc2b145912d53c39e82b5f07f77127a38e8722d93e6 hand=52/60 generated=234/240 refusals=26/26 seed=733066584 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-exclusive",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=8b4103ef82dd3333e0f9a7cf901a16bfa9e4d027f6b4dda8f818ee30750e2f40 hand=56/60 generated=240/240 refusals=41/41 seed=631422857 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-respsie",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=e6ca02ddd422047377c9b6bb53952e2eb99fe9cc0ba4851b8fe75116a019ea3f hand=57/60 generated=238/240 refusals=46/46 seed=3698528946 met=false '"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lenient",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=2302df62c5a0248936ecb75d7dbda2d71ae7fb5047e16f5efc1028d1de84ac67 hand=56/60 generated=238/240 refusals=24/26 seed=1543297555 met=false '"
+    }
+   ],
+   "secs": 28.1
+  },
+  {
+   "counter": "stale",
+   "mid": "S05",
+   "site": "decide() must-revalidate prohibition dropped",
+   "mutation": "'prohibited = (\"no-cache\" in rc or \"must-revalidate\" in rc or \"no-cache\" in qc or\\n         ' -> 'prohibited = (\"no-cache\" in rc or \"no-cache\" in qc or\\n                  (sh and (\"proxy-re'",
+   "verdict": "killed",
+   "killers": [
+    "selftest",
+    "ctl-c2-slot-pos-oracle"
+   ],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": false,
+     "observed": "rc=1 l1=\"FAIL H21 9111\u00a75.2.2.2 must-revalidate blocks sie: want=('error-through', 300) got=('serve-stale-error', 300)\" last='selftest FAIL'"
+    },
+    {
+     "check": "base-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=e51328b63690c8aaa78c9c8f3b87d8735c0ccb'"
+    },
+    {
+     "check": "instr-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=2db768356cd081092c3abc60f76b25487ec4c5'"
+    },
+    {
+     "check": "ctl-c2-slot-pos-oracle",
+     "ok": false,
+     "observed": "rc=1 l1='candidate=present sha256=bfb48d819d21cdca2c2b8ee579f2e319ddc0716c70275a65efac49a933faf8d1 hand=60/60 generated=239/240 refusals=22/22 seed=49290302 met=false re' seeddoc=None"
+    },
+    {
+     "check": "ctl-c2-slot-neg-constant",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=b7f415585942ee6a3a19f667c2c2c80eb7ff7f93283677b1ad4b3ed96defa51b hand=14/60 generated=86/240 refusals=0/35 seed=2027648856 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lookup",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=a23cdcfff2cb407dd11a599499887056bb5916ee74ea7d641b3949198a0d1ec6 hand=60/60 generated=92/240 refusals=0/30 seed=2086910247 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-noprohibit",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=74e300f533a5caa27dae0fc2b145912d53c39e82b5f07f77127a38e8722d93e6 hand=52/60 generated=236/240 refusals=26/26 seed=733066584 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-exclusive",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=8b4103ef82dd3333e0f9a7cf901a16bfa9e4d027f6b4dda8f818ee30750e2f40 hand=56/60 generated=240/240 refusals=41/41 seed=631422857 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-respsie",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=e6ca02ddd422047377c9b6bb53952e2eb99fe9cc0ba4851b8fe75116a019ea3f hand=57/60 generated=238/240 refusals=46/46 seed=3698528946 met=false '"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lenient",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=2302df62c5a0248936ecb75d7dbda2d71ae7fb5047e16f5efc1028d1de84ac67 hand=56/60 generated=237/240 refusals=24/26 seed=1543297555 met=false '"
+    }
+   ],
+   "secs": 28.1
+  },
+  {
+   "counter": "stale",
+   "mid": "S06",
+   "site": "decide() shared gate and -> or (proxy-revalidate blocks private)",
+   "mutation": "'(sh and (\"proxy-revalidate\" in rc or \"s-maxage\" in rc)))' -> '(sh or (\"proxy-revalidate\" in rc or \"s-maxage\" in rc)))'",
+   "verdict": "killed",
+   "killers": [
+    "selftest",
+    "ctl-c2-slot-pos-oracle",
+    "ctl-c2-slot-neg-lookup"
+   ],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": false,
+     "observed": "rc=1 l1=\"FAIL H27 9111\u00a75.2.2.8 proxy-revalidate private cache: want=('serve-stale-revalidate', 15) got=('revalidate', 15)\" last='selftest FAIL'"
+    },
+    {
+     "check": "base-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=e51328b63690c8aaa78c9c8f3b87d8735c0ccb'"
+    },
+    {
+     "check": "instr-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=2db768356cd081092c3abc60f76b25487ec4c5'"
+    },
+    {
+     "check": "ctl-c2-slot-pos-oracle",
+     "ok": false,
+     "observed": "rc=1 l1='candidate=present sha256=bfb48d819d21cdca2c2b8ee579f2e319ddc0716c70275a65efac49a933faf8d1 hand=60/60 generated=233/240 refusals=22/22 seed=49290302 met=false re' seeddoc=None"
+    },
+    {
+     "check": "ctl-c2-slot-neg-constant",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=b7f415585942ee6a3a19f667c2c2c80eb7ff7f93283677b1ad4b3ed96defa51b hand=14/60 generated=87/240 refusals=0/35 seed=2027648856 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lookup",
+     "ok": false,
+     "observed": "rc=1 l1='candidate=present sha256=a23cdcfff2cb407dd11a599499887056bb5916ee74ea7d641b3949198a0d1ec6 hand=60/60 generated=95/240 refusals=0/30 seed=2086910247 met=false re' counts-changed pristine=('92', '240', '0', '30') mutant=('95', '240', '0', '30')"
+    },
+    {
+     "check": "ctl-c2-slot-neg-noprohibit",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=74e300f533a5caa27dae0fc2b145912d53c39e82b5f07f77127a38e8722d93e6 hand=52/60 generated=233/240 refusals=26/26 seed=733066584 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-exclusive",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=8b4103ef82dd3333e0f9a7cf901a16bfa9e4d027f6b4dda8f818ee30750e2f40 hand=56/60 generated=236/240 refusals=41/41 seed=631422857 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-respsie",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=e6ca02ddd422047377c9b6bb53952e2eb99fe9cc0ba4851b8fe75116a019ea3f hand=57/60 generated=236/240 refusals=46/46 seed=3698528946 met=false '"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lenient",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=2302df62c5a0248936ecb75d7dbda2d71ae7fb5047e16f5efc1028d1de84ac67 hand=56/60 generated=236/240 refusals=24/26 seed=1543297555 met=false '"
+    }
+   ],
+   "secs": 28.1
+  },
+  {
+   "counter": "stale",
+   "mid": "S07",
+   "site": "decide() rule order: fresh before not-an-error",
+   "mutation": "'st = max(0, A - L)\\n    if ev == \"error\" and err not in ERRS:\\n        return {\"decision\": \"' -> 'st = max(0, A - L)\\n    if A < L and \"no-cache\" not in rc and \"no-cache\" not in qc:\\n       '",
+   "verdict": "killed",
+   "killers": [
+    "ctl-c2-slot-pos-oracle"
+   ],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": true,
+     "observed": "rc=0 l1=\"hand-oracle 60/60 generated-refusals=44/240 decisions=['error-through', 'fresh', 'not-an-error', 'revalidate', 'serve-st\" last='selftest ok'"
+    },
+    {
+     "check": "base-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=e51328b63690c8aaa78c9c8f3b87d8735c0ccb'"
+    },
+    {
+     "check": "instr-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=2db768356cd081092c3abc60f76b25487ec4c5'"
+    },
+    {
+     "check": "ctl-c2-slot-pos-oracle",
+     "ok": false,
+     "observed": "rc=1 l1='candidate=present sha256=bfb48d819d21cdca2c2b8ee579f2e319ddc0716c70275a65efac49a933faf8d1 hand=60/60 generated=233/240 refusals=22/22 seed=49290302 met=false re' seeddoc=None"
+    },
+    {
+     "check": "ctl-c2-slot-neg-constant",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=b7f415585942ee6a3a19f667c2c2c80eb7ff7f93283677b1ad4b3ed96defa51b hand=14/60 generated=86/240 refusals=0/35 seed=2027648856 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lookup",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=a23cdcfff2cb407dd11a599499887056bb5916ee74ea7d641b3949198a0d1ec6 hand=60/60 generated=92/240 refusals=0/30 seed=2086910247 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-noprohibit",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=74e300f533a5caa27dae0fc2b145912d53c39e82b5f07f77127a38e8722d93e6 hand=52/60 generated=228/240 refusals=26/26 seed=733066584 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-exclusive",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=8b4103ef82dd3333e0f9a7cf901a16bfa9e4d027f6b4dda8f818ee30750e2f40 hand=56/60 generated=236/240 refusals=41/41 seed=631422857 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-respsie",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=e6ca02ddd422047377c9b6bb53952e2eb99fe9cc0ba4851b8fe75116a019ea3f hand=57/60 generated=235/240 refusals=46/46 seed=3698528946 met=false '"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lenient",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=2302df62c5a0248936ecb75d7dbda2d71ae7fb5047e16f5efc1028d1de84ac67 hand=56/60 generated=238/240 refusals=24/26 seed=1543297555 met=false '"
+    }
+   ],
+   "secs": 28.4
+  },
+  {
+   "counter": "stale",
+   "mid": "S08",
+   "site": "decide() swr boundary inclusive -> exclusive",
+   "mutation": "'ok = not prohibited and w is not None and st <= w' -> 'ok = not prohibited and w is not None and st < w'",
+   "verdict": "killed",
+   "killers": [
+    "selftest",
+    "ctl-c2-slot-neg-lookup"
+   ],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": false,
+     "observed": "rc=1 l1=\"FAIL H02 5861\u00a73.1 boundary inclusive: want=('serve-stale-revalidate', 30) got=('revalidate', 30)\" last='selftest FAIL'"
+    },
+    {
+     "check": "base-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=e51328b63690c8aaa78c9c8f3b87d8735c0ccb'"
+    },
+    {
+     "check": "instr-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=2db768356cd081092c3abc60f76b25487ec4c5'"
+    },
+    {
+     "check": "ctl-c2-slot-pos-oracle",
+     "ok": true,
+     "observed": "rc=0 l1='candidate=present sha256=bfb48d819d21cdca2c2b8ee579f2e319ddc0716c70275a65efac49a933faf8d1 hand=60/60 generated=240/240 refusals=22/22 seed=49290302 met=true rev' seeddoc=None"
+    },
+    {
+     "check": "ctl-c2-slot-neg-constant",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=b7f415585942ee6a3a19f667c2c2c80eb7ff7f93283677b1ad4b3ed96defa51b hand=14/60 generated=86/240 refusals=0/35 seed=2027648856 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lookup",
+     "ok": false,
+     "observed": "rc=1 l1='candidate=present sha256=a23cdcfff2cb407dd11a599499887056bb5916ee74ea7d641b3949198a0d1ec6 hand=60/60 generated=93/240 refusals=0/30 seed=2086910247 met=false re' counts-changed pristine=('92', '240', '0', '30') mutant=('93', '240', '0', '30')"
+    },
+    {
+     "check": "ctl-c2-slot-neg-noprohibit",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=74e300f533a5caa27dae0fc2b145912d53c39e82b5f07f77127a38e8722d93e6 hand=52/60 generated=234/240 refusals=26/26 seed=733066584 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-exclusive",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=8b4103ef82dd3333e0f9a7cf901a16bfa9e4d027f6b4dda8f818ee30750e2f40 hand=56/60 generated=240/240 refusals=41/41 seed=631422857 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-respsie",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=e6ca02ddd422047377c9b6bb53952e2eb99fe9cc0ba4851b8fe75116a019ea3f hand=57/60 generated=238/240 refusals=46/46 seed=3698528946 met=false '"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lenient",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=2302df62c5a0248936ecb75d7dbda2d71ae7fb5047e16f5efc1028d1de84ac67 hand=56/60 generated=238/240 refusals=24/26 seed=1543297555 met=false '"
+    }
+   ],
+   "secs": 28.4
+  },
+  {
+   "counter": "stale",
+   "mid": "S09",
+   "site": "decide() sie precedence request-first -> response-first",
+   "mutation": "'e = delta(qc, \"stale-if-error\")\\n    if e is None:\\n        e = delta(rc, \"stale-if-error\")' -> 'e = delta(rc, \"stale-if-error\")\\n    if e is None:\\n        e = delta(qc, \"stale-if-error\")'",
+   "verdict": "killed",
+   "killers": [
+    "selftest"
+   ],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": false,
+     "observed": "rc=1 l1=\"FAIL H18 5861\u00a74 request scope narrower: want=('error-through', 300) got=('serve-stale-error', 300)\" last='selftest FAIL'"
+    },
+    {
+     "check": "base-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=e51328b63690c8aaa78c9c8f3b87d8735c0ccb'"
+    },
+    {
+     "check": "instr-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=2db768356cd081092c3abc60f76b25487ec4c5'"
+    },
+    {
+     "check": "ctl-c2-slot-pos-oracle",
+     "ok": true,
+     "observed": "rc=0 l1='candidate=present sha256=bfb48d819d21cdca2c2b8ee579f2e319ddc0716c70275a65efac49a933faf8d1 hand=60/60 generated=240/240 refusals=22/22 seed=49290302 met=true rev' seeddoc=None"
+    },
+    {
+     "check": "ctl-c2-slot-neg-constant",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=b7f415585942ee6a3a19f667c2c2c80eb7ff7f93283677b1ad4b3ed96defa51b hand=14/60 generated=86/240 refusals=0/35 seed=2027648856 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lookup",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=a23cdcfff2cb407dd11a599499887056bb5916ee74ea7d641b3949198a0d1ec6 hand=60/60 generated=92/240 refusals=0/30 seed=2086910247 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-noprohibit",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=74e300f533a5caa27dae0fc2b145912d53c39e82b5f07f77127a38e8722d93e6 hand=52/60 generated=234/240 refusals=26/26 seed=733066584 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-exclusive",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=8b4103ef82dd3333e0f9a7cf901a16bfa9e4d027f6b4dda8f818ee30750e2f40 hand=56/60 generated=240/240 refusals=41/41 seed=631422857 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-respsie",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=e6ca02ddd422047377c9b6bb53952e2eb99fe9cc0ba4851b8fe75116a019ea3f hand=57/60 generated=238/240 refusals=46/46 seed=3698528946 met=false '"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lenient",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=2302df62c5a0248936ecb75d7dbda2d71ae7fb5047e16f5efc1028d1de84ac67 hand=56/60 generated=237/240 refusals=24/26 seed=1543297555 met=false '"
+    }
+   ],
+   "secs": 28.5
+  },
+  {
+   "counter": "stale",
+   "mid": "S10",
+   "site": "judge() extra output keys accepted",
+   "mutation": "'return isinstance(o, dict) and set(o) == {\"decision\", \"staleness\"} and \\\\' -> 'return isinstance(o, dict) and set(o) <= {\"decision\", \"staleness\"} and \\\\'",
+   "verdict": "survived",
+   "killers": [],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": true,
+     "observed": "rc=0 l1=\"hand-oracle 60/60 generated-refusals=44/240 decisions=['error-through', 'fresh', 'not-an-error', 'revalidate', 'serve-st\" last='selftest ok'"
+    },
+    {
+     "check": "base-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=e51328b63690c8aaa78c9c8f3b87d8735c0ccb'"
+    },
+    {
+     "check": "instr-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=2db768356cd081092c3abc60f76b25487ec4c5'"
+    },
+    {
+     "check": "ctl-c2-slot-pos-oracle",
+     "ok": true,
+     "observed": "rc=0 l1='candidate=present sha256=bfb48d819d21cdca2c2b8ee579f2e319ddc0716c70275a65efac49a933faf8d1 hand=60/60 generated=240/240 refusals=22/22 seed=49290302 met=true rev' seeddoc=None"
+    },
+    {
+     "check": "ctl-c2-slot-neg-constant",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=b7f415585942ee6a3a19f667c2c2c80eb7ff7f93283677b1ad4b3ed96defa51b hand=14/60 generated=86/240 refusals=0/35 seed=2027648856 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lookup",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=a23cdcfff2cb407dd11a599499887056bb5916ee74ea7d641b3949198a0d1ec6 hand=60/60 generated=92/240 refusals=0/30 seed=2086910247 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-noprohibit",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=74e300f533a5caa27dae0fc2b145912d53c39e82b5f07f77127a38e8722d93e6 hand=52/60 generated=234/240 refusals=26/26 seed=733066584 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-exclusive",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=8b4103ef82dd3333e0f9a7cf901a16bfa9e4d027f6b4dda8f818ee30750e2f40 hand=56/60 generated=240/240 refusals=41/41 seed=631422857 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-respsie",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=e6ca02ddd422047377c9b6bb53952e2eb99fe9cc0ba4851b8fe75116a019ea3f hand=57/60 generated=238/240 refusals=46/46 seed=3698528946 met=false '"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lenient",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=2302df62c5a0248936ecb75d7dbda2d71ae7fb5047e16f5efc1028d1de84ac67 hand=56/60 generated=238/240 refusals=24/26 seed=1543297555 met=false '"
+    }
+   ],
+   "secs": 29.2
+  },
+  {
+   "counter": "stale",
+   "mid": "S11",
+   "site": "judge() staleness type check dropped (float ok)",
+   "mutation": "'o == {\"decision\": want[0], \"staleness\": want[1]} and type(o[\"staleness\"]) is int' -> 'o == {\"decision\": want[0], \"staleness\": want[1]}'",
+   "verdict": "survived",
+   "killers": [],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": true,
+     "observed": "rc=0 l1=\"hand-oracle 60/60 generated-refusals=44/240 decisions=['error-through', 'fresh', 'not-an-error', 'revalidate', 'serve-st\" last='selftest ok'"
+    },
+    {
+     "check": "base-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=e51328b63690c8aaa78c9c8f3b87d8735c0ccb'"
+    },
+    {
+     "check": "instr-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=2db768356cd081092c3abc60f76b25487ec4c5'"
+    },
+    {
+     "check": "ctl-c2-slot-pos-oracle",
+     "ok": true,
+     "observed": "rc=0 l1='candidate=present sha256=bfb48d819d21cdca2c2b8ee579f2e319ddc0716c70275a65efac49a933faf8d1 hand=60/60 generated=240/240 refusals=22/22 seed=49290302 met=true rev' seeddoc=None"
+    },
+    {
+     "check": "ctl-c2-slot-neg-constant",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=b7f415585942ee6a3a19f667c2c2c80eb7ff7f93283677b1ad4b3ed96defa51b hand=14/60 generated=86/240 refusals=0/35 seed=2027648856 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lookup",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=a23cdcfff2cb407dd11a599499887056bb5916ee74ea7d641b3949198a0d1ec6 hand=60/60 generated=92/240 refusals=0/30 seed=2086910247 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-noprohibit",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=74e300f533a5caa27dae0fc2b145912d53c39e82b5f07f77127a38e8722d93e6 hand=52/60 generated=234/240 refusals=26/26 seed=733066584 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-exclusive",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=8b4103ef82dd3333e0f9a7cf901a16bfa9e4d027f6b4dda8f818ee30750e2f40 hand=56/60 generated=240/240 refusals=41/41 seed=631422857 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-respsie",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=e6ca02ddd422047377c9b6bb53952e2eb99fe9cc0ba4851b8fe75116a019ea3f hand=57/60 generated=238/240 refusals=46/46 seed=3698528946 met=false '"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lenient",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=2302df62c5a0248936ecb75d7dbda2d71ae7fb5047e16f5efc1028d1de84ac67 hand=56/60 generated=238/240 refusals=24/26 seed=1543297555 met=false '"
+    }
+   ],
+   "secs": 29.2
+  },
+  {
+   "counter": "stale",
+   "mid": "S12",
+   "site": "judge() refusal stderr prefix any",
+   "mutation": "'return rcode == 1 and out == \"\" and err.startswith(\"invalid_input:\")' -> 'return rcode == 1 and out == \"\" and err != \"\"'",
+   "verdict": "survived",
+   "killers": [],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": true,
+     "observed": "rc=0 l1=\"hand-oracle 60/60 generated-refusals=44/240 decisions=['error-through', 'fresh', 'not-an-error', 'revalidate', 'serve-st\" last='selftest ok'"
+    },
+    {
+     "check": "base-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=e51328b63690c8aaa78c9c8f3b87d8735c0ccb'"
+    },
+    {
+     "check": "instr-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=2db768356cd081092c3abc60f76b25487ec4c5'"
+    },
+    {
+     "check": "ctl-c2-slot-pos-oracle",
+     "ok": true,
+     "observed": "rc=0 l1='candidate=present sha256=bfb48d819d21cdca2c2b8ee579f2e319ddc0716c70275a65efac49a933faf8d1 hand=60/60 generated=240/240 refusals=22/22 seed=49290302 met=true rev' seeddoc=None"
+    },
+    {
+     "check": "ctl-c2-slot-neg-constant",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=b7f415585942ee6a3a19f667c2c2c80eb7ff7f93283677b1ad4b3ed96defa51b hand=14/60 generated=86/240 refusals=0/35 seed=2027648856 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lookup",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=a23cdcfff2cb407dd11a599499887056bb5916ee74ea7d641b3949198a0d1ec6 hand=60/60 generated=92/240 refusals=0/30 seed=2086910247 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-noprohibit",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=74e300f533a5caa27dae0fc2b145912d53c39e82b5f07f77127a38e8722d93e6 hand=52/60 generated=234/240 refusals=26/26 seed=733066584 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-exclusive",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=8b4103ef82dd3333e0f9a7cf901a16bfa9e4d027f6b4dda8f818ee30750e2f40 hand=56/60 generated=240/240 refusals=41/41 seed=631422857 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-respsie",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=e6ca02ddd422047377c9b6bb53952e2eb99fe9cc0ba4851b8fe75116a019ea3f hand=57/60 generated=238/240 refusals=46/46 seed=3698528946 met=false '"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lenient",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=2302df62c5a0248936ecb75d7dbda2d71ae7fb5047e16f5efc1028d1de84ac67 hand=56/60 generated=238/240 refusals=24/26 seed=1543297555 met=false '"
+    }
+   ],
+   "secs": 29.2
+  },
+  {
+   "counter": "stale",
+   "mid": "S13",
+   "site": "judge() refusal exit code any nonzero",
+   "mutation": "'return rcode == 1 and out == \"\" and err.startswith(\"invalid_input:\")' -> 'return rcode != 0 and out == \"\" and err.startswith(\"invalid_input:\")'",
+   "verdict": "survived",
+   "killers": [],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": true,
+     "observed": "rc=0 l1=\"hand-oracle 60/60 generated-refusals=44/240 decisions=['error-through', 'fresh', 'not-an-error', 'revalidate', 'serve-st\" last='selftest ok'"
+    },
+    {
+     "check": "base-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=e51328b63690c8aaa78c9c8f3b87d8735c0ccb'"
+    },
+    {
+     "check": "instr-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=2db768356cd081092c3abc60f76b25487ec4c5'"
+    },
+    {
+     "check": "ctl-c2-slot-pos-oracle",
+     "ok": true,
+     "observed": "rc=0 l1='candidate=present sha256=bfb48d819d21cdca2c2b8ee579f2e319ddc0716c70275a65efac49a933faf8d1 hand=60/60 generated=240/240 refusals=22/22 seed=49290302 met=true rev' seeddoc=None"
+    },
+    {
+     "check": "ctl-c2-slot-neg-constant",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=b7f415585942ee6a3a19f667c2c2c80eb7ff7f93283677b1ad4b3ed96defa51b hand=14/60 generated=86/240 refusals=0/35 seed=2027648856 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lookup",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=a23cdcfff2cb407dd11a599499887056bb5916ee74ea7d641b3949198a0d1ec6 hand=60/60 generated=92/240 refusals=0/30 seed=2086910247 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-noprohibit",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=74e300f533a5caa27dae0fc2b145912d53c39e82b5f07f77127a38e8722d93e6 hand=52/60 generated=234/240 refusals=26/26 seed=733066584 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-exclusive",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=8b4103ef82dd3333e0f9a7cf901a16bfa9e4d027f6b4dda8f818ee30750e2f40 hand=56/60 generated=240/240 refusals=41/41 seed=631422857 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-respsie",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=e6ca02ddd422047377c9b6bb53952e2eb99fe9cc0ba4851b8fe75116a019ea3f hand=57/60 generated=238/240 refusals=46/46 seed=3698528946 met=false '"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lenient",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=2302df62c5a0248936ecb75d7dbda2d71ae7fb5047e16f5efc1028d1de84ac67 hand=56/60 generated=238/240 refusals=24/26 seed=1543297555 met=false '"
+    }
+   ],
+   "secs": 32.4
+  },
+  {
+   "counter": "stale",
+   "mid": "S14",
+   "site": "main() default seed sha256[:8] -> [:4]",
+   "mutation": "'seed = a.seed if a.seed is not None else int(hashlib.sha256(seed_src.encode()).hexdigest()' -> 'seed = a.seed if a.seed is not None else int(hashlib.sha256(seed_src.encode()).hexdigest()'",
+   "verdict": "killed",
+   "killers": [
+    "ctl-c2-slot-neg-lookup"
+   ],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": true,
+     "observed": "rc=0 l1=\"hand-oracle 60/60 generated-refusals=44/240 decisions=['error-through', 'fresh', 'not-an-error', 'revalidate', 'serve-st\" last='selftest ok'"
+    },
+    {
+     "check": "base-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=e51328b63690c8aaa78c9c8f3b87d8735c0ccb'"
+    },
+    {
+     "check": "instr-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=2db768356cd081092c3abc60f76b25487ec4c5'"
+    },
+    {
+     "check": "ctl-c2-slot-pos-oracle",
+     "ok": true,
+     "observed": "rc=0 l1='candidate=present sha256=bfb48d819d21cdca2c2b8ee579f2e319ddc0716c70275a65efac49a933faf8d1 hand=60/60 generated=240/240 refusals=31/31 seed=752 met=true revision' seeddoc=None"
+    },
+    {
+     "check": "ctl-c2-slot-neg-constant",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=b7f415585942ee6a3a19f667c2c2c80eb7ff7f93283677b1ad4b3ed96defa51b hand=14/60 generated=91/240 refusals=0/35 seed=30939 met=false revisio'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lookup",
+     "ok": false,
+     "observed": "rc=1 l1='candidate=present sha256=a23cdcfff2cb407dd11a599499887056bb5916ee74ea7d641b3949198a0d1ec6 hand=60/60 generated=88/240 refusals=0/33 seed=31843 met=false revisio' counts-changed pristine=('92', '240', '0', '30') mutant=('88', '240', '0', '33')"
+    },
+    {
+     "check": "ctl-c2-slot-neg-noprohibit",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=74e300f533a5caa27dae0fc2b145912d53c39e82b5f07f77127a38e8722d93e6 hand=52/60 generated=233/240 refusals=33/33 seed=11185 met=false revis'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-exclusive",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=8b4103ef82dd3333e0f9a7cf901a16bfa9e4d027f6b4dda8f818ee30750e2f40 hand=56/60 generated=238/240 refusals=32/32 seed=9634 met=false revisi'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-respsie",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=e6ca02ddd422047377c9b6bb53952e2eb99fe9cc0ba4851b8fe75116a019ea3f hand=57/60 generated=238/240 refusals=42/42 seed=56435 met=false revis'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lenient",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=2302df62c5a0248936ecb75d7dbda2d71ae7fb5047e16f5efc1028d1de84ac67 hand=56/60 generated=233/240 refusals=24/31 seed=23548 met=false revis'"
+    }
+   ],
+   "secs": 32.4
+  },
+  {
+   "counter": "stale",
+   "mid": "S15",
+   "site": "decide() fresh boundary A<L -> A<=L",
+   "mutation": "'if A < L and \"no-cache\" not in rc and \"no-cache\" not in qc:' -> 'if A <= L and \"no-cache\" not in rc and \"no-cache\" not in qc:'",
+   "verdict": "killed",
+   "killers": [
+    "selftest",
+    "ctl-c2-slot-pos-oracle",
+    "ctl-c2-slot-neg-lookup"
+   ],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": false,
+     "observed": "rc=1 l1=\"FAIL H05 9111\u00a74.2 age==lifetime is stale: want=('serve-stale-revalidate', 0) got=('fresh', 0)\" last='selftest FAIL'"
+    },
+    {
+     "check": "base-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=e51328b63690c8aaa78c9c8f3b87d8735c0ccb'"
+    },
+    {
+     "check": "instr-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=2db768356cd081092c3abc60f76b25487ec4c5'"
+    },
+    {
+     "check": "ctl-c2-slot-pos-oracle",
+     "ok": false,
+     "observed": "rc=1 l1='candidate=present sha256=bfb48d819d21cdca2c2b8ee579f2e319ddc0716c70275a65efac49a933faf8d1 hand=60/60 generated=230/240 refusals=22/22 seed=49290302 met=false re' seeddoc=None"
+    },
+    {
+     "check": "ctl-c2-slot-neg-constant",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=b7f415585942ee6a3a19f667c2c2c80eb7ff7f93283677b1ad4b3ed96defa51b hand=14/60 generated=78/240 refusals=0/35 seed=2027648856 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lookup",
+     "ok": false,
+     "observed": "rc=1 l1='candidate=present sha256=a23cdcfff2cb407dd11a599499887056bb5916ee74ea7d641b3949198a0d1ec6 hand=60/60 generated=86/240 refusals=0/30 seed=2086910247 met=false re' counts-changed pristine=('92', '240', '0', '30') mutant=('86', '240', '0', '30')"
+    },
+    {
+     "check": "ctl-c2-slot-neg-noprohibit",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=74e300f533a5caa27dae0fc2b145912d53c39e82b5f07f77127a38e8722d93e6 hand=52/60 generated=225/240 refusals=26/26 seed=733066584 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-exclusive",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=8b4103ef82dd3333e0f9a7cf901a16bfa9e4d027f6b4dda8f818ee30750e2f40 hand=56/60 generated=231/240 refusals=41/41 seed=631422857 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-respsie",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=e6ca02ddd422047377c9b6bb53952e2eb99fe9cc0ba4851b8fe75116a019ea3f hand=57/60 generated=232/240 refusals=46/46 seed=3698528946 met=false '"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lenient",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=2302df62c5a0248936ecb75d7dbda2d71ae7fb5047e16f5efc1028d1de84ac67 hand=56/60 generated=229/240 refusals=24/26 seed=1543297555 met=false '"
+    }
+   ],
+   "secs": 32.5
+  },
+  {
+   "counter": "stale",
+   "mid": "S16",
+   "site": "decide() staleness max(0,..) dropped",
+   "mutation": "'st = max(0, A - L)' -> 'st = A - L'",
+   "verdict": "killed",
+   "killers": [
+    "selftest",
+    "ctl-c2-slot-pos-oracle",
+    "ctl-c2-slot-neg-lookup"
+   ],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": false,
+     "observed": "rc=1 l1=\"FAIL H04 9111\u00a74.2 fresh: want=('fresh', 0) got=('fresh', -1)\" last='selftest FAIL'"
+    },
+    {
+     "check": "base-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=e51328b63690c8aaa78c9c8f3b87d8735c0ccb'"
+    },
+    {
+     "check": "instr-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=2db768356cd081092c3abc60f76b25487ec4c5'"
+    },
+    {
+     "check": "ctl-c2-slot-pos-oracle",
+     "ok": false,
+     "observed": "rc=1 l1='candidate=present sha256=bfb48d819d21cdca2c2b8ee579f2e319ddc0716c70275a65efac49a933faf8d1 hand=60/60 generated=212/240 refusals=22/22 seed=49290302 met=false re' seeddoc=None"
+    },
+    {
+     "check": "ctl-c2-slot-neg-constant",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=b7f415585942ee6a3a19f667c2c2c80eb7ff7f93283677b1ad4b3ed96defa51b hand=14/60 generated=84/240 refusals=0/35 seed=2027648856 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lookup",
+     "ok": false,
+     "observed": "rc=1 l1='candidate=present sha256=a23cdcfff2cb407dd11a599499887056bb5916ee74ea7d641b3949198a0d1ec6 hand=60/60 generated=89/240 refusals=0/30 seed=2086910247 met=false re' counts-changed pristine=('92', '240', '0', '30') mutant=('89', '240', '0', '30')"
+    },
+    {
+     "check": "ctl-c2-slot-neg-noprohibit",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=74e300f533a5caa27dae0fc2b145912d53c39e82b5f07f77127a38e8722d93e6 hand=52/60 generated=208/240 refusals=26/26 seed=733066584 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-exclusive",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=8b4103ef82dd3333e0f9a7cf901a16bfa9e4d027f6b4dda8f818ee30750e2f40 hand=56/60 generated=215/240 refusals=41/41 seed=631422857 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-respsie",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=e6ca02ddd422047377c9b6bb53952e2eb99fe9cc0ba4851b8fe75116a019ea3f hand=57/60 generated=211/240 refusals=46/46 seed=3698528946 met=false '"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lenient",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=2302df62c5a0248936ecb75d7dbda2d71ae7fb5047e16f5efc1028d1de84ac67 hand=56/60 generated=214/240 refusals=24/26 seed=1543297555 met=false '"
+    }
+   ],
+   "secs": 33.0
+  },
+  {
+   "counter": "stale",
+   "mid": "S17",
+   "site": "decide() error status range 100..599 -> 200..599",
+   "mutation": "'if err != \"network\" and not (isinstance(err, int) and not isinstance(err, bool) and 100 <=' -> 'if err != \"network\" and not (isinstance(err, int) and not isinstance(err, bool) and 200 <='",
+   "verdict": "survived",
+   "killers": [],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": true,
+     "observed": "rc=0 l1=\"hand-oracle 60/60 generated-refusals=44/240 decisions=['error-through', 'fresh', 'not-an-error', 'revalidate', 'serve-st\" last='selftest ok'"
+    },
+    {
+     "check": "base-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=e51328b63690c8aaa78c9c8f3b87d8735c0ccb'"
+    },
+    {
+     "check": "instr-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=2db768356cd081092c3abc60f76b25487ec4c5'"
+    },
+    {
+     "check": "ctl-c2-slot-pos-oracle",
+     "ok": true,
+     "observed": "rc=0 l1='candidate=present sha256=bfb48d819d21cdca2c2b8ee579f2e319ddc0716c70275a65efac49a933faf8d1 hand=60/60 generated=240/240 refusals=22/22 seed=49290302 met=true rev' seeddoc=None"
+    },
+    {
+     "check": "ctl-c2-slot-neg-constant",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=b7f415585942ee6a3a19f667c2c2c80eb7ff7f93283677b1ad4b3ed96defa51b hand=14/60 generated=86/240 refusals=0/35 seed=2027648856 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lookup",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=a23cdcfff2cb407dd11a599499887056bb5916ee74ea7d641b3949198a0d1ec6 hand=60/60 generated=92/240 refusals=0/30 seed=2086910247 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-noprohibit",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=74e300f533a5caa27dae0fc2b145912d53c39e82b5f07f77127a38e8722d93e6 hand=52/60 generated=234/240 refusals=26/26 seed=733066584 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-exclusive",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=8b4103ef82dd3333e0f9a7cf901a16bfa9e4d027f6b4dda8f818ee30750e2f40 hand=56/60 generated=240/240 refusals=41/41 seed=631422857 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-respsie",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=e6ca02ddd422047377c9b6bb53952e2eb99fe9cc0ba4851b8fe75116a019ea3f hand=57/60 generated=238/240 refusals=46/46 seed=3698528946 met=false '"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lenient",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=2302df62c5a0248936ecb75d7dbda2d71ae7fb5047e16f5efc1028d1de84ac67 hand=56/60 generated=238/240 refusals=24/26 seed=1543297555 met=false '"
+    }
+   ],
+   "secs": 33.0
+  },
+  {
+   "counter": "stale",
+   "mid": "S18",
+   "site": "decide() sie boundary inclusive -> exclusive",
+   "mutation": "'ok = not prohibited and e is not None and st <= e' -> 'ok = not prohibited and e is not None and st < e'",
+   "verdict": "killed",
+   "killers": [
+    "selftest"
+   ],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": false,
+     "observed": "rc=1 l1=\"FAIL H07 5861\u00a74.1 age 1800 boundary: want=('serve-stale-error', 1200) got=('error-through', 1200)\" last='selftest FAIL'"
+    },
+    {
+     "check": "base-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=e51328b63690c8aaa78c9c8f3b87d8735c0ccb'"
+    },
+    {
+     "check": "instr-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=2db768356cd081092c3abc60f76b25487ec4c5'"
+    },
+    {
+     "check": "ctl-c2-slot-pos-oracle",
+     "ok": true,
+     "observed": "rc=0 l1='candidate=present sha256=bfb48d819d21cdca2c2b8ee579f2e319ddc0716c70275a65efac49a933faf8d1 hand=60/60 generated=240/240 refusals=22/22 seed=49290302 met=true rev' seeddoc=None"
+    },
+    {
+     "check": "ctl-c2-slot-neg-constant",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=b7f415585942ee6a3a19f667c2c2c80eb7ff7f93283677b1ad4b3ed96defa51b hand=14/60 generated=86/240 refusals=0/35 seed=2027648856 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lookup",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=a23cdcfff2cb407dd11a599499887056bb5916ee74ea7d641b3949198a0d1ec6 hand=60/60 generated=92/240 refusals=0/30 seed=2086910247 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-noprohibit",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=74e300f533a5caa27dae0fc2b145912d53c39e82b5f07f77127a38e8722d93e6 hand=52/60 generated=234/240 refusals=26/26 seed=733066584 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-exclusive",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=8b4103ef82dd3333e0f9a7cf901a16bfa9e4d027f6b4dda8f818ee30750e2f40 hand=56/60 generated=240/240 refusals=41/41 seed=631422857 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-respsie",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=e6ca02ddd422047377c9b6bb53952e2eb99fe9cc0ba4851b8fe75116a019ea3f hand=57/60 generated=238/240 refusals=46/46 seed=3698528946 met=false '"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lenient",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=2302df62c5a0248936ecb75d7dbda2d71ae7fb5047e16f5efc1028d1de84ac67 hand=56/60 generated=238/240 refusals=24/26 seed=1543297555 met=false '"
+    }
+   ],
+   "secs": 32.9
+  },
+  {
+   "counter": "stale",
+   "mid": "S19",
+   "site": "decide() unknown-key refusal dropped",
+   "mutation": "'if set(inp) - allowed:' -> 'if set(inp) - set():'",
+   "verdict": "killed",
+   "killers": [
+    "selftest",
+    "ctl-c2-slot-pos-oracle",
+    "ctl-c2-slot-neg-lookup"
+   ],
+   "checks": [
+    {
+     "check": "selftest",
+     "ok": false,
+     "observed": "rc=1 l1=\"FAIL H01 5861\u00a73.1 inside window: want=('serve-stale-revalidate', 15) got=REFUSE\" last='selftest FAIL'"
+    },
+    {
+     "check": "base-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=e51328b63690c8aaa78c9c8f3b87d8735c0ccb'"
+    },
+    {
+     "check": "instr-c2",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=absent hand=0/60 generated=0/240 refusals=0/0 seed=- met=false revision=2db768356cd081092c3abc60f76b25487ec4c5'"
+    },
+    {
+     "check": "ctl-c2-slot-pos-oracle",
+     "ok": false,
+     "observed": "rc=1 l1='candidate=present sha256=bfb48d819d21cdca2c2b8ee579f2e319ddc0716c70275a65efac49a933faf8d1 hand=60/60 generated=22/240 refusals=22/240 seed=49290302 met=false re' seeddoc=None"
+    },
+    {
+     "check": "ctl-c2-slot-neg-constant",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=b7f415585942ee6a3a19f667c2c2c80eb7ff7f93283677b1ad4b3ed96defa51b hand=14/60 generated=0/240 refusals=0/240 seed=2027648856 met=false re'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lookup",
+     "ok": false,
+     "observed": "rc=1 l1='candidate=present sha256=a23cdcfff2cb407dd11a599499887056bb5916ee74ea7d641b3949198a0d1ec6 hand=60/60 generated=0/240 refusals=0/240 seed=2086910247 met=false re' counts-changed pristine=('92', '240', '0', '30') mutant=('0', '240', '0', '240')"
+    },
+    {
+     "check": "ctl-c2-slot-neg-noprohibit",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=74e300f533a5caa27dae0fc2b145912d53c39e82b5f07f77127a38e8722d93e6 hand=52/60 generated=26/240 refusals=26/240 seed=733066584 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-exclusive",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=8b4103ef82dd3333e0f9a7cf901a16bfa9e4d027f6b4dda8f818ee30750e2f40 hand=56/60 generated=41/240 refusals=41/240 seed=631422857 met=false r'"
+    },
+    {
+     "check": "ctl-c2-slot-neg-respsie",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=e6ca02ddd422047377c9b6bb53952e2eb99fe9cc0ba4851b8fe75116a019ea3f hand=57/60 generated=46/240 refusals=46/240 seed=3698528946 met=false '"
+    },
+    {
+     "check": "ctl-c2-slot-neg-lenient",
+     "ok": true,
+     "observed": "rc=1 l1='candidate=present sha256=2302df62c5a0248936ecb75d7dbda2d71ae7fb5047e16f5efc1028d1de84ac67 hand=56/60 generated=24/240 refusals=24/240 seed=1543297555 met=false '"
+    }
+   ],
+   "secs": 30.8
+  }
+ ]
+}

@@ -1,0 +1,52 @@
+import os, sys, subprocess, json, shutil, tempfile
+from concurrent.futures import ThreadPoolExecutor
+S = "/fast/scratch/hyaku/kake-r98/CriticClaims"; C = os.path.join(S, "cands"); W = os.path.join(S, "w")
+L = "/home/vgpnk/Projects/shokunin/kake-shokunin"; CNT = os.path.join(L, ".ufo/waves/round-98/c98_stale.py")
+os.makedirs(W, exist_ok=True)
+CANDS = ["P0-base-oracle", "K1-err-101-598", "K2-string-error-int", "K3-obs-text-token", "K4-wide-qdtext",
+         "K5-clamp-2147483647", "K6-request-last-wins", "K7-rare-504-shared-boundary", "K8-delegate-oracle"]
+JOBS = []
+for k in CANDS:
+    seeds = ["", "1", "2"] if k[:2] in ("K1", "K2", "K3", "K4", "K5", "P0") else [str(i) for i in range(1, 11)] + [""]
+    for sd in seeds:
+        JOBS.append((k, sd))
+def run(job):
+    k, sd = job
+    cmd = [sys.executable, "-B", CNT, "--candidate-file", os.path.join(C, k + ".py"), "--work", W]
+    if sd: cmd += ["--seed", sd]
+    p = subprocess.run(cmd, capture_output=True, text=True, cwd=S)
+    first = (p.stdout.splitlines() or ["<none>"])[0]
+    return k, sd or "default", p.returncode, first
+with ThreadPoolExecutor(max_workers=8) as ex:
+    res = list(ex.map(run, JOBS))
+out = []
+for k, sd, rc, first in res:
+    line = f"{k} seed={sd} rc={rc} :: {first}"
+    print(line); out.append(line)
+open(os.path.join(S, "c2_counter_results.txt"), "w").write("\n".join(out) + "\n")
+# named inputs through the public CLI (-I, scratch cwd, same env as counter)
+NAMED = {
+ "N1": {"response_cc":"max-age=600","freshness_lifetime":600,"current_age":900,"event":"error","error":100},
+ "N2": {"response_cc":"max-age=600","freshness_lifetime":600,"current_age":900,"event":"error","error":599},
+ "N3": {"response_cc":"max-age=600, stale-if-error=1200","freshness_lifetime":600,"current_age":900,"event":"error","error":"500"},
+ "N4": {"response_cc":"max-age=600, stale-while-revalidate=3\u00e9","freshness_lifetime":600,"current_age":615,"event":"request"},
+ "N5": {"response_cc":"max-age=600, stale-while-revalidate=30, foo=\"\u0100\"","freshness_lifetime":600,"current_age":615,"event":"request"},
+ "N6": {"response_cc":"stale-while-revalidate=99999999999","freshness_lifetime":0,"current_age":2147483648,"event":"request"},
+ "N7": {"response_cc":"max-age=600, stale-if-error=1200","request_cc":"stale-if-error=5, stale-if-error=60","freshness_lifetime":600,"current_age":640,"event":"error","error":500},
+ "N8": {"response_cc":"max-age=600, stale-if-error=300","freshness_lifetime":600,"current_age":900,"event":"error","error":504,"shared":True},
+}
+def cli(k, inp):
+    d = tempfile.mkdtemp(prefix="n", dir=W)
+    try:
+        p = subprocess.run([sys.executable, "-I", "-B", os.path.join(C, k + ".py")], input=json.dumps(inp).encode(),
+                           capture_output=True, cwd=d, timeout=10, env={"PATH": "/usr/bin:/bin", "LC_ALL": "C", "HOME": d})
+        return p.returncode, p.stdout.decode().strip(), p.stderr.decode().strip()[:60]
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+print("== named inputs via public CLI (rc, stdout, stderr-head) ==")
+for k in CANDS:
+    row = []
+    for n, inp in NAMED.items():
+        rc, o, e = cli(k, inp)
+        row.append(f"{n}:rc{rc}:{o if o else e}")
+    print(k, " | ".join(row))

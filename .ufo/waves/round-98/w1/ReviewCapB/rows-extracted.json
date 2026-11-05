@@ -1,0 +1,457 @@
+{
+ "added": [
+  [
+   195,
+   [
+    "Sources-registry (curated source registry)",
+    "Keeps a contract-v1 registry of opened, scope-tiered sources (with rejections and study paths) whose mined rows back knowledge entries and appended corrections; census commands verify its shape",
+    "`corpus/SOURCES.md`; census argv/output `.ufo/round-20/resume/sources-census.txt`; mined-row citation check in `corpus/lessons/round-20.md` §Round-20 resume",
+    "20 (resume)"
+   ]
+  ],
+  [
+   204,
+   [
+    "Publisher WCAG2.2 A/AA review preparation",
+    "Builds and validates an offline, source-bound review packet of 55 WCAG 2.2 A/AA cards for a publisher review; it checks packet structure only and every result keeps websiteConformance=not-assessed, so it never asserts a site's conformance",
+    "`scripts/accessibility_packet.py`; closure record in the fleet MANIFEST round-25 entry (S035 Gate quote re-checked)",
+    "25"
+   ]
+  ],
+  [
+   205,
+   [
+    "witness-class gate",
+    "Differential counter over a frozen observation set: each of 27 registered controls must be caught (witnessed) by one of ten frozen class modules G1-G10 that never read the control registry; met at witnessed=27/27 while a placebo scores 0/27",
+    "`.ufo/waves/round-44/c44_count_v5.py`; `corpus/lessons/round-44-verifier-spotcheck.md` (C1 section)",
+    "44"
+   ]
+  ],
+  [
+   206,
+   [
+    "offline static-host redirect/rewrite expectation audit",
+    "Reads a version-1 manifest of static-host redirect and rewrite rules, resources and checks and reports, read-only and network-free, every check whose decided outcome (status, target, rewrite) differs from its independently authored expectation",
+    "`scripts/redirect_audit.py`; `corpus/lessons/round-46-verifier-spotcheck.md` (closure re-ran the demonstration 11/11)",
+    "46"
+   ]
+  ],
+  [
+   207,
+   [
+    "Wave-evidence ledger",
+    "Re-derives a round's own seat accounting, route receipts and time accounting from committed bytes in one command (git show and git ls-tree only) and names the contract clause each check enforces",
+    "`.ufo/waves/round-51/c51_wave_ledger.py`; `corpus/lessons/round-51-verifier-spotcheck.md`",
+    "51"
+   ]
+  ],
+  [
+   208,
+   [
+    "LISTED-STEADY sitemap verdict with a selftest case",
+    "The freshness sweep's sitemapVerdict returns LISTED-STEADY when the sitemap answers 200 with the same byte count as its pin (LISTED-CHANGED otherwise), with a selftest case for it (sweep selftest 36/36 in round 52)",
+    "`scripts/freshness-sweep.mjs`; `corpus/lessons/round-52.md`; `corpus/lessons/round-52-verifier-spotcheck.md`",
+    "52"
+   ]
+  ],
+  [
+   209,
+   [
+    "red-before vacuity ladder",
+    "A mutant ladder that shows a gate is not vacuous: 13 of 18 mutant families are rejected by the round-52 wave-evidence ledger and accepted by the round-51 one, so the newer gate is measured stricter on the same inputs",
+    "`.ufo/waves/round-52/c52_wave_ledger.py`; `corpus/lessons/round-52-verifier-spotcheck.md`",
+    "52"
+   ]
+  ],
+  [
+   210,
+   [
+    "self-test modes with committed receipts",
+    "The round-52 gates run a --selftest mode whose committed receipts re-derive (wave-evidence ledger 19/19, quote-truth counter 18/18, gate registry 10/10), so each gate's own fixtures are checkable from committed bytes",
+    "`.ufo/waves/round-52/c52_wave_ledger.py`; `corpus/lessons/round-52-verifier-spotcheck.md`",
+    "52"
+   ]
+  ],
+  [
+   211,
+   [
+    "two gate registry rows in SKILL.md",
+    "SKILL.md carries registry rows for the wave-evidence-ledger and quote-truth-counter gates with their commands, exit semantics and pinned baseline revisions, so an agent can run both gates without oral context",
+    "`SKILL.md`; `corpus/lessons/round-52-verifier-spotcheck.md` (`registry_rows == 2` re-measured)",
+    "52"
+   ]
+  ],
+  [
+   212,
+   [
+    "Append-block quote-truth gate, article-bound",
+    "Checks, over committed bytes, that every quote in an appended registry block occurs in the retained article body it is bound to (mirror-pinned rows); green at its round-55 measured revision and red on later trees by design",
+    "`.ufo/waves/round-55/c55_quote_truth.py`; `corpus/lessons/round-55-verifier-spotcheck.md`",
+    "55"
+   ]
+  ],
+  [
+   213,
+   [
+    "Coverage-map index gate",
+    "Counts knowledge files under corpus/knowledge that the corpus/README.md coverage-map table does not name, from committed trees; the round-55 closure re-measured 21 unnamed files at base and 0 at the measured revision",
+    "`.ufo/waves/round-55/c55_readme_index.py`; `corpus/lessons/round-55-verifier-spotcheck.md`",
+    "55"
+   ]
+  ],
+  [
+   214,
+   [
+    "landed_check.py",
+    "Extracts every 7-40 hex-digit commit token cited in a report and checks it against the named branch's ancestry, skipping digest fragments, so a report cannot cite a commit that is not on the branch",
+    "`scripts/landed_check.py`; `corpus/lessons/round-56-verifier-spotcheck.md`",
+    "56"
+   ]
+  ],
+  [
+   215,
+   [
+    "selftest-tally-counter",
+    "Re-runs every registered instrument selftest from committed bytes and tallies passed against declared counts; green at its round-56 measured revision, red later only where the audited fixtures tree moved",
+    "`.ufo/waves/round-56/c56_selftally.py`; `corpus/lessons/round-56-verifier-spotcheck.md`",
+    "56"
+   ]
+  ],
+  [
+   216,
+   [
+    "yahoo-crawl-handling-quote-truth-counter",
+    "Checks that each quote of the Yahoo crawl-handling registry rows occurs in its retained source body over committed bytes, with 158 mirror-pinned rows; green at its round-56 measured revision only, red later by design",
+    "`.ufo/waves/round-56/c56_quote_truth.py`; `corpus/lessons/round-56-verifier-spotcheck.md`",
+    "56"
+   ]
+  ],
+  [
+   217,
+   [
+    "differential-tool-gate",
+    "Runs a reference implementation inside the gate against the id resolver tool over randomised fixtures and the real revisions and fails on any disagreement (gate conditions 5 of 5 met at round 57)",
+    "`.ufo/waves/round-57/c57_idresolver_gate.py`; `corpus/lessons/round-57-verifier-spotcheck.md`",
+    "57"
+   ]
+  ],
+  [
+   218,
+   [
+    "id_resolver.py",
+    "Resolves S-ids cited by lane files to registry rows across the lane and sibling registries, reporting dangling, ambiguous and resolved ids with fence, non-ASCII and quoted-path handling",
+    "`scripts/id_resolver.py`; `corpus/lessons/round-57-verifier-spotcheck.md` (C2 section)",
+    "57"
+   ]
+  ],
+  [
+   219,
+   [
+    "receipt-pin-counter",
+    "Counts round-57 after-receipts committed and pinned by the SCORECARD cell; green from the commit that landed the third receipt and red at the measured revision itself, as its registry row records",
+    "`.ufo/waves/round-57/c57_receipt_pins.py`; `corpus/lessons/round-57-verifier-spotcheck.md`",
+    "57"
+   ]
+  ],
+  [
+   220,
+   [
+    "baidu-quote-truth-counter",
+    "Checks that each quote of the Baidu dead-link registry rows occurs in its retained source body over committed bytes (158 mirror-pinned rows plus 2 adopted); green at its round-57 measured revision",
+    "`.ufo/waves/round-57/c57_quote_truth.py`; `corpus/lessons/round-58-verifier-spotcheck.md`",
+    "58"
+   ]
+  ],
+  [
+   221,
+   [
+    "receipt-rewrite-counter",
+    "Walks first-parent history over every file under every round's controls directory and fails on any receipt rewritten after commit that the round-58 ledger does not disclose",
+    "`.ufo/waves/round-58/c58_receipt_rewrites.py`; `corpus/lessons/round-58-verifier-spotcheck.md`",
+    "58"
+   ]
+  ],
+  [
+   222,
+   [
+    "resolver-cases-counter",
+    "Runs the id resolver at a revision against gate-built fixture lanes with per-run fixture ids (fences, non-ASCII paths, git-quoted paths, newline paths) and needs 14 of 14 cases to pass",
+    "`.ufo/waves/round-58/c58_resolver_cases.py`; `corpus/lessons/round-58-verifier-spotcheck.md`",
+    "58"
+   ]
+  ],
+  [
+   223,
+   [
+    "sidecar re-observation",
+    "Re-observes each path token in corpus/knowledge/freshness-sidecar.json with an os.stat three-way result (present, absent on ENOENT or ENOTDIR, unevaluable on any other OSError) and appends dated history without altering historical citations",
+    "`scripts/sidecar_reobserve.py`; `corpus/lessons/round-74-verifier-spotcheck.md`",
+    "74"
+   ]
+  ],
+  [
+   224,
+   [
+    "Registry instrument receipt binding",
+    "Binds every live gate-registry instrument to a committed receipt whose sha256, byte length and static --selftest registration re-derive from committed bytes at the measured revision (18 live instruments at round 75)",
+    "`scripts/instrument_receipts.py`; `corpus/lessons/round-75-verifier-spotcheck.md`",
+    "75"
+   ]
+  ],
+  [
+   225,
+   [
+    "Offline hreflang declaration audit",
+    "Reads a version-1 manifest of local HTML pages and reports missing or invalid hreflang tags, non-absolute alternate hrefs, duplicate pairs, extra x-default, missing self-reference and non-reciprocal targets, read-only and network-free",
+    "`scripts/hreflang_audit.py`; `corpus/lessons/round-76-verifier-spotcheck.md` (C2 section)",
+    "76"
+   ]
+  ],
+  [
+   226,
+   [
+    "Frozen container/format case matrix",
+    "A frozen matrix of 20 sitemap cases (gzip, text, RSS, Atom, sitemap index and an unsupported format), each with an expect.json, plus four constant controls, scored by the round-77 matrix instrument",
+    "`.ufo/waves/round-77/c77_sitemap_matrix.py`; `corpus/lessons/round-77-verifier-spotcheck.md` (C2 section)",
+    "77"
+   ]
+  ],
+  [
+   227,
+   [
+    "Sitemap container and format coverage",
+    "The offline sitemap audit also reads gzip, plain-text, RSS and Atom sitemaps and reports their finding families (gzip_invalid, text_line_not_url, text_url_not_absolute, text_empty, text_too_many_entries, feed_item_missing_link, format_unsupported)",
+    "`scripts/sitemap_audit.py`; `corpus/lessons/round-77-verifier-spotcheck.md` (C2 section)",
+    "77"
+   ]
+  ],
+  [
+   228,
+   [
+    "Offline page-level robots declaration audit",
+    "Reads a versioned manifest, parses each local HTML page and reports the declared effective robots meta rules plus the lane's finding list, read-only and network-free; bounded to the round-78 amended case table",
+    "`scripts/meta_robots_audit.py`; `corpus/lessons/round-78-verifier-spotcheck.md` (C3 section)",
+    "78"
+   ]
+  ],
+  [
+   229,
+   [
+    "Offline X-Robots-Tag declaration audit",
+    "Reads a version-1 manifest of recorded response header fields and URLs and decides, per check, the normalized global-scope directives and per-bot scoped directive lists with closed-vocabulary findings, read-only and network-free",
+    "`scripts/x_robots_tag_audit.py`; `corpus/lessons/round-79-verifier-spotcheck.md` (C2 section)",
+    "79"
+   ]
+  ],
+  [
+   230,
+   [
+    "Standing receipt-rewrite disclosure gate",
+    "Keeps the receipt-rewrite disclosure current as a standing gate: every rewritten receipt under any round's controls directory must have a ledger disclosure at the measured revision",
+    "`.ufo/waves/round-58/c58_receipt_rewrites.py`; `corpus/lessons/round-79-verifier-spotcheck.md` (C1 section)",
+    "79"
+   ]
+  ],
+  [
+   231,
+   [
+    "Receipt-ledger append guard",
+    "Checks that every governed receipt ledger keeps its base bytes as an exact prefix after an append, so a re-serialization that rewrites a prior byte fails",
+    "`scripts/ledger_append_guard.py`; `corpus/lessons/round-80-verifier-spotcheck.md`",
+    "80"
+   ]
+  ],
+  [
+   232,
+   [
+    "Routed-defect queue gate",
+    "Reads the previous round's routed-defect queue and reports each routed defect open or closed against committed evidence at a revision (a missing registry row, script or selftest receipt keeps it open); met when the queue closes",
+    "`.ufo/waves/round-80/c80_defect_queue.py`; `corpus/lessons/round-80-verifier-spotcheck.md` (C1 section)",
+    "80"
+   ]
+  ],
+  [
+   233,
+   [
+    "Survivor-mutant fixture harness",
+    "Builds three throwaway fixture repositories under the scratch root and isolates each surviving mutant of the ledger guard, passing only when all three are killed; the repositories are deleted before exit",
+    "`.ufo/waves/round-80/c80_ledger_fixtures.py`; `corpus/lessons/round-80-verifier-spotcheck.md`",
+    "80"
+   ]
+  ],
+  [
+   234,
+   [
+    "Capture-once / audit-offline re-derivation chain",
+    "Captures declared public surfaces once by GET (status, final URL, headers, body sha256 and bytes under an allowlist) and re-derives the offline header audit from the committed capture: receipt-to-body, declared-surface and audit-stdout equality",
+    "`scripts/header_audit.py`; `.ufo/waves/round-81/capture/manifest.json`; `corpus/lessons/round-81-verifier-spotcheck.md` (C2 section)",
+    "81"
+   ]
+  ],
+  [
+   235,
+   [
+    "Header-change classifier",
+    "Compares two dated capture trees of declared surfaces and classifies every changed response header by what the change means for the served representation, printing one stable line per surface plus a summary",
+    "`scripts/header_change_class.py`; `corpus/lessons/round-83-verifier-spotcheck.md`",
+    "83"
+   ]
+  ],
+  [
+   236,
+   [
+    "Offline ordered Referrer-Policy token decoder",
+    "Decodes an ordered stdin JSON list of Referrer-Policy field values to the effective policy (W3C Referrer Policy section 8.1, S458: each recognized nonempty token replaces its predecessor, unknown tokens do not reset it, case-sensitive); not publishing approval",
+    "`scripts/referrer_policy_effective.py`; `corpus/lessons/round-85-verifier-spotcheck.md`",
+    "85"
+   ]
+  ],
+  [
+   237,
+   [
+    "Conservative supplied-time current-age arithmetic",
+    "Computes RFC 9111 section 4.2.3 current age from supplied integer times (Date, Age, request and response times, now) with the six terms and conservative corrections; it is not a Date parser, clock or freshness-lifetime decision",
+    "`scripts/cache_current_age.py`; `corpus/lessons/round-87-verifier-spotcheck.md` (C2 section)",
+    "87"
+   ]
+  ],
+  [
+   238,
+   [
+    "Conservative Vary-match reader",
+    "Decides from a stored Vary value and stored versus presented request headers whether a stored response may be selected (RFC 9111 section 4.1), answering match or mismatch, or refusing malformed input",
+    "`scripts/vary_match.py`; `corpus/lessons/round-88-verifier-spotcheck.md` (C2 section)",
+    "88"
+   ]
+  ],
+  [
+   239,
+   [
+    "behavioural cache-key conformance gate",
+    "Scores a candidate cache-key constructor in a sandbox against the round-89 key contract with 92 clause-tagged hand cases, seeded generated cases and a refusal list; the advisory line is never scored",
+    "`scripts/cache_key_conformance.py`; `corpus/lessons/round-90-verifier-spotcheck.md`",
+    "90"
+   ]
+  ],
+  [
+   240,
+   [
+    "Conditional request evaluation",
+    "Decides 200, 304 or 412 for a conditional request and names the deciding precondition (If-Match, If-Unmodified-Since, If-None-Match, If-Modified-Since) over supplied method, representation and field values only",
+    "`scripts/conditional_eval.py`; `corpus/lessons/round-93-verifier-spotcheck.md`",
+    "93"
+   ]
+  ],
+  [
+   241,
+   [
+    "Coverage-index calibration counter",
+    "Counts mismatches between corpus/README.md Entry-table rows and committed corpus/knowledge/*.md entries (unindexed entries and dangling rows, each row needing the entry path, every source id and eight words)",
+    "`.ufo/waves/round-97/c97_index.py`; `corpus/lessons/round-97-verifier-spotcheck.md` (C1 section)",
+    "97"
+   ]
+  ],
+  [
+   242,
+   [
+    "Revalidation exchange, contract v1",
+    "Decides the revalidation exchange over supplied values: which validators to send, and after a reply whether to update the stored response (304), replace it, reuse it on a 5xx, or report cannot-revalidate; refuses malformed input",
+    "`scripts/reval_exchange.py`; `corpus/lessons/round-97-verifier-spotcheck.md` (C2 section)",
+    "97"
+   ]
+  ]
+ ],
+ "removed": [
+  [
+   195,
+   [
+    "Curated source registry",
+    "Keeps a contract-v1 registry of opened, scope-tiered sources (with rejections and study paths) whose mined rows back knowledge entries and appended corrections; census commands verify its shape",
+    "`corpus/SOURCES.md`; census argv/output `.ufo/round-20/resume/sources-census.txt`; mined-row citation check in `corpus/lessons/round-20.md` §Round-20 resume",
+    "20 (resume)"
+   ]
+  ],
+  [
+   199,
+   [
+    "Offline link-preview (Open Graph) audit",
+    "Reads a version-1 manifest of local HTML pages with absolute page URLs and reports, read-only and network-free, a missing one of the four Open Graph required properties (S067), more than one og:type (S068), a non-absolute og:url, and an og:url that differs from the first canonical link resolved against the page URL (clean / failed-policy / could-not-evaluate, exits 0/1/2/64); no rendered-DOM, image, X-card, tag-position or live-preview claim",
+    "`scripts/link_preview_audit.py`; `python3 -B .ufo/waves/round-34/c1_matrix_count.py --root . --revision 5613071e0107544d825e37db1e98f0bfcfb61465` → 28/28 with all four constant gates rejected (`.ufo/waves/round-34/verification/c1-at-5613071.json`; the declared measure, necessary but not sufficient), and at the wave-2 repair `76fac3b` (`c1-at-76fac3b.json`); evidence below was added after the declaration and does not count toward C1: committed selftest 29/29 (`scripts/link_preview_selftest.py`, `verification/selftest-link-preview-at-5613071-tool.txt`); real-input run over the 102 retained ds4cc pages agrees with the C2 recount (`verification/real-input-at-5613071.json`). The matrix score alone does not prove the capability: a lookup-table tool also scores 28/28 (`corpus/lessons/round-34.md` mistake row 4)",
+    "34"
+   ]
+  ],
+  [
+   200,
+   [
+    "Link-preview audit, round-35 contract",
+    "The same audit also reports more than one non-empty og:url (`og_url_multiple`), ignores meta and link tags inside an open `<template>`, `<svg>` or `<math>` element, and keeps auditing the readable pages when one page cannot be read (exit 2 with input and policy findings together)",
+    "`scripts/link_preview_audit.py` at `b1cbbc39`; sealed counter 24 of 24 (`.ufo/waves/round-35/verification/c1-at-b1cbbc39.json`, reveal `4c6be2bd`) against 14 of 24 at base and 7 of 24 for the lookup and constant controls; selftest 45/45 and round-34 matrix 28/28 at `b1cbbc39` (`verification/selftest-link-preview-at-b1cbbc39.txt`, `c1r34-matrix-at-b1cbbc39.json`)",
+    "35"
+   ]
+  ],
+  [
+   202,
+   [
+    "Offline robots.txt expectation audit",
+    "Reads a version-1 manifest of (robots status, local robots.txt, product token, URL, expected allow/disallow) and reports, read-only and network-free, each check whose decision under the round-37 contract's reading of RFC 9309 differs from the expectation (`blocked`, `exposed`; check and manifest faults; exits 0/1/2/64); no fetch, redirect, cache or crawler-specific claim",
+    "`scripts/robots_audit.py` at `9dbc88bb` (wildcard matcher repaired after measurement, see round-37 wave-2 corrections); sealed counter 28 of 28 (`.ufo/waves/round-37/verification/c1-keyrev-at-9dbc88bb.json`, reveal `424aa248`) against 0 at base, at most 4 for the do-nothing, junk, constant, all-false and no-reader controls, 20 for the stock `urllib.robotparser` and at most 24 for the 34 listed reference ablations; a stock-parser-plus-six-rule-patches control also scored 28 (disposition and its contest in the round-37 sections), so 28 of 28 does not separate the contract from that parser; selftest `scripts/robots_audit_selftest.py` does (127/134 on that control, 134/134 on the tool); live run over 12 robots.txt files (`.ufo/waves/round-37/realrun/audit.json`)",
+    "37 — **not admitted** (round-37 closure; \"Round 37 — closure correction\")"
+   ]
+  ],
+  [
+   206,
+   [
+    "Offline response-header expectation audit",
+    "Reads a version-1 manifest of recorded GET response headers and checks declared Content-Type, HSTS, XCTO nosniff, CSP, singleton-field and field-name-syntax expectations offline; capture and audit do not claim that any live property is clean or that the declared policy is universal",
+    "`scripts/response_snapshot.py`; `scripts/header_audit.py`; `python3 -B .ufo/waves/round-61/c61_header_cases.py --root . --revision d2da25de5fcd8d2384cee99b615cd53b083c5887 --seed 61` → `18/18 met=True` (`.ufo/waves/round-61/controls/after-c2-header-counter.txt`); audit of 12 recorded surfaces: 13 findings, exit 1 (`controls/after-c2-real-audit.txt`)",
+    "61"
+   ]
+  ],
+  [
+   207,
+   [
+    "Standalone retained-span quote classifier (round-64 re-entry)",
+    "Classifies a supplied quote against raw and flat-text bytes as raw-substring, collapsed-only or absent; membership classification only, never substantive support or source truth",
+    "`scripts/quote_class.py`; round-64 `c64_quote_tool.py` at measured `4c8295fa5e3b628f1fdf3840299ae415c01849fb`: real tool selftest 4/4 and counter-side rederive=agree; `controls/stub-c64.txt` rejects the canned stub that `controls/stub-c63-defect.txt` admits; all paths under `.ufo/waves/round-64/`",
+    "64 (tool first ran in 63; capability credit withheld then)"
+   ]
+  ]
+ ],
+ "moved": [
+  [
+   "r34 rejected-honest-stop",
+   "Offline link-preview (Open Graph) audit",
+   "Reads a version-1 manifest of local HTML pages with absolute page URLs and reports, read-only and network-free, a missing one of the four Open Graph required properties (S067), more than one og:type (S068), a non-absolute og:url, and an og:url that differs from the first canonical link resolved against the page URL (clean / failed-policy / could-not-evaluate, exits 0/1/2/64); no rendered-DOM, image, X-card, tag-position or live-preview claim",
+   "`scripts/link_preview_audit.py`; `python3 -B .ufo/waves/round-34/c1_matrix_count.py --root . --revision 5613071e0107544d825e37db1e98f0bfcfb61465` → 28/28 with all four constant gates rejected (`.ufo/waves/round-34/verification/c1-at-5613071.json`; the declared measure, necessary but not sufficient), and at the wave-2 repair `76fac3b` (`c1-at-76fac3b.json`); evidence below was added after the declaration and does not count toward C1: committed selftest 29/29 (`scripts/link_preview_selftest.py`, `verification/selftest-link-preview-at-5613071-tool.txt`); real-input run over the 102 retained ds4cc pages agrees with the C2 recount (`verification/real-input-at-5613071.json`). The matrix score alone does not prove the capability: a lookup-table tool also scores 28/28 (`corpus/lessons/round-34.md` mistake row 4)",
+   "34"
+  ],
+  [
+   "r35 rejected-honest-stop",
+   "Link-preview audit, round-35 contract",
+   "The same audit also reports more than one non-empty og:url (`og_url_multiple`), ignores meta and link tags inside an open `<template>`, `<svg>` or `<math>` element, and keeps auditing the readable pages when one page cannot be read (exit 2 with input and policy findings together)",
+   "`scripts/link_preview_audit.py` at `b1cbbc39`; sealed counter 24 of 24 (`.ufo/waves/round-35/verification/c1-at-b1cbbc39.json`, reveal `4c6be2bd`) against 14 of 24 at base and 7 of 24 for the lookup and constant controls; selftest 45/45 and round-34 matrix 28/28 at `b1cbbc39` (`verification/selftest-link-preview-at-b1cbbc39.txt`, `c1r34-matrix-at-b1cbbc39.json`)",
+   "35"
+  ],
+  [
+   "r37 no capability admitted (round-37 closure correction; the row already says not admitted)",
+   "Offline robots.txt expectation audit",
+   "Reads a version-1 manifest of (robots status, local robots.txt, product token, URL, expected allow/disallow) and reports, read-only and network-free, each check whose decision under the round-37 contract's reading of RFC 9309 differs from the expectation (`blocked`, `exposed`; check and manifest faults; exits 0/1/2/64); no fetch, redirect, cache or crawler-specific claim",
+   "`scripts/robots_audit.py` at `9dbc88bb` (wildcard matcher repaired after measurement, see round-37 wave-2 corrections); sealed counter 28 of 28 (`.ufo/waves/round-37/verification/c1-keyrev-at-9dbc88bb.json`, reveal `424aa248`) against 0 at base, at most 4 for the do-nothing, junk, constant, all-false and no-reader controls, 20 for the stock `urllib.robotparser` and at most 24 for the 34 listed reference ablations; a stock-parser-plus-six-rule-patches control also scored 28 (disposition and its contest in the round-37 sections), so 28 of 28 does not separate the contract from that parser; selftest `scripts/robots_audit_selftest.py` does (127/134 on that control, 134/134 on the tool); live run over 12 robots.txt files (`.ufo/waves/round-37/realrun/audit.json`)",
+   "37 — **not admitted** (round-37 closure; \"Round 37 — closure correction\")"
+  ],
+  [
+   "r61 rejected-harmed",
+   "Offline response-header expectation audit",
+   "Reads a version-1 manifest of recorded GET response headers and checks declared Content-Type, HSTS, XCTO nosniff, CSP, singleton-field and field-name-syntax expectations offline; capture and audit do not claim that any live property is clean or that the declared policy is universal",
+   "`scripts/response_snapshot.py`; `scripts/header_audit.py`; `python3 -B .ufo/waves/round-61/c61_header_cases.py --root . --revision d2da25de5fcd8d2384cee99b615cd53b083c5887 --seed 61` → `18/18 met=True` (`.ufo/waves/round-61/controls/after-c2-header-counter.txt`); audit of 12 recorded surfaces: 13 findings, exit 1 (`controls/after-c2-real-audit.txt`)",
+   "61"
+  ],
+  [
+   "r64 rejected-honest-stop",
+   "Standalone retained-span quote classifier (round-64 re-entry)",
+   "Classifies a supplied quote against raw and flat-text bytes as raw-substring, collapsed-only or absent; membership classification only, never substantive support or source truth",
+   "`scripts/quote_class.py`; round-64 `c64_quote_tool.py` at measured `4c8295fa5e3b628f1fdf3840299ae415c01849fb`: real tool selftest 4/4 and counter-side rederive=agree; `controls/stub-c64.txt` rejects the canned stub that `controls/stub-c63-defect.txt` admits; all paths under `.ufo/waves/round-64/`",
+   "64 (tool first ran in 63; capability credit withheld then)"
+  ]
+ ]
+}
