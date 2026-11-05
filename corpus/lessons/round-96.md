@@ -59,6 +59,18 @@ Candidates considered and their decisions.
   presence-pinned from the freeze, the E3 repair route is reachable, and
   the NG01/NG08/NG11 shapes are refused as class rules with the predecessor
   admitting all three (liveness).
+- **Capability-row entry for the revalidation exchange — rejected (this
+  round).** No frozen-counter pass exists (Mistake 1), and rows enter only
+  through a demonstrated pass in the round report; the tool lands
+  uncredited (the round-64 precedent: the tool first ran in round 63 and
+  credit was withheld until a counter pass). Flip: round 97's successor
+  counter reaching `met=true` on the landed candidate
+  `192b3bf7596abad8ef76a7a8262ecc29c0d565587153547ee61b5ee7566c7212`.
+- **merge/kake package adoption — rejected (this round).** The 8 id
+  collisions between the registry and `merge/kake/SOURCES.append.md` were
+  re-derived (below) but the scratch renumber map was never produced this
+  round, and no entry was re-grounded; adoption stays closed. Flip: a
+  scratch renumber map plus per-entry re-grounding under CORPUS.md rule 1.
 - **Assimilation: none.** The id-collision guard was re-derived this round
   (`w1/ExecReceipts/assimilation/{reg-ids,staged-ids,collisions}`: 217
   registry ids, 129 staged ids, 8 collisions — unchanged from rounds
@@ -114,7 +126,6 @@ Candidates considered and their decisions.
   did not amend that frozen instrument.
 
 Capability note: `scripts/reval_exchange.py` runs and is independently
-verified (ReviewReval 24/24, reference_agree 22/22 on dict cases), but the
-Capabilities row does not enter this round — no frozen-counter pass exists
-(Mistake 1), and rows enter only through a demonstrated pass in the round
-report. Round 97's successor counter scores the landed candidate.
+verified (ReviewReval 24/24, reference_agree 22/22 on dict cases); the
+Capabilities row stays out this round per the Gate's rejected entry above,
+and round 97's successor counter scores the landed candidate.
