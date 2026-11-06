@@ -1,52 +1,40 @@
 #!/usr/bin/env python3
-"""Round-99 C2 candidate: freshening stored responses upon a 304.
+"""Round-100 C2 candidate v2: freshening stored responses upon a 304.
 
-Independent implementation of contract v1
-(.ufo/waves/round-99/fresh304-contract.md, kake round 99), sourced on
-RFC 9111 (June 2022):
-
-* RFC 9111 section 4.3.4 "Freshening Stored Responses upon Validation" —
-  first-match selection of which stored responses a 304 freshens:
-  1. strong ETag: every stored response with that same strong ETag is
-     identified; none -> the cache MUST NOT update (decision
-     "must-not-update");
-  2. weak ETag and/or Last-Modified: the single most recent corresponding
-     stored response is identified; none -> "no-update";
-  3. no validator: the lone stored response iff it also lacks every
-     validator; otherwise "no-update".
-* RFC 9111 section 3.2 "Updating Stored Header Fields" — the update:
-  every 304 header field is added to the stored map, replacing a present
-  field of the same name, except fields excepted from storage by
-  section 3.1 and Content-Length (section 3.2 bullet 4).
-* RFC 9111 section 3.1 "Storing Header and Trailer Fields" — those
-  exceptions: Connection and the field names listed in it, fields whose
-  semantics require removal before forwarding, and the Proxy-* trio.
-  Section 3.1's qualified no-cache/private arguments ground the LC6
-  refusal.
-
-Lane conventions of the contract: LC1 Last-Modified is always treated as a
-weak validator (never deduced strong); LC2 a stored response corresponds
-when, for every validator the 304 carries, the stored response carries the
-same field and it matches (ETag by weak comparison: opaque tags equal
-ignoring W/; Last-Modified by trimmed equality), and the single
-corresponding response with the largest `received` is identified; LC3 a
-tie at that largest `received` is refused ("invalid_input: ambiguous most
-recent"); LC4 keep-alive, proxy-connection, te, transfer-encoding and
-upgrade are never copied; LC5 the section 3.2 dependence and
-automatically-processed exceptions and its MAY-omit allowance are not
-modelled, so no other field is excluded; LC6 a 304 whose Cache-Control
-value contains the qualified no-cache/private forms (`no-cache="` /
-`private="`, directive names compared case-insensitively per RFC 9111
-section 5.2) is refused as outside this contract.
-
-I/O contract: ONE JSON object on stdin -> ONE JSON object on stdout, exit
-0: {"decision": "update"|"must-not-update"|"no-update", "rule":
-"strong"|"weak"|"no-validator", "updated": [{"id", "headers"}, ...]} with
-lowercased header names and byte-for-byte values. Any refusal prints
-`invalid_input: <reason>` on stderr, leaves stdout empty and exits 1. It
-opens no file, socket or process in the decision path. `--selftest` runs
->=30 in-memory self-check cases and prints `selftest <ok>/<total>`, exit 0
-only when all pass.
+Independent implementation of contract v2
+(.ufo/waves/round-100/fresh304-contract-v2.md, kake round 100), amending
+contract v1 (.ufo/waves/round-99/fresh304-contract.md), sourced on:
+RFC 9111 section 4.3.4 (freshening stored responses upon validation),
+section 3.2 (updating stored header fields), section 3.1 (storing header
+fields, esp. bullet 4 MUST NOT store proxy-specific fields, bullet 3
+qualified no-cache/private), section 5.2 (Cache-Control grammar, either
+argument form, case-insensitive directive names), section 5.2.3 (ignore
+unrecognised directives); RFC 9110 section 5.5 (field values exclude
+surrounding whitespace), section 5.6.1.2 (list syntax, empty elements),
+section 5.6.4 (quoted-string) / 5.6.2 tokens.
+Lane conventions: LC1 Last-Modified always weak; LC2 correspondence for
+every validator the 304 carries (ETag weak comparison, Last-Modified
+trimmed equality), most-recent identified; LC3 tie at largest received
+refused; LC4 keep-alive/proxy-connection/te/transfer-encoding/upgrade
+never copied; LC5 no other exclusion; LC6 replaced by V2-1 (full
+Cache-Control parse, qualified no-cache/private in either argument form
+refused, malformed refused per LC8); LC8 fail-closed refusal of an
+unparseable list. V2-1: quoted-string commas do not split, whitespace
+only as OWS around commas and at ends, empty elements accepted.
+V2-2: output header values trimmed of leading/trailing SP/HTAB.
+V2-3: proxy-authenticate/proxy-authentication-info/proxy-authorization
+dropped when the stored response carries them, as well as from the 304.
+Clarifications e1-e7: update starts from all stored fields minus V2-3;
+malformed ETag in ANY stored response refused; Last-Modified trims SP+HTAB;
+refusal stdout empty; decision stdout one JSON object +- one newline;
+non-UTF-8/invalid JSON refused; age and other 304 fields copied; LC3
+applies whatever validators the 304 carries.
+I/O contract: stdin BYTES -> one JSON object on stdout + one newline,
+exit 0. Refusal: `invalid_input: <reason>` on stderr, zero bytes on
+stdout, exit 1. Every argv word other than `--selftest` is ignored.
+`--selftest` runs >=40 in-memory cases (every V2 clause and e1-e7) and
+prints `selftest <ok>/<total>`, exit 0 only when all pass. No file,
+socket or subprocess in the decision path. Stdlib only.
 """
 
 import json
@@ -83,6 +71,13 @@ _NEVER_COPY = frozenset((
     "proxy-authenticate",          # 3.1 bullet 4
     "proxy-authentication-info",   # 3.1 bullet 4
     "proxy-authorization",         # 3.1 bullet 4
+))
+
+# V2-3: proxy-specific fields also dropped from the stored base map.
+_PROXY_DROP = frozenset((
+    "proxy-authenticate",
+    "proxy-authentication-info",
+    "proxy-authorization",
 ))
 
 
@@ -138,8 +133,84 @@ def _connection_names(value):
             names.add(member.lower())
     return names
 
+_TCHAR = frozenset("!#$%&'*+-.^_`|~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
+_QDTEXT_OK = lambda ch: ch == "\t" or ch == " " or ("!" <= ch <= "[") or ("]" <= ch <= "~") or ("\x80" <= ch <= "\xff")
+_QP_OK = lambda ch: ch == "\t" or ch == " " or ("!" <= ch <= "~") or ("\x80" <= ch <= "\xff")
+
+
+def _parse_cache_control(value):
+    """V2-1: parse RFC 9111 5.2 list. Returns list of (name, has_arg).
+    Refuses malformed per LC8."""
+    n = len(value)
+    i = 0
+    def ows(i):
+        while i < n and value[i] in " \t":
+            i += 1
+        return i
+    i = ows(i)
+    directives = []
+    while True:
+        # skip empty elements: consecutive commas / leading comma
+        if i < n and value[i] == ",":
+            i += 1
+            i = ows(i)
+            continue
+        if i >= n:
+            break
+        # token name
+        start = i
+        while i < n and value[i] in _TCHAR:
+            i += 1
+        if i == start:
+            refuse("malformed cache-control")
+        name = value[start:i]
+        has_arg = False
+        if i < n and value[i] == "=":
+            has_arg = True
+            i += 1
+            if i < n and value[i] == '"':
+                i += 1
+                closed = False
+                while i < n:
+                    ch = value[i]
+                    if ch == '"':
+                        i += 1
+                        closed = True
+                        break
+                    if ch == "\\":
+                        if i + 1 >= n or not _QP_OK(value[i + 1]):
+                            refuse("malformed cache-control")
+                        i += 2
+                        continue
+                    if not _QDTEXT_OK(ch):
+                        refuse("malformed cache-control")
+                    i += 1
+                if not closed:
+                    refuse("malformed cache-control")
+            else:
+                start = i
+                while i < n and value[i] in _TCHAR:
+                    i += 1
+                if i == start:
+                    refuse("malformed cache-control")
+        directives.append((name, has_arg))
+        i = ows(i)
+        if i < n and value[i] == ",":
+            i += 1
+            i = ows(i)
+            continue
+        if i >= n:
+            break
+        refuse("malformed cache-control")
+    return directives
+
 
 def _validate(raw):
+    if isinstance(raw, bytes):
+        try:
+            raw = raw.decode("utf-8")
+        except UnicodeDecodeError:
+            refuse("input is not valid UTF-8")
     try:
         data = json.loads(raw)
     except ValueError:
@@ -156,10 +227,12 @@ def _validate(raw):
     if status != 304:
         refuse("status must be the integer 304, got " + repr(status))
     resp_headers = _check_headers(response["headers"], "response")
+    if "etag" in resp_headers:
+        _parse_etag(resp_headers["etag"], "304 ETag")
     if "cache-control" in resp_headers:
-        cc = resp_headers["cache-control"].lower()
-        if 'no-cache="' in cc or 'private="' in cc:
-            refuse("LC6: qualified no-cache/private Cache-Control in the 304")
+        for name, has_arg in _parse_cache_control(resp_headers["cache-control"]):
+            if has_arg and name.lower() in ("no-cache", "private"):
+                refuse("qualified cache-control outside contract")
     stored = []
     seen_ids = set()
     for index, element in enumerate(stored_raw):
@@ -235,10 +308,12 @@ def _update(stored, resp_headers, rule, identified):
         excluded |= _connection_names(resp_headers["connection"])
     updated = []
     for s in identified:
-        headers = dict(s["headers"])
+        # V2-3: drop proxy-specific fields from stored base (e1: all else kept)
+        headers = {k: v.strip(" \t") for k, v in s["headers"].items()
+                   if k not in _PROXY_DROP}
         for name, value in resp_headers.items():
             if name not in excluded:
-                headers[name] = value
+                headers[name] = value.strip(" \t")
         updated.append({"id": s["id"], "headers": headers})
     if updated:
         decision = "update"
@@ -292,11 +367,11 @@ def _selftest_cases():
          {"stored": [st("a", 1, {"etag": '"café"'})],
           "response": r304({"etag": '"café"'})},
          "out", out("update", "strong", [upd("a", {"etag": '"café"'})])))
-    add(("strong-trim-grammar-copy-raw-value",
+    add(("strong-trim-grammar-trimmed-output",
          {"stored": [st("a", 1, {"etag": '"v"', "x": "y"})],
           "response": r304({"etag": " \t\"v\"\t "})},
          "out", out("update", "strong",
-                    [upd("a", {"etag": " \t\"v\"\t ", "x": "y"})])))
+                    [upd("a", {"etag": '"v"', "x": "y"})])))
     add(("strong-rule-ignores-304-last-modified",
          {"stored": [st("a", 1, {"etag": '"v"',
                                  "last-modified": "Mon, 14 Nov 1994 08:00:00 GMT",
@@ -446,11 +521,11 @@ def _selftest_cases():
           "response": r304({"etag": 'W/"v"'})},
          "out", out("update", "weak",
                     [upd("a", {"etag": 'W/"v"', "x-keep": "k"})])))
-    add(("value-copied-byte-for-byte",
-         {"stored": [st("s", 1, {"a": "b"})],
+    add(("v2-2-values-trimmed",
+         {"stored": [st("s", 1, {"a": "  padded  ", "b": "\tpadded2\t"})],
           "response": r304({"x-pad": "  padded  "})},
          "out", out("update", "no-validator",
-                    [upd("s", {"a": "b", "x-pad": "  padded  "})])))
+                    [upd("s", {"a": "padded", "b": "padded2", "x-pad": "padded"})])))
     add(("lc6-no-cache-qualified-refused",
          {"stored": [st("a", 1, {"etag": '"v"'})],
           "response": r304({"etag": '"v"',
@@ -555,6 +630,99 @@ def _selftest_cases():
     add(("etag-astral-code-point",
          {"stored": [], "response": r304({"etag": '"\U0001F600"'})},
         "refuse", None))
+    add(("v2-1-token-form-qualified-refused",
+         {"stored": [st("a", 1, {"etag": '"v"'})],
+          "response": r304({"etag": '"v"', "cache-control": "private=abc"})},
+         "refuse", None))
+    add(("v2-1-token-form-no-cache-refused",
+         {"stored": [st("a", 1, {"etag": '"v"'})],
+          "response": r304({"etag": '"v"', "cache-control": "no-cache=1"})},
+         "refuse", None))
+    add(("v2-1-empty-quoted-qualified-refused",
+         {"stored": [st("a", 1, {"etag": '"v"'})],
+          "response": r304({"etag": '"v"', "cache-control": 'no-cache=""'})},
+         "refuse", None))
+    add(("v2-1-extension-ends-in-no-cache-ignored",
+         {"stored": [st("a", 1, {"etag": '"v"'})],
+          "response": r304({"etag": '"v"', "cache-control": 'x-no-cache="a"'})},
+         "out", out("update", "strong",
+                    [upd("a", {"etag": '"v"', "cache-control": 'x-no-cache="a"'})])))
+    add(("v2-1-extension-no-cachex-ignored",
+         {"stored": [st("a", 1, {"etag": '"v"'})],
+          "response": r304({"etag": '"v"', "cache-control": "no-cachex=1"})},
+         "out", out("update", "strong",
+                    [upd("a", {"etag": '"v"', "cache-control": "no-cachex=1"})])))
+    add(("v2-1-comma-in-quoted-not-split",
+         {"stored": [st("a", 1, {"etag": '"v"'})],
+          "response": r304({"etag": '"v"', "cache-control": 'max-stale="1,2", no-cache'})},
+         "out", out("update", "strong",
+                    [upd("a", {"etag": '"v"', "cache-control": 'max-stale="1,2", no-cache'})])))
+    add(("v2-1-empty-elements-accepted",
+         {"stored": [st("a", 1, {"etag": '"v"'})],
+          "response": r304({"etag": '"v"', "cache-control": ", max-age=1, ,"})},
+         "out", out("update", "strong",
+                    [upd("a", {"etag": '"v"', "cache-control": ", max-age=1, ,"})])))
+    add(("v2-1-malformed-space-around-eq-refused",
+         {"stored": [st("a", 1, {"etag": '"v"'})],
+          "response": r304({"etag": '"v"', "cache-control": "no-cache = 1"})},
+         "refuse", None))
+    add(("v2-1-malformed-bare-eq-refused",
+         {"stored": [st("a", 1, {"etag": '"v"'})],
+          "response": r304({"etag": '"v"', "cache-control": "max-age="})},
+         "refuse", None))
+    add(("v2-1-malformed-unterminated-quote-refused",
+         {"stored": [st("a", 1, {"etag": '"v"'})],
+          "response": r304({"etag": '"v"', "cache-control": 'max-age="60'})},
+         "refuse", None))
+    add(("v2-1-malformed-bad-chars-refused",
+         {"stored": [st("a", 1, {"etag": '"v"'})],
+          "response": r304({"etag": '"v"', "cache-control": "max-age=6(0)"})},
+         "refuse", None))
+    add(("v2-1-malformed-trailing-junk-refused",
+         {"stored": [st("a", 1, {"etag": '"v"'})],
+          "response": r304({"etag": '"v"', "cache-control": 'max-age="6"x'})},
+         "refuse", None))
+    add(("v2-1-caps-token-form-refused",
+         {"stored": [st("a", 1, {"etag": '"v"'})],
+          "response": r304({"etag": '"v"', "cache-control": "PRIVATE=abc"})},
+         "refuse", None))
+    add(("v2-1-ows-around-commas-ok",
+         {"stored": [st("a", 1, {"etag": '"v"'})],
+          "response": r304({"etag": '"v"', "cache-control": "\tmax-age=1\t,\tno-cache\t"})},
+         "out", out("update", "strong",
+                    [upd("a", {"etag": '"v"', "cache-control": "max-age=1\t,\tno-cache"})])))
+    add(("v2-3-stored-proxy-dropped",
+         {"stored": [st("a", 1, {"etag": '"v"', "proxy-authorization": "Basic z",
+                                  "proxy-authenticate": "Basic",
+                                  "proxy-authentication-info": "i",
+                                  "connection": "keep-alive",
+                                  "content-length": "99", "x": "1"})],
+          "response": r304({"etag": '"v"', "age": "10"})},
+         "out", out("update", "strong",
+                    [upd("a", {"etag": '"v"', "connection": "keep-alive",
+                               "content-length": "99", "x": "1", "age": "10"})])))
+    add(("e2-malformed-etag-unselected-stored-refused",
+         {"stored": [st("a", 1, {"etag": "bad"}), st("b", 2, {"etag": '"v"'})],
+          "response": r304({"etag": '"v"'})}, "refuse", None))
+    add(("e3-lm-tab-trim",
+         {"stored": [st("a", 1, {"last-modified": "\tL\t"})],
+          "response": r304({"last-modified": "L"})},
+         "out", out("update", "weak", [upd("a", {"last-modified": "L"})])))
+    add(("e5-non-utf8-refused", b"\xff\xfe", "refuse", None))
+    add(("e6-age-copied",
+         {"stored": [st("a", 1, {"etag": '"v"'})],
+          "response": r304({"etag": '"v"', "age": "42"})},
+         "out", out("update", "strong",
+                    [upd("a", {"etag": '"v"', "age": "42"})])))
+    add(("e7-lm-tie-refused",
+         {"stored": [st("p", 3, {"last-modified": "L"}),
+                     st("q", 3, {"last-modified": "L"})],
+          "response": r304({"last-modified": "L"})}, "refuse", None))
+    add(("e7-etag-plus-lm-tie-refused",
+         {"stored": [st("p", 3, {"etag": '"v"', "last-modified": "L"}),
+                     st("q", 3, {"etag": '"v"', "last-modified": "L"})],
+          "response": r304({"etag": 'W/"v"', "last-modified": "L"})},
+         "refuse", None))
     return cases
 
 
@@ -563,7 +731,7 @@ def _run_selftest():
     total = len(cases)
     failures = []
     for tag, payload, kind, expected in cases:
-        raw = payload if isinstance(payload, str) else json.dumps(payload)
+        raw = payload if isinstance(payload, (str, bytes)) else json.dumps(payload)
         try:
             result = process(raw)
         except Refusal:
@@ -586,14 +754,14 @@ def _run_selftest():
 def main(argv):
     if "--selftest" in argv:
         return _run_selftest()
+    raw = sys.stdin.buffer.read()
     try:
-        result = process(sys.stdin.read())
+        result = process(raw)
     except Refusal as refusal:
         sys.stderr.write("invalid_input: " + str(refusal) + "\n")
         return 1
     sys.stdout.write(json.dumps(result) + "\n")
     return 0
-
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv[1:]))
