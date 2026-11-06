@@ -1,0 +1,99 @@
+pgrep_control_sees_host_marker: True
+=== fixture control-honest met=True elapsed=0.1s
+tools=1 rows=1 listed=1 unlisted=0 dangling=0 duplicated=0 probe_mismatch=0 exec_fail=0 mismatches=0 met=true
+host_survivors: ''
+tree-file scripts/a.py size 123 sha256 82ab998052dc
+committed scripts/a.py sha256 82ab998052dc
+
+=== fixture control-noflag met=False elapsed=0.0s
+tools=1 rows=1 listed=1 unlisted=0 dangling=0 duplicated=0 probe_mismatch=1 exec_fail=0 mismatches=1 met=false
+probe_mismatch 3 scripts/a.py rc=64 codes=0,1
+host_survivors: ''
+tree-file scripts/a.py size 123 sha256 82ab998052dc
+committed scripts/a.py sha256 82ab998052dc
+
+=== fixture probeaware met=True elapsed=0.0s
+tools=1 rows=1 listed=1 unlisted=0 dangling=0 duplicated=0 probe_mismatch=0 exec_fail=0 mismatches=0 met=true
+host_survivors: ''
+tree-file scripts/a.py size 320 sha256 0d37fc8cba5b
+committed scripts/a.py sha256 0d37fc8cba5b
+
+=== fixture selfrewrite met=True elapsed=0.1s
+tools=1 rows=1 listed=1 unlisted=0 dangling=0 duplicated=0 probe_mismatch=0 exec_fail=0 mismatches=0 met=true
+host_survivors: ''
+tree-file scripts/a.py size 23 sha256 14c75fb904c5
+committed scripts/a.py sha256 06023d68fcd3
+
+=== fixture crossrow met=False elapsed=0.1s
+tools=2 rows=2 listed=2 unlisted=0 dangling=0 duplicated=0 probe_mismatch=1 exec_fail=0 mismatches=1 met=false
+probe_mismatch 3 scripts/a.py rc=64 codes=0,1
+host_survivors: ''
+tree-file scripts/a.py size 272 sha256 fcf25b408c6b
+tree-file scripts/crossrow_b.py size 23 sha256 14c75fb904c5
+committed scripts/a.py sha256 fcf25b408c6b
+
+=== fixture detect met=True elapsed=0.1s
+tools=1 rows=1 listed=1 unlisted=0 dangling=0 duplicated=0 probe_mismatch=0 exec_fail=0 mismatches=0 met=true
+host_survivors: ''
+tree-file scripts/a.py size 250 sha256 bba20cc530ae
+committed scripts/a.py sha256 bba20cc530ae
+
+=== fixture evidence met=False elapsed=0.1s
+tools=1 rows=1 listed=1 unlisted=0 dangling=0 duplicated=0 probe_mismatch=1 exec_fail=0 mismatches=1 met=false
+probe_mismatch 3 scripts/a.py rc=64 codes=0,1
+host_survivors: ''
+evidence.txt: {
+ "cwd": "/fast/scratch/hyaku/kake-r100/SentinelScope/rg/w-evidence/tree",
+ "pid": 2,
+ "pid1": "bwrap\u0000--unshare-all\u0000--die-with-parent\u0000--new-session\u0000--ro-bind\u0000/usr\u0000/usr\u0000--symlink\u0000usr/lib\u0000/lib\u0000--symlink\u0000usr/lib64\u0000/lib6",
+ "tcp_host_loopback_18766": "ConnectionRefusedError:111",
+ "unix_abstract_host": "ConnectionRefusedError:111",
+ "tcp_1.1.1.1_53": "OSError:101",
+ "write_host_abs_path": "WROTE",
+ "write_inside_work_parent": "WROTE",
+ "write_two_up": "WROTE",
+ "listdir_two_up": [
+  "escape-abs.txt",
+  "escape-up2.txt",
+  "w-evidence"
+ ],
+ "listdir_fast": [
+  "scratch"
+ ],
+ "listdir_root": [
+  "bin",
+  "dev",
+  "etc",
+  "fast",
+  "lib",
+  "lib64",
+  "proc",
+  "tmp",
+  "usr"
+ ]
+}
+tree-file scripts/a.py size 1488 sha256 c5f26c1c0c1b
+committed scripts/a.py sha256 c5f26c1c0c1b
+
+=== fixture outlive met=False elapsed=0.1s
+tools=1 rows=1 listed=1 unlisted=0 dangling=0 duplicated=0 probe_mismatch=1 exec_fail=0 mismatches=1 met=false
+probe_mismatch 3 scripts/a.py rc=64 codes=0,1
+host_survivors: ''
+tree-file scripts/a.py size 470 sha256 be4cb8f2d51e
+committed scripts/a.py sha256 be4cb8f2d51e
+
+=== fixture disk met=False elapsed=0.7s
+tools=1 rows=1 listed=1 unlisted=0 dangling=0 duplicated=0 probe_mismatch=1 exec_fail=0 mismatches=1 met=false
+probe_mismatch 3 scripts/a.py rc=64 codes=0,1
+host_survivors: ''
+tree-file scripts/a.py size 379 sha256 c6213a9cf7d3
+tree-file bigfile.bin size 268435456 sha256 ad7facb2586f
+committed scripts/a.py sha256 c6213a9cf7d3
+
+=== fixture fail-open met=False elapsed=0.0s
+tools=1 rows=1 listed=1 unlisted=0 dangling=0 duplicated=0 probe_mismatch=1 exec_fail=0 mismatches=1 met=false
+probe_mismatch 3 scripts/crossrow_b.py rc=64 codes=0,1
+host_survivors: ''
+tree-file scripts/crossrow_b.py size 131 sha256 ccff87e59e5c
+committed scripts/a.py sha256 absent
+

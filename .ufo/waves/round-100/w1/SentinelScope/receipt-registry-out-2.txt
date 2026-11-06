@@ -1,0 +1,18 @@
+pgrep_control_sees_host_marker: False
+=== fixture crossrow-clean met=True elapsed=0.1s
+tools=2 rows=2 listed=2 unlisted=0 dangling=0 duplicated=0 probe_mismatch=0 exec_fail=0 mismatches=0 met=true
+host_survivors: '841639 pgrep -fa r100-sentinel'
+killed_survivors(marker-only)
+tree-file scripts/a.py size 272 sha256 fcf25b408c6b
+tree-file scripts/crossrow_b.py size 23 sha256 14c75fb904c5
+committed scripts/a.py sha256 fcf25b408c6b
+
+=== fixture symlink met=True elapsed=0.0s
+tools=1 rows=1 listed=1 unlisted=0 dangling=0 duplicated=0 probe_mismatch=0 exec_fail=0 mismatches=0 met=true
+host_survivors: ''
+tree-file scripts/a.py size 443 sha256 e9f35e7dc752
+tree-symlink planted-link-dir -> /fast/scratch/hyaku/kake-r100/SentinelScope/rg/victim-dir
+tree-symlink planted-link-file -> /fast/scratch/hyaku/kake-r100/SentinelScope/rg/victim-dir/victim.txt
+committed scripts/a.py sha256 e9f35e7dc752
+after counter-style rmtree(work): victim.txt exists = True victim-dir exists = True
+

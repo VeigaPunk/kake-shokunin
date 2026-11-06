@@ -1,0 +1,84 @@
+# ReviewDeterminism — kake round 100 w1 — counter determinism at the round base
+
+Date: 2026-11-05. Lane tip (master): e84a18714b6be7fd2456a2dcc5f28c0cb0ab981f.
+Scored revision (round base): 3989618d9f8310b2eb5fb456aa7c4e58fb0b5ff5.
+Instruments commit: d7b73d161173710d04efc5f66784779bce5746ff.
+Host: linux 7.2.11-arch1-1 x64, python3 3.14.8, bwrap 0.13.1 (bubblewrap). No tool installed or
+upgraded for this seat; pacman untouched; no host config mutated.
+
+## Hypothesis (falsifiable)
+Both frozen counters are deterministic on committed bytes: re-running them at the same revision
+gives byte-identical receipts (stdout bytes and exit code), matched against the pre-freeze control
+receipts `controls/base-c1.txt` / `controls/base-c2.txt` with their `$` command line and `exit=`
+trailer stripped.
+
+## Pre-checks (observed)
+- `git -C LANE rev-parse master` → e84a18714b6be7fd2456a2dcc5f28c0cb0ab981f; `rev-parse --verify`
+  accepted 3989618d…, 69cdc1eb…, e84a1871… (observed rc=0).
+- All 20 digests in `controls/instrument-sha256.txt` match BOTH the working tree files AND
+  `git show d7b73d16:.ufo/waves/round-100/<path> | sha256sum` (loop over the manifest; observed
+  echo "ALL-20-DIGESTS-MATCH working-tree-and-d7b73d16", no MISMATCH lines).
+- `git diff --stat d7b73d16..master -- .ufo/waves/round-100/` → 30 files, 715 insertions,
+  0 deletions: post-instruments changes to round-100 are additive (freeze.md, controls/, spec);
+  both counter scripts are byte-identical to the instruments commit.
+
+## Commands run (each with observed rc; TMPDIR=/fast/scratch/hyaku/kake-r100/ReviewDeterminism/tmp)
+C = /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-100
+L = /home/vgpnk/Projects/shokunin/kake-shokunin
+A = /fast/scratch/hyaku/kake-r100/ReviewDeterminism
+
+registry r1: rc=1 — python3 -B $C/c100_registry.py --root $L --revision 3989618d… --work $A/a
+registry r2: rc=1 — same command, same --work
+registry r3: rc=1 — same command, same --work
+fresh304 f1: rc=1 — python3 -B $C/c100_fresh304.py --root $L --revision 3989618d… --work $A/b
+fresh304 f2: rc=1 — same command, same --work
+fresh304 f3: rc=1 — same command, same --work
+seeded s1:   rc=1 — python3 -B $C/c100_fresh304.py --root $L --revision 3989618d… --work $A/seed --seed 1
+seeded s2:   rc=1 — same command, same --work
+
+All eight runs: stderr 0 bytes (wc -c over a/*.err, b/*.err, seed/*.err). The three registry runs
+executed concurrently (independent processes); fresh304 runs also concurrent. Expected exit at the
+base revision is 1 for both counters (`met=false` in both controls) — observed rc=1 on every run.
+
+## Diffs (cmp/diff over control-minus-`$`/exit lines)
+- base-c1.stripped sha256 f93da0853d542f4887459f556833964ebc8edf551c0b5243c0eb0a48ae74628c
+- base-c2.stripped sha256 794dc26df2fa7f2f50b4f375f030bc8d7bcd17f75b19bd93149a255e5faed10f
+- cmp base-c1.stripped a/run{1,2,3}.out → IDENTICAL (3/3; diff output empty)
+- cmp base-c2.stripped b/run{1,2,3}.out → IDENTICAL (3/3; diff output empty)
+- run-to-run: a1==a2, a2==a3, a1==a3 (cmp rc=0); b1==b2, b2==b3, b1==b3 (cmp rc=0)
+- seeded pair: cmp seed/run1.out seed/run2.out → identical (cmp rc=0); both rc=1
+- digest confirmation (receipts.sha256 in this directory): a-run{1,2,3}.out all f93da085…;
+  b-run{1,2,3}.out all 794dc26d…; seed{1,2}.out both 9c0e1eadc34427528de26ed5a04d194e7fd15ea06a08b119d090893f947055a9
+
+## Seeded-run observation (expected divergence, not a defect)
+seed=1 line: `revision=3989618d… candidate=present sha256=db3a0f12b91a5a54409ebafcf800204011385a523ff4da9b897b71dd7c0c1d4f
+hand=72/91 generated=225/300 refusals=85/132 seed=1 met=false`
+The default-seed control prints seed=965304717 (= int("3989618d",16)) with generated=224/300,
+refusals=82/131. A different seed changes which generated cases are drawn, so the seeded receipt
+correctly differs from base-c2.txt while being byte-stable across its own two runs.
+
+## Scoped findings
+1. No non-determinism found: 3/3 registry and 3/3 fresh304 repeats are byte-identical to the
+   committed pre-freeze control receipts (minus `$`/exit lines) and to each other; exit codes
+   reproduce (1 = base `met=false`).
+2. No instrument defect found: all 20 frozen digests match working tree and instruments commit;
+   post-instrument round-100 changes are additive only.
+3. No repairs made anywhere; instruments and work untouched; writes confined to
+   w1/ReviewDeterminism/ and this seat's scratch.
+
+## Residual risk / verification gaps (route, not repair)
+- Claim is scoped to this host/runtime (python3 3.14.8, bwrap 0.13.1, one kernel) and to the base
+  revision. Cross-python or cross-host reproducibility was not tested.
+- Receipt = stdout bytes + exit code. The counters self-clean their per-run scratch subdirs
+  (shutil.rmtree in both scripts), so no leftover work-tree state was digest-compared across runs.
+- The three registry runs ran concurrently; concurrency equals the serially produced control
+  byte-for-byte, which strengthens rather than weakens the claim, but a strict serial triple was
+  not separately executed.
+- Two-order extra observation, not part of the frozen item: the seeded pair used the same --work
+  dir as each other and the b group a different one; work-dir reuse caused no artifact.
+
+## Receipts copied here (flat, verified by receipts.sha256)
+a-run{1,2,3}.{out,err,rc}, b-run{1,2,3}.{out,rc}, seed{1,2}.{out,rc}, base-c1.stripped,
+base-c2.stripped, receipts.sha256.
+
+DETERMINISM registry_identical=3/3 fresh304_identical=3/3 seeded_identical=true hypothesis=held

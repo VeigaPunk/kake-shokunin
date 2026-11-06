@@ -1,0 +1,25 @@
+ReviewRegA receipts — commands and observed results (scratch cleaned after copying)
+
+1. Instruments (frozen digests): sha256 of .ufo/waves/round-100/{c100_registry.py,c100_fresh304.py,
+   fresh304-contract-v2.md,controls.sh,c1_repair_fixture.py,build_frozen.py} and frozen/*.py — all 21
+   matched controls/instrument-sha256.txt. Counter bytes also identical at d7b73d16 via git show|sha256sum.
+2. Lane tip: git rev-parse master -> e84a18714b6be7fd2456a2dcc5f28c0cb0ab981f (repair commit).
+   Worktree SKILL.md sha256 397b6dec… == e84a1871:SKILL.md (byte-identical, 1771 lines).
+3. Unknown-flag probes (cwd=lane, stdin=/dev/null): python3 -B scripts/<tool>.py --zz-bogus-r100
+   cache_key rc=1 | cache_key_conformance rc=2 | live_snapshot rc=64 | response_snapshot rc=64 |
+   robots_audit rc=64 | source_snapshot rc=2 | x_robots_tag_audit rc=64
+4. cache_key behaviour: empty stdin rc=1 "invalid_input: input is not valid JSON" (stderr); bad shapes
+   rc=1 "invalid_input: …"; valid payload rc=0 stdout {"key": …}.
+5. python3 -B scripts/cache_key_conformance.py --candidate scripts/cache_key.py --work <scratch> --seed 7
+   -> rc=0; "cache_key_conformance advisory=2/4 outside-contract-gaps=nul-in-value,dup-json-member";
+   "clauses=6/6 hand=92/92 generated=120/120 sandbox=ok seed=7 met=true"; scratch dir empty after run.
+6. python3 -B scripts/x_robots_tag_audit.py --selftest -> rc=0; stdout exactly "selftest: 33/33 passed".
+7. python3 -B scripts/robots_audit_selftest.py -> rc=0; "cases": 204, "failed": 0, "passedOverTotal":
+   "204/204", "verdict": "clean".
+8. source_snapshot recording fault: printf '[{"id":"","url":"https://x.example/","quote":"q"}]' > in.json;
+   python3 -B scripts/source_snapshot.py --input in.json --manifest /proc/no-such-root/xyz/manifest.json
+   --out-dir <scratch>/out -> rc=1, traceback at source_snapshot.py:281 mkdir (unhandled). NOT 2.
+9. History block verbatim: awk-extracted 7 fenced rows (SKILL.md:1756-1771 fence) vs git show
+   3989618d9f8310b2eb5fb456aa7c4e58fb0b5ff5:SKILL.md lines 494,1079,1104,1370,1505,1621,1624 ->
+   cmp IDENTICAL 7/7; 7 "current row Name" labels match row Name cells at SKILL.md
+   1512/1707/1708/1718/1721/1723/1729; duplicated set equals controls/base-c1.txt duplicated=7 lines.

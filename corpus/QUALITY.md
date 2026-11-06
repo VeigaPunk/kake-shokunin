@@ -1882,3 +1882,19 @@ committed this round).
   content check — and is cited, never ported
   (`chousa-shokunin/corpus/QUALITY.md:1054` at the sibling's current HEAD;
   `corpus/lessons/round-96.md` Mistakes; R95-3).
+
+## Round 100 — executing probes that a scored tree cannot steer
+
+- **R100-A. A counter that executes committed tools to check a self-assessment row (a registry
+  verdict map, a self-test span) chooses its probe argument per run and never commits it, runs
+  every row on its own read-only copy of the committed tree with the instrument sources excluded,
+  and exits could-not-evaluate when the sandbox itself fails; a sandbox-originated exit code is
+  never read as the tool's exit code.** Grounded by round 100's frozen `c100_registry.py`
+  (`.ufo/waves/round-100/c100_registry.py`): its fixed `--zz-bogus-r100` probe, one read-write
+  extraction shared by all rows, and no `sandbox_ok()` gate let a hostile committed tree reach
+  `met=true` (SentinelScope R1/R2/R3/R4/R12, `w1/SentinelScope/poc-registry-*.out.txt`; CriticClaims
+  A5, `w1/CriticClaims/receipt-c1-a5.txt`). Shown able to fail: each of those receipts is the red
+  state — `met=True` printed for a tree whose committed tool returns an unmapped code — and the
+  honest controls beside them print `met=False`. The round-100 C1 verdict stands on its frozen
+  predicate plus the held-out scan (`controls/post-freeze-heldout-c1-gaming-scan.txt`); a successor
+  freeze meets R100-A before it scores.

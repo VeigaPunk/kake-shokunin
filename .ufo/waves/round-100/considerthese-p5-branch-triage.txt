@@ -1,0 +1,68 @@
+# considerthese/2026-11-05.md proposal 5 — branch triage with diffs (read-only git, attempt 2, 2026-11-06)
+## origin/cloud-reviewed-export-20261103 = d3d744c91abefd4e94801fd971f34ae0b70bfc41
+$ git merge-base master d3d744c91abefd4e94801fd971f34ae0b70bfc41
+rc=1
+$ git rev-list --count master..d3d744c91abefd4e94801fd971f34ae0b70bfc41
+9
+## origin/considerthese-curation-20261103 = 0ed317e4fb23cbedf645442434c2b23af6b783da
+$ git merge-base master 0ed317e4fb23cbedf645442434c2b23af6b783da
+dbcfef0b80868dc3f677ccf2caa51110094e6d26
+rc=0
+$ git rev-list --count master..0ed317e4fb23cbedf645442434c2b23af6b783da
+5
+$ git diff --stat $(git merge-base master 0ed317e4fb23cbedf645442434c2b23af6b783da) 0ed317e4fb23cbedf645442434c2b23af6b783da
+ considerthese/2026-11-03-curated-sources-02.md | 33 ++++++++++++++++++++++++++
+ considerthese/2026-11-03-curated-sources-03.md | 19 +++++++++++++++
+ considerthese/2026-11-03-curated-sources-04.md | 17 +++++++++++++
+ considerthese/2026-11-03-curated-sources-05.md | 22 +++++++++++++++++
+ considerthese/2026-11-03-curated-sources.md    | 27 +++++++++++++++++++++
+ 5 files changed, 118 insertions(+)
+$ for each added path: present on master?
+considerthese/2026-11-03-curated-sources-02.md absent-on-master
+considerthese/2026-11-03-curated-sources-03.md absent-on-master
+considerthese/2026-11-03-curated-sources-04.md absent-on-master
+considerthese/2026-11-03-curated-sources-05.md absent-on-master
+considerthese/2026-11-03-curated-sources.md absent-on-master
+$ grep -c '^| *S[0-9]' or URL lines per added file
+considerthese/2026-11-03-curated-sources-02.md urls=3
+considerthese/2026-11-03-curated-sources-03.md urls=2
+considerthese/2026-11-03-curated-sources-04.md urls=1
+considerthese/2026-11-03-curated-sources-05.md urls=2
+considerthese/2026-11-03-curated-sources.md urls=6
+$ git ls-tree -r --name-only d3d744c91abefd4e94801fd971f34ae0b70bfc41 | wc -l ; corpus/lessons files
+32
+2
+$ lessons on export branch absent from master
+$ export-branch paths absent from master (unrelated history, merge-base rc=1)
+     29 absent corpus/knowledge/cloud-20261103/discover-large-image-preview-evidence.md
+      3 same-path-on-master corpus/lessons/round-69.md
+absent .ufo/waves/round-69/report.md
+absent .ufo/waves/round-69/sources/receipts.json
+absent .ufo/waves/round-70/author/decision-memo.md
+absent .ufo/waves/round-70/author/declaration.md
+absent .ufo/waves/round-70/author/source-receipt.json
+absent .ufo/waves/round-70/noharm/byte-noharm.json
+absent .ufo/waves/round-70/noharm/c66-noharm.json
+absent .ufo/waves/round-70/noharm/novelty-before.txt
+absent .ufo/waves/round-70/report.md
+absent .ufo/waves/round-70/review/first-response-review.md
+absent .ufo/waves/round-70/review/prospective.md
+absent .ufo/waves/round-70/review/terminal.md
+absent .ufo/waves/round-70/sources/ATTRIBUTION.json
+absent OMISSIONS-011.md
+absent PROVENANCE-011.json
+absent PUBLICATION-011.md
+absent corpus/knowledge/cloud-20261103/discover-large-image-preview-evidence.md
+absent corpus/knowledge/cloud-20261103/interactsh-pages-ownership.md
+absent corpus/knowledge/cloud-20261103/mx-video-discovery-evidence.md
+absent corpus/knowledge/cloud-20261103/ndtv-performance-evidence.md
+absent corpus/knowledge/cloud-20261103/pages-deployment-delay-incident.md
+absent corpus/knowledge/cloud-20261103/saramin-search-evidence.md
+absent corpus/knowledge/cloud-20261103/search-index-recovery-report-lag.md
+absent corpus/knowledge/cloud-20261103/stale-revalidate-ad-script-experiment.md
+absent corpus/knowledge/google-noindex-evidence-boundaries.md
+absent corpus/knowledge/hreflang-reciprocal-evidence.md
+absent reports/round-69/independent-review/author-source-binding.json
+absent reports/round-69/independent-review/v1-counter-review.md
+absent reports/round-70.md
+summary: considerthese-curation adds 5 considerthese/ files (14 URLs) absent on master; cloud-reviewed-export is unrelated history whose corpus/knowledge/cloud-20261103/ entries are absent on master — unreviewed by this lane, not adopted; neither branch overlaps master corpus/SOURCES.md.

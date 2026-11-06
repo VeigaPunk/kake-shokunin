@@ -1,0 +1,4 @@
+$ git grep -n -e 'zz-bogus' -e 'getpid' e84a18714b6be7fd2456a2dcc5f28c0cb0ab981f -- scripts/   (SentinelScope R1/R2 probe-token and pid-detection patterns in committed tools at the C1 repair commit; rc=1 = no match; reported, not scored)
+rc=1
+$ git diff --stat 3989618d9f8310b2eb5fb456aa7c4e58fb0b5ff5 e84a18714b6be7fd2456a2dcc5f28c0cb0ab981f -- scripts/  (repair changed no tool)
+rc=0

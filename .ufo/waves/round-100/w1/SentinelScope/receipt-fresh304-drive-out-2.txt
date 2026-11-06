@@ -1,0 +1,19 @@
+sandbox_ok= True
+== probe p_tmpfs.py rc=0 elapsed=0.04s
+tmp_total_bytes 16241557504 tmp_free_bytes 15973122048 wrote 268435456
+
+host_survivors: '841450 /usr/bin/python3 -c import time;time.sleep(59) r100-sentinel-hostctl'
+killed_survivors(marker-only)
+== probe p_tmp2g.py rc=0 elapsed=0.25s
+tmp_total_bytes 16241557504 tmp_free_bytes 14094073856 wrote 2147483648
+
+host_survivors: ''
+== probe p_fork.py rc=0 elapsed=2.02s
+forked 200
+
+host_survivors: ''
+== probe p_cross.py rc=0 elapsed=0.01s
+tmp_before [] shm_before []
+tmp_after ['r100_marker']
+
+host_survivors: ''

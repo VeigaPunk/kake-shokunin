@@ -1,0 +1,333 @@
+#!/usr/bin/env python3
+"""ExecTwinFresh twin: independent implementation of C2 contract v2.
+
+Sole behavioural source: .ufo/waves/round-100/fresh304-contract-v2.md
+(superseding .ufo/waves/round-99/fresh304-contract.md) with the retained
+RFC 9111 / RFC 9110 bodies as background. c100_fresh304.py, frozen/*.py
+(other than as a black-box peer), and the counter's generator were not
+consulted for behaviour.
+
+I/O per contract: ONE JSON object on stdin (bytes) -> ONE JSON object on
+stdout, exit 0; refusal -> "invalid_input: <reason>" on stderr, empty
+stdout, exit 1. No file/socket/process use beyond stdio.
+"""
+import json
+import re
+import sys
+
+# RFC 9110 §5.6.2 tchar (ASCII only)
+TCHAR = frozenset("!#$%&'*+-.^_`|~"
+                  "0123456789"
+                  "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                  "abcdefghijklmnopqrstuvwxyz")
+
+# ETag after SP/HTAB trim: optional W/, a quote, opaque = zero or more of
+# `!` (0x21), `#`-`~` (0x23-0x7e), obs-text (0x80-0xff code points), then
+# a closing quote.
+ETAG_RE = re.compile('^(?:W/)?"([\\x21\\x23-\\x7e\\x80-\\xff]*)"$')
+
+SP_TAB = " \t"
+
+# §3.2 bullet 4 + §3.1 bullets 1/2/4 (LC4 is the lane's fixed reading).
+NEVER_COPIED_304 = frozenset([
+    "content-length",
+    "connection",
+    "keep-alive", "proxy-connection", "te", "transfer-encoding", "upgrade",
+    "proxy-authenticate", "proxy-authentication-info", "proxy-authorization",
+])
+
+# V2-3: additionally dropped from the stored response.
+PROXY_FIELDS = frozenset([
+    "proxy-authenticate", "proxy-authentication-info", "proxy-authorization",
+])
+
+
+def refuse(reason):
+    sys.stderr.write("invalid_input: %s\n" % reason)
+    raise SystemExit(1)
+
+
+def is_token(name):
+    return bool(name) and all(ord(c) < 128 and c in TCHAR for c in name)
+
+
+def trim(value):
+    return value.strip(SP_TAB)
+
+
+def parse_etag(value):
+    """Return (is_weak, opaque) or None when malformed. Contract: trim first."""
+    stripped = trim(value)
+    m = ETAG_RE.match(stripped)
+    if m is None:
+        return None
+    return (stripped.startswith("W/"), m.group(1))
+
+
+def get_ci(headers, lname):
+    for name, value in headers.items():
+        if name.lower() == lname:
+            return value
+    return None
+
+
+def validate_header_map(headers, where):
+    if not isinstance(headers, dict):
+        refuse("%s headers: not an object" % where)
+    seen = set()
+    for name, value in headers.items():
+        if not is_token(name):
+            refuse("%s headers: invalid header name" % where)
+        lname = name.lower()
+        if lname in seen:
+            refuse("%s headers: case-duplicate header name" % where)
+        seen.add(lname)
+        if not isinstance(value, str):
+            refuse("%s headers: non-string value" % where)
+        if "\r" in value or "\n" in value or "\x00" in value:
+            refuse("%s headers: CR/LF/NUL in value" % where)
+
+
+# ---- V2-1: Cache-Control list ----
+
+def _is_qdtext(cp):
+    # RFC 9110 §5.6.4 qdtext = HTAB / SP / %x21 / %x23-5B / %x5D-7E / obs-text
+    return (cp == 0x09 or cp == 0x20 or cp == 0x21
+            or 0x23 <= cp <= 0x5B or 0x5D <= cp <= 0x7E
+            or 0x80 <= cp <= 0xFF)
+
+
+def _is_qp_next(cp):
+    # quoted-pair = "\" ( HTAB / SP / VCHAR / obs-text ); VCHAR = %x21-7E
+    return (cp == 0x09 or cp == 0x20 or 0x21 <= cp <= 0x7E
+            or 0x80 <= cp <= 0xFF)
+
+
+def parse_cache_control(value):
+    """Parse value as #cache-directive with recipient list syntax.
+
+    Returns (directives, ok) where directives is a list of
+    (lowercase_name, has_argument) for every non-empty element (empty
+    elements are accepted and ignored), ok False when malformed.
+    Grammar: cache-directive = token [ "=" ( token / quoted-string ) ];
+    OWS only around commas and at the two ends (not around "=").
+    """
+    n = len(value)
+    pos = 0
+    directives = []
+
+    def skip_ows(p):
+        while p < n and value[p] in SP_TAB:
+            p += 1
+        return p
+
+    pos = skip_ows(pos)
+    while True:
+        # One element slot (possibly empty).
+        if pos >= n or value[pos] == ",":
+            pass  # empty element: accepted and ignored
+        else:
+            start = pos
+            while pos < n and ord(value[pos]) < 128 and value[pos] in TCHAR:
+                pos += 1
+            if pos == start:
+                return None, False  # non-token element start
+            name = value[start:pos]
+            has_arg = False
+            if pos < n and value[pos] == "=":
+                pos += 1
+                has_arg = True
+                if pos < n and value[pos] == '"':
+                    pos += 1
+                    closed = False
+                    while pos < n:
+                        cp = ord(value[pos])
+                        if value[pos] == '"':
+                            pos += 1
+                            closed = True
+                            break
+                        if value[pos] == "\\":
+                            if pos + 1 >= n or not _is_qp_next(ord(value[pos + 1])):
+                                return None, False
+                            pos += 2
+                        elif _is_qdtext(cp):
+                            pos += 1
+                        else:
+                            return None, False
+                    if not closed:
+                        return None, False
+                else:
+                    astart = pos
+                    while pos < n and ord(value[pos]) < 128 and value[pos] in TCHAR:
+                        pos += 1
+                    if pos == astart:
+                        return None, False  # missing argument
+            directives.append((name.lower(), has_arg))
+        # After an element (or empty slot): OWS, then comma or end.
+        pos = skip_ows(pos)
+        if pos >= n:
+            break
+        if value[pos] == ",":
+            pos += 1
+            pos = skip_ows(pos)
+            continue
+        return None, False  # junk after element (e.g. space then token)
+    return directives, True
+
+
+def main():
+    raw = sys.stdin.buffer.read()
+    try:
+        doc = json.loads(raw.decode("utf-8"))
+    except (UnicodeDecodeError, ValueError):
+        refuse("input is not valid JSON")
+
+    if not isinstance(doc, dict):
+        refuse("input is not a JSON object")
+    if set(doc.keys()) != {"stored", "response"}:
+        refuse("top-level keys")
+
+    stored = doc["stored"]
+    response = doc["response"]
+    if not isinstance(stored, list):
+        refuse("stored: not a list")
+    if not isinstance(response, dict):
+        refuse("response: not an object")
+    if set(response.keys()) != {"status", "headers"}:
+        refuse("response: keys")
+    status = response["status"]
+    if type(status) is not int or status != 304:
+        refuse("status: not the integer 304")
+
+    headers304 = response["headers"]
+    validate_header_map(headers304, "304")
+
+    seen_ids = set()
+    for element in stored:
+        if not isinstance(element, dict):
+            refuse("stored element: not an object")
+        if set(element.keys()) != {"id", "received", "headers"}:
+            refuse("stored element: keys")
+        if not isinstance(element["id"], str) or element["id"] == "":
+            refuse("stored id: empty or non-string")
+        if element["id"] in seen_ids:
+            refuse("stored id: duplicate")
+        seen_ids.add(element["id"])
+        if type(element["received"]) is not int:
+            refuse("stored received: not an integer")
+        validate_header_map(element["headers"], "stored")
+
+    # V2-1: only the 304's Cache-Control is examined. A value that does not
+    # parse is refused (V2-1a); a qualified no-cache/private directive in
+    # either argument form, any case (V2-1b), is refused as outside the
+    # contract. Unrecognised extensions merely containing the names are
+    # ignored (V2-1c); unqualified forms are ignored for this test.
+    cc304 = get_ci(headers304, "cache-control")
+    if cc304 is not None:
+        directives, ok = parse_cache_control(cc304)
+        if not ok:
+            refuse("malformed cache-control")
+        for name, has_arg in directives:
+            if has_arg and name in ("no-cache", "private"):
+                refuse("qualified cache-control outside contract")
+
+    # ETag syntax everywhere it appears (any stored response, e2).
+    etag304 = get_ci(headers304, "etag")
+    parsed304 = parse_etag(etag304) if etag304 is not None else None
+    if etag304 is not None and parsed304 is None:
+        refuse("304 ETag: malformed")
+    for element in stored:
+        sv = get_ci(element["headers"], "etag")
+        if sv is not None and parse_etag(sv) is None:
+            refuse("stored ETag: malformed")
+
+    # ---- Selection, first match of §4.3.4 (rule decided by the 304 alone).
+    strong304 = parsed304[1] if parsed304 is not None and not parsed304[0] else None
+    weak304 = parsed304[1] if parsed304 is not None and parsed304[0] else None
+    lm304 = get_ci(headers304, "last-modified")
+
+    identified = []
+    if strong304 is not None:
+        rule = "strong"
+        for element in stored:
+            sv = get_ci(element["headers"], "etag")
+            if sv is None:
+                continue
+            is_weak, opaque = parse_etag(sv)
+            if not is_weak and opaque == strong304:
+                identified.append(element)
+        decision = "update" if identified else "must-not-update"
+    elif weak304 is not None or lm304 is not None:
+        rule = "weak"
+        corresponding = []
+        for element in stored:
+            ok = True
+            if weak304 is not None:
+                sv = get_ci(element["headers"], "etag")
+                if sv is None or parse_etag(sv)[1] != weak304:
+                    ok = False
+            if ok and lm304 is not None:
+                sv = get_ci(element["headers"], "last-modified")
+                if sv is None or trim(sv) != trim(lm304):
+                    ok = False
+            if ok:
+                corresponding.append(element)
+        if not corresponding:
+            decision = "no-update"
+        else:
+            newest = max(e["received"] for e in corresponding)
+            winners = [e for e in corresponding if e["received"] == newest]
+            if len(winners) > 1:
+                refuse("ambiguous most recent (LC3)")
+            identified = [winners[0]]
+            decision = "update"
+    else:
+        rule = "no-validator"
+        if len(stored) == 1:
+            only = stored[0]
+            if (get_ci(only["headers"], "etag") is None
+                    and get_ci(only["headers"], "last-modified") is None):
+                identified = [only]
+        decision = "update" if identified else "no-update"
+
+    # ---- Update, §3.2 (LC5: nothing else is excluded).
+    connection_names = set()
+    conn = get_ci(headers304, "connection")
+    if conn is not None:
+        for member in conn.split(","):
+            member = trim(member)
+            if member and is_token(member):
+                connection_names.add(member.lower())
+
+    def updated_headers(stored_headers):
+        # e1: all stored fields except V2-3's three proxy names (stored
+        # connection, LC4 hop-by-hop names and content-length stay).
+        out = {}
+        for name, value in stored_headers.items():
+            lname = name.lower()
+            if lname in PROXY_FIELDS:
+                continue
+            if lname in out:
+                continue  # unreachable: case-duplicates were refused
+            out[lname] = trim(value)  # V2-2: output values trimmed
+        for name, value in headers304.items():
+            lname = name.lower()
+            if lname in NEVER_COPIED_304 or lname in connection_names:
+                continue
+            out[lname] = trim(value)  # V2-2
+        return out
+
+    result = {
+        "decision": decision,
+        "rule": rule,
+        "updated": [
+            {"id": element["id"], "headers": updated_headers(element["headers"])}
+            for element in identified
+        ],
+    }
+    sys.stdout.write(json.dumps(result))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

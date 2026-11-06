@@ -1,0 +1,52 @@
+== reg-m01 / sep-interp-python: SEPARATED
+--- pristine rc/out:
+rc=1
+revision=139ec5576ae495dabcd4cc9e2c3093c3c1938620
+tools=1 rows=2 listed=1 unlisted=0 dangling=0 duplicated=1 probe_mismatch=0 exec_fail=0 mismatches=1 met=false
+duplicated scripts/a.py 3,4
+
+--- mutant rc/out:
+rc=0
+revision=139ec5576ae495dabcd4cc9e2c3093c3c1938620
+tools=1 rows=2 listed=1 unlisted=0 dangling=0 duplicated=0 probe_mismatch=0 exec_fail=0 mismatches=0 met=true
+
+== reg-m02 / sep-interp-node: SEPARATED
+--- pristine rc/out:
+rc=1
+revision=367b6d1d9115b798388cf696db2cf8e1712f51db
+tools=1 rows=2 listed=0 unlisted=1 dangling=0 duplicated=1 probe_mismatch=0 exec_fail=0 mismatches=2 met=false
+unlisted scripts/z.mjs
+duplicated scripts/z.mjs 3,4
+
+--- mutant rc/out:
+rc=1
+revision=367b6d1d9115b798388cf696db2cf8e1712f51db
+tools=1 rows=2 listed=0 unlisted=1 dangling=0 duplicated=0 probe_mismatch=0 exec_fail=0 mismatches=1 met=false
+unlisted scripts/z.mjs
+
+== reg-m10 / sep-probearg: SEPARATED
+--- pristine rc/out:
+rc=1
+revision=f02bf58b3a91f0d2723154b1c31f188c02552821
+tools=1 rows=1 listed=0 unlisted=1 dangling=0 duplicated=0 probe_mismatch=0 exec_fail=0 mismatches=1 met=false
+unlisted scripts/a.py
+
+--- mutant rc/out:
+rc=1
+revision=f02bf58b3a91f0d2723154b1c31f188c02552821
+tools=1 rows=1 listed=0 unlisted=1 dangling=0 duplicated=0 probe_mismatch=1 exec_fail=0 mismatches=2 met=false
+unlisted scripts/a.py
+probe_mismatch 3 scripts/a.py rc=0 codes=2
+
+== reg-m13 / sep-namespath: SEPARATED
+--- pristine rc/out:
+rc=1
+revision=9e85335554f056d84bfcff15fee06389c9a9f5aa
+tools=1 rows=1 listed=0 unlisted=1 dangling=0 duplicated=0 probe_mismatch=0 exec_fail=0 mismatches=1 met=false
+unlisted scripts/a.py
+
+--- mutant rc/out:
+rc=0
+revision=9e85335554f056d84bfcff15fee06389c9a9f5aa
+tools=1 rows=1 listed=1 unlisted=0 dangling=0 duplicated=0 probe_mismatch=0 exec_fail=0 mismatches=0 met=true
+

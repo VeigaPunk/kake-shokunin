@@ -1,0 +1,11 @@
+# ReviewRegB probe receipt — unknown-flag exit codes, blob e84a18714b6be7fd2456a2dcc5f28c0cb0ab981f
+# Method: git show e84a18714b6be7fd2456a2dcc5f28c0cb0ab981f:<path> into the seat scratch, run there.
+# Host run (no bwrap), stdin /dev/null, timeout 20:  for f in <tool>: timeout 20 python3 -B "$f" --zz-bogus-r100 </dev/null
+cache_key.py             rc=1   stderr: "invalid_input: input is not valid JSON"
+cache_key_conformance.py rc=2   stderr: argparse "error: the following arguments are required: --candidate"
+live_snapshot.py         rc=64  stderr: argparse "error: the following arguments are required: --population, --out"
+response_snapshot.py     rc=64  stderr: argparse "error: unrecognized arguments: --zz-bogus-r100"
+robots_audit.py          rc=64  stderr: "robots_audit.py: usage: robots_audit.py --manifest PATH"
+source_snapshot.py       rc=2   stderr: argparse "error: the following arguments are required: --input, --out-dir"
+x_robots_tag_audit.py    rc=64  stderr: argparse "error: unrecognized arguments: --zz-bogus-r100"
+# Sandbox corroboration: c100_registry.py probe() (bwrap, PROBE_ARG=--zz-bogus-r100) reports probe_mismatch=0 at e84a187.

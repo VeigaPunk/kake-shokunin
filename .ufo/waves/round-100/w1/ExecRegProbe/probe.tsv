@@ -1,0 +1,45 @@
+tool	mode	rc	last_line	verdict_codes	verdict_ok
+cache_key.py	noargs	rc=1	invalid_input: input is not valid JSON	0,1	yes (1 in map; noargs not in D2 scope)
+cache_key.py	bogus	rc=1	invalid_input: input is not valid JSON	0,1	yes
+cache_key.py	stdin_json	rc=1	invalid_input: uri must be a string	0,1	yes
+cache_key.py	stdin_bad	rc=1	invalid_input: input is not valid JSON	0,1	yes
+cache_key_conformance.py	noargs	rc=2	cache_key_conformance.py: error: the following arguments are required: --candidate	0,1,2	yes
+cache_key_conformance.py	bogus	rc=2	cache_key_conformance.py: error: the following arguments are required: --candidate	0,1,2	yes
+cache_key_conformance.py	stdin_json	rc=2	cache_key_conformance.py: error: the following arguments are required: --candidate	0,1,2	yes
+cache_key_conformance.py	stdin_bad	rc=2	cache_key_conformance.py: error: the following arguments are required: --candidate	0,1,2	yes
+live_snapshot.py	noargs	rc=64	live_snapshot.py: error: the following arguments are required: --population, --out	0,1,2,64	yes
+live_snapshot.py	bogus	rc=64	live_snapshot.py: error: the following arguments are required: --population, --out	0,1,2,64	yes
+live_snapshot.py	stdin_json	rc=64	live_snapshot.py: error: the following arguments are required: --population, --out	0,1,2,64	yes
+live_snapshot.py	stdin_bad	rc=64	live_snapshot.py: error: the following arguments are required: --population, --out	0,1,2,64	yes
+response_snapshot.py	noargs	rc=2	{"error": "capture leaf already exists (burnerchrome-kimi, charter-ghp, charter-kimi, ds4cc-kimi, ds4cc-primary, lucario-ghp, lucario-kimi, plazir15-ghp, plazir15-kimi, plazir27-kimi, ufo-fsd-kimi-pro...]}	0,1,2,64	yes
+response_snapshot.py	bogus	rc=64	response_snapshot.py: error: unrecognized arguments: --zz-bogus-r100	0,1,2,64	yes
+response_snapshot.py	stdin_json	rc=2	{"error": "capture leaf already exists (burnerchrome-kimi, charter-ghp, charter-kimi, ds4cc-kimi, ds4cc-primary, lucario-ghp, lucario-kimi, plazir15-ghp, plazir15-kimi, plazir27-kimi, ufo-fsd-kimi-pro...]}	0,1,2,64	yes
+response_snapshot.py	stdin_bad	rc=2	{"error": "capture leaf already exists (burnerchrome-kimi, charter-ghp, charter-kimi, ds4cc-kimi, ds4cc-primary, lucario-ghp, lucario-kimi, plazir15-ghp, plazir15-kimi, plazir27-kimi, ufo-fsd-kimi-pro...]}	0,1,2,64	yes
+robots_audit.py	noargs	rc=64	robots_audit.py: usage: robots_audit.py --manifest PATH	0,1,2,64	yes
+robots_audit.py	bogus	rc=64	robots_audit.py: usage: robots_audit.py --manifest PATH	0,1,2,64	yes
+robots_audit.py	stdin_json	rc=64	robots_audit.py: usage: robots_audit.py --manifest PATH	0,1,2,64	yes
+robots_audit.py	stdin_bad	rc=64	robots_audit.py: usage: robots_audit.py --manifest PATH	0,1,2,64	yes
+source_snapshot.py	noargs	rc=2	source_snapshot.py: error: the following arguments are required: --input, --out-dir	0,1,2	yes
+source_snapshot.py	bogus	rc=2	source_snapshot.py: error: the following arguments are required: --input, --out-dir	0,1,2	yes
+source_snapshot.py	stdin_json	rc=2	source_snapshot.py: error: the following arguments are required: --input, --out-dir	0,1,2	yes
+source_snapshot.py	stdin_bad	rc=2	source_snapshot.py: error: the following arguments are required: --input, --out-dir	0,1,2	yes
+x_robots_tag_audit.py	noargs	rc=64	usage: --manifest is required (or --selftest)	0,1,2,64	yes
+x_robots_tag_audit.py	bogus	rc=64	x_robots_tag_audit.py: error: unrecognized arguments: --zz-bogus-r100	0,1,2,64	yes
+x_robots_tag_audit.py	stdin_json	rc=64	usage: --manifest is required (or --selftest)	0,1,2,64	yes
+x_robots_tag_audit.py	stdin_bad	rc=64	usage: --manifest is required (or --selftest)	0,1,2,64	yes
+selftest	robots_audit.py	python3 -B scripts/robots_audit_selftest.py	rc=0	{"cases": 204, "failed": 0, "passed": 204, "passedOverTotal": "204/204"}	pass
+selftest	x_robots_tag_audit.py	python3 -B scripts/x_robots_tag_audit.py --selftest	rc=0	selftest: 33/33 passed	pass
+selftest	cache_key.py	no-selftest-cell	no --selftest mode	n/a
+selftest	cache_key_conformance.py	no-selftest-cell	no --selftest mode	n/a
+selftest	live_snapshot.py	no-selftest-cell	no --selftest mode	n/a
+selftest	response_snapshot.py	no-selftest-cell	no --selftest mode	n/a
+selftest	source_snapshot.py	no-selftest-cell	no --selftest mode	n/a
+history	494	1758	verbatim=yes	len=550
+history	1079	1760	verbatim=yes	len=351
+history	1104	1762	verbatim=yes	len=608
+history	1370	1764	verbatim=yes	len=1039
+history	1505	1766	verbatim=yes	len=704
+history	1621	1768	verbatim=yes	len=433
+history	1624	1770	verbatim=yes	len=638
+diff	3989618d..e84a1871	SKILL.md only in repair commit (69cdc1eb..e84a1871: 1 file, 25 insertions, 7 deletions)	removed lines=7	added lines=25	other_changes=0
+counts	55 tools, 146 registry rows outside fences, every tool invoked by exactly 1 row (counter-semantics invoked()), not_one=0

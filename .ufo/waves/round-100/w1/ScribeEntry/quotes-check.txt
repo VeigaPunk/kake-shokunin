@@ -1,0 +1,99 @@
+body	id	row	declared_line	agrees	start_line	end_line	words	quote
+rfc9111.txt	Q1	S484	957	yes	957	958	18	The initial set of stored responses to update are those that could have been chosen for that request
+rfc9111.txt	Q2	S484	962	yes	962	963	15	Then, that initial set of stored responses is further filtered by the first match of:
+rfc9111.txt	Q3	S484	965	yes	965	966	15	If the new response contains one or more "strong validators" (see Section 8.8.1 of [HTTP])
+rfc9111.txt	Q4	S484	967	yes	967	969	19	All the stored responses in the initial set with one of those same strong validators are identified for update.
+rfc9111.txt	Q5	S484	970	yes	970	972	14	then the cache MUST NOT use the new response to update any stored responses
+rfc9111.txt	Q6	S484	974	yes	974	975	16	If the new response contains no strong validators but does contain one or more "weak validators"
+rfc9111.txt	Q7	S484	976	yes	976	977	13	then the most recent of those matching stored responses is identified for update.
+rfc9111.txt	Q8	S484	979	yes	979	979	11	If the new response does not include any form of validator
+rfc9111.txt	Q9	S484	982	yes	982	983	18	there is only one stored response in the initial set, and that stored response also lacks a validator
+rfc9111.txt	Q10	S484	986	yes	986	988	18	the cache MUST update its header fields with the header fields provided in the 304 (Not Modified) response
+rfc9111.txt	Q11	S484	375	yes	375	377	22	the cache MUST add each header field in the provided response to the stored response, replacing field values that are already present
+rfc9111.txt	Q12	S484	377	yes	377	377	4	with the following exceptions:
+rfc9111.txt	Q13	S484	379	yes	379	379	8	Header fields excepted from storage in Section 3.1,
+rfc9111.txt	Q14	S484	381	yes	381	381	9	Header fields that the cache's stored response depends upon
+rfc9111.txt	Q15	S484	384	yes	384	385	11	Header fields that are automatically processed and removed by the recipient
+rfc9111.txt	Q16	S484	387	yes	387	387	4	The Content-Length header field.
+rfc9111.txt	Q17	S484	393	yes	393	394	13	MAY omit these header fields from updating stored responses on an exceptional basis
+rfc9111.txt	Q18	S484	412	yes	412	413	15	the Content-* prefix is not a signal that a header field is omitted from update
+rfc9111.txt	Q19	S484	340	yes	340	341	17	Caches MUST include all received response header fields -- including unrecognized ones -- when storing a response
+rfc9111.txt	Q20	S484	345	yes	345	347	21	fields whose names are listed in it are required by Section 7.6.1 of [HTTP] to be removed before forwarding the message
+rfc9111.txt	Q21	S484	350	yes	350	351	12	some fields' semantics require them to be removed before forwarding the message
+rfc9111.txt	Q22	S484	354	yes	354	356	19	The no-cache (Section 5.2.2.4) and private (Section 5.2.2.7) cache directives can have arguments that prevent storage of header fields
+rfc9111.txt	Q23	S484, S486	358	yes	358	359	20	Header fields that are specific to the proxy that a cache uses when forwarding a request MUST NOT be stored
+rfc9111.txt	Q24	S484	361	yes	361	363	21	Effectively, this is limited to Proxy-Authenticate (Section 11.7.1 of [HTTP]), Proxy-Authentication-Info (Section 11.7.3 of [HTTP]), and Proxy-Authorization (Section 11.7.2 of [HTTP]).
+rfc9111.txt	Q25	S484	935	yes	935	936	17	A 304 (Not Modified) response status code indicates that the stored response can be updated and reused
+rfc9111.txt	Q26	S484	953	yes	953	954	20	When a cache receives a 304 (Not Modified) response, it needs to identify stored responses that are suitable for updating
+rfc9111.txt	Q27	S486	1098	yes	1098	1098	7	Cache directives are identified by a token
+rfc9111.txt	Q28	S486	1099	yes	1099	1100	13	and have an optional argument that can use both token and quoted-string syntax
+rfc9111.txt	Q29	S486	1101	yes	1101	1102	15	recipients ought to accept both forms, even if a specific form is required for generation.
+rfc9111.txt	Q30	S486	1106	yes	1106	1106	11	cache-directive = token [ "=" ( token / quoted-string ) ]
+  note: Q30 occurs at lines 1106,1783
+rfc9111.txt	Q31	S486	1273	yes	1273	1274	18	The qualified form of the no-cache response directive, with an argument that lists one or more field names
+rfc9111.txt	Q32	S486	1286	yes	1286	1286	10	This directive uses the quoted-string form of the argument syntax.
+  note: Q32 occurs at lines 1286,1344
+rfc9111.txt	Q33	S486	1334	yes	1334	1335	18	If a qualified private response directive is present, with an argument that lists one or more field names
+rfc9111.txt	Q34	S486	1344	yes	1286	1286	10	This directive uses the quoted-string form of the argument syntax.
+  note: Q34 occurs at lines 1286,1344
+rfc9111.txt	Q35	S486	1411	yes	1411	1412	7	A cache MUST ignore unrecognized cache directives.
+rfc9110.txt	Q36	S487	1591	yes	1591	1591	10	A field value does not include leading or trailing whitespace.
+rfc9110.txt	Q37	S487	1593	yes	1593	1594	14	a field parsing implementation MUST exclude such whitespace prior to evaluating the field value.
+rfc9110.txt	Q38	S487	1695	yes	1695	1697	13	A recipient MUST parse and ignore a reasonable number of empty list elements
+rfc9110.txt	Q39	S487	1702	yes	1702	1702	13	#element => [ element ] *( OWS "," OWS [ element ] )
+rfc9110.txt	Q40	S487	1730	yes	1730	1731	12	Tokens are short textual identifiers that do not include whitespace or delimiters.
+rfc9110.txt	Q41	S487	1733	yes	1733	1733	3	token = 1*tchar
+  note: Q41 occurs at lines 1733,9963
+rfc9110.txt	Q42	S487	1783	yes	1783	1784	17	A string of text is parsed as a single value if it is quoted using double-quote marks.
+rfc9110.txt	Q43	S487	1786	yes	1786	1786	9	quoted-string = DQUOTE *( qdtext / quoted-pair ) DQUOTE
+  note: Q43 occurs at lines 1786,9940
+rfc9110.txt	Q44	S487	1794	yes	1794	1794	12	quoted-pair = "\" ( HTAB / SP / VCHAR / obs-text )
+  note: Q44 occurs at lines 1794,9939
+body-quote	rfc9111.txt	1	A 304 (Not Modified) response status code indicates that the stored response can be updated and reused
+body-quote	rfc9111.txt	2	When a cache receives a 304 (Not Modified) response, it needs to identify stored responses that are suitable for updating
+body-quote	rfc9111.txt	3	The initial set of stored responses to update are those that could have been chosen for that request
+body-quote	rfc9111.txt	4	Then, that initial set of stored responses is further filtered by the first match of:
+body-quote	rfc9111.txt	5	If the new response contains one or more "strong validators" (see Section 8.8.1 of [HTTP])
+body-quote	rfc9111.txt	6	All the stored responses in the initial set with one of those same strong validators are identified for update.
+body-quote	rfc9111.txt	7	then the cache MUST NOT use the new response to update any stored responses
+body-quote	rfc9111.txt	8	If the new response contains no strong validators but does contain one or more "weak validators"
+body-quote	rfc9111.txt	9	then the most recent of those matching stored responses is identified for update.
+body-quote	rfc9111.txt	10	If the new response does not include any form of validator
+body-quote	rfc9111.txt	11	there is only one stored response in the initial set, and that stored response also lacks a validator
+body-quote	rfc9111.txt	12	the cache MUST update its header fields with the header fields provided in the 304 (Not Modified) response
+body-quote	rfc9111.txt	13	the cache MUST add each header field in the provided response to the stored response, replacing field values that are already present
+body-quote	rfc9111.txt	14	with the following exceptions:
+body-quote	rfc9111.txt	15	Header fields excepted from storage in Section 3.1,
+body-quote	rfc9111.txt	16	Header fields that the cache's stored response depends upon
+body-quote	rfc9111.txt	17	Header fields that are automatically processed and removed by the recipient
+body-quote	rfc9111.txt	18	The Content-Length header field.
+body-quote	rfc9111.txt	19	MAY omit these header fields from updating stored responses on an exceptional basis
+body-quote	rfc9111.txt	20	the Content-* prefix is not a signal that a header field is omitted from update
+body-quote	rfc9111.txt	21	Caches MUST include all received response header fields -- including unrecognized ones -- when storing a response
+body-quote	rfc9111.txt	22	fields whose names are listed in it are required by Section 7.6.1 of [HTTP] to be removed before forwarding the message
+body-quote	rfc9111.txt	23	some fields' semantics require them to be removed before forwarding the message
+body-quote	rfc9111.txt	24	The no-cache (Section 5.2.2.4) and private (Section 5.2.2.7) cache directives can have arguments that prevent storage of header fields
+body-quote	rfc9111.txt	25	Header fields that are specific to the proxy that a cache uses when forwarding a request MUST NOT be stored
+body-quote	rfc9111.txt	26	Effectively, this is limited to Proxy-Authenticate (Section 11.7.1 of [HTTP]), Proxy-Authentication-Info (Section 11.7.3 of [HTTP]), and Proxy-Authorization (Section 11.7.2 of [HTTP]).
+body-quote	rfc9111.txt	27	Cache directives are identified by a token
+body-quote	rfc9111.txt	28	and have an optional argument that can use both token and quoted-string syntax
+body-quote	rfc9111.txt	29	recipients ought to accept both forms, even if a specific form is required for generation.
+body-quote	rfc9111.txt	30	cache-directive = token [ "=" ( token / quoted-string ) ]
+body-quote	rfc9110.txt	31	A recipient MUST parse and ignore a reasonable number of empty list elements
+body-quote	rfc9110.txt	32	#element => [ element ] *( OWS "," OWS [ element ] )
+body-quote	rfc9110.txt	33	Tokens are short textual identifiers that do not include whitespace or delimiters.
+body-quote	rfc9110.txt	34	token = 1*tchar
+body-quote	rfc9110.txt	35	A string of text is parsed as a single value if it is quoted using double-quote marks.
+body-quote	rfc9110.txt	36	quoted-string = DQUOTE *( qdtext / quoted-pair ) DQUOTE
+body-quote	rfc9110.txt	37	quoted-pair = "\" ( HTAB / SP / VCHAR / obs-text )
+body-quote	rfc9111.txt	38	The qualified form of the no-cache response directive, with an argument that lists one or more field names
+body-quote	rfc9111.txt	39	If a qualified private response directive is present, with an argument that lists one or more field names
+body-quote	rfc9111.txt	40	This directive uses the quoted-string form of the argument syntax.
+body-quote	rfc9111.txt	41	A cache MUST ignore unrecognized cache directives.
+body-quote	rfc9110.txt	42	A field value does not include leading or trailing whitespace.
+body-quote	rfc9110.txt	43	a field parsing implementation MUST exclude such whitespace prior to evaluating the field value.
+body-quote	rfc9111.txt	44	Header fields that are specific to the proxy that a cache uses when forwarding a request MUST NOT be stored
+body-quote	eid9185.html	45	The initial set consists of stored responses that satisfy all of the following conditions
+body-quote	eid9185.html	46	The key technical change is to allow the initial set to include stored responses whose requests have nonmatching selecting request header fields
+body-quote	eid9185.html	47	the cache MUST, for the purposes of Section 4.1, associate the updated response with the header fields of the request that elicited the 304 response
+body-quote	eid9185.html	48	The choice to recast the affected paragraph as a list of criteria rather than a list of exceptions to the Section 4 requirements is editorial

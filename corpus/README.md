@@ -861,3 +861,19 @@ a live cache.
 | Area | Entry | Coverage |
 |---|---|---|
 | 304 freshening decision (r99) | `knowledge/freshening-304.md` (S484, S485) | Which stored responses a 304 (Not Modified) identifies for update and which of their header fields it changes, decided over supplied values under contract v1; no initial-set computation, no live cache |
+
+## Round-100 frontier step — 304 freshening contract v2
+
+New ground this round: the RFC 9111 §5.2 Cache-Control grammar with §5.2.2.4/§5.2.2.7 qualified
+forms and §5.2.3 extension handling (S486), and RFC 9110 §5.5 field-value trimming with the
+§5.6.1.2/§5.6.2/§5.6.4 list, token and quoted-string grammar (S487), both opened 2026-11-06 and
+re-opened by the ScoutSources seat. `scripts/freshen_304.py` moves to contract v2
+(`.ufo/waves/round-100/fresh304-contract-v2.md`): qualified `no-cache`/`private` refused in either
+argument form and any case, unrecognised directives ignored, output values trimmed, stored
+Proxy-* fields dropped. Still open: F4-F9 and F11 of the round-99 review, the stored-side qualified
+Cache-Control corner (ReviewFresh G3), the initial-set computation, HEAD freshening (§4.3.5),
+invalidation (§4.4) and any observation of a live cache.
+
+| Area | Entry | Coverage |
+|---|---|---|
+| 304 freshening decision, contract v2 (r100) | `knowledge/freshening-304.md` (S484, S485, S486, S487) | The round-99 decision plus the Cache-Control qualified-form refusal, extension ignoring, value trimming and proxy-field drop of contract v2, decided over supplied values; no initial-set computation, no live cache |

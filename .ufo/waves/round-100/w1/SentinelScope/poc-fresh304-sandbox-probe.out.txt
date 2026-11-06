@@ -1,0 +1,94 @@
+sandbox_ok: True
+== introspect rc=0 elapsed=0.02s
+{
+ "pid": 2,
+ "ppid": 1,
+ "cwd": "/tmp",
+ "env": {
+  "PATH": "/usr/bin",
+  "LANG": "C.UTF-8",
+  "HOME": "/tmp",
+  "PWD": "/tmp"
+ },
+ "pids_visible": [
+  1,
+  2
+ ],
+ "fds": {
+  "0": "pipe:[729985791]",
+  "1": "pipe:[729985792]",
+  "2": "pipe:[729985793]",
+  "3": "ERR [Errno 2] No such file or directory: '/proc/self/fd/3'"
+ },
+ "pid1_cmdline": "bwrap --unshare-all --die-with-parent --new-session --ro-bind /usr /usr --symlink usr/lib /lib --symlink usr/lib64 /lib64 --symlink usr/bin /bin --proc /proc --dev /dev --tmpfs /tmp --chdir /tmp --clearenv --setenv PATH /usr/bin --setenv LANG C.UTF-8 --setenv HOME /tmp --ro-bind /fast/scratch/hyaku/kake-r100/SentinelScope/poc/c/introspect.py /cand/freshen_304.py /usr/bin/python3 -I -B /cand/freshe",
+ "status": [
+  "NSpid:\t2",
+  "CapInh:\t0000000000000000",
+  "CapPrm:\t0000000000000000",
+  "CapEff:\t0000000000000000",
+  "CapBnd:\t0000000000000000",
+  "CapAmb:\t0000000000000000",
+  "NoNewPrivs:\t1",
+  "Seccomp:\t0",
+  "Seccomp_filters:\t0"
+ ],
+ "mountinfo_roots": [
+  "835 828 0:129 / /dev/pts rw,nosuid,noexec,relatime",
+  "836 822 0:130 / /tmp rw,nosuid,nodev,relatime",
+  "838 822 259:2 /scratch/hyaku/kake-r100/SentinelScope/poc/c/introspect.py /cand/freshen_304.py ro,nosuid,nodev,noatime master:213"
+ ],
+ "writes": {
+  "/usr/poc_w": "EROFS",
+  "/cand/freshen_304.py": "EROFS",
+  "/tmp/poc_w": "WROTE",
+  "/dev/poc_w": "WROTE",
+  "/etc/poc_w": "ENOENT"
+ },
+ "host_paths": {
+  "/home": false,
+  "/fast": false,
+  "/run": false,
+  "/var": false,
+  "/root": false,
+  "/etc/shadow": false
+ },
+ "net": {
+  "tcp_1.1.1.1:53": "OSError:101",
+  "tcp_host_loopback": "ConnectionRefusedError:111",
+  "unix_abstract_host": "ConnectionRefusedError:111"
+ },
+ "rlimits": {
+  "RLIMIT_AS": [
+   -1,
+   -1
+  ],
+  "RLIMIT_NPROC": [
+   122865,
+   122865
+  ],
+  "RLIMIT_FSIZE": [
+   -1,
+   -1
+  ],
+  "RLIMIT_CPU": [
+   -1,
+   -1
+  ]
+ }
+}
+
+== outlive rc=0 elapsed=0.01s
+spawned
+
+host_survivors_after_outlive: []
+== resource rc=0 elapsed=1.46s
+tmp_total 16241557504 wrote 2147483648 forks 200
+
+== cross-case-1 rc=0 elapsed=0.01s
+before [] []
+
+== cross-case-2 rc=0 elapsed=0.01s
+before [] []
+
+survivors_after_all: []
+sandbox_ok_with_broken_bind: False

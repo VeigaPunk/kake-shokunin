@@ -1,0 +1,26 @@
+== reg-m05 / sep-escpipe: SEPARATED
+--- pristine rc/out:
+rc=1
+revision=7c5fafaf111b75946800e3a0604732fa80a85fac
+tools=1 rows=2 listed=1 unlisted=0 dangling=0 duplicated=1 probe_mismatch=0 exec_fail=0 mismatches=1 met=false
+duplicated scripts/a.py 3,4
+
+--- mutant rc/out:
+rc=0
+revision=7c5fafaf111b75946800e3a0604732fa80a85fac
+tools=1 rows=2 listed=1 unlisted=0 dangling=0 duplicated=0 probe_mismatch=0 exec_fail=0 mismatches=0 met=true
+
+== reg-m11 / sep-pidns: SEPARATED
+--- pristine rc/out:
+rc=1
+revision=0ce4001aa49ccb83e9ff6e6037f9d19ef2f6184d
+tools=1 rows=1 listed=0 unlisted=1 dangling=0 duplicated=0 probe_mismatch=1 exec_fail=0 mismatches=2 met=false
+unlisted scripts/a.py
+probe_mismatch 3 scripts/a.py rc=0 codes=7
+
+--- mutant rc/out:
+rc=1
+revision=0ce4001aa49ccb83e9ff6e6037f9d19ef2f6184d
+tools=1 rows=1 listed=0 unlisted=1 dangling=0 duplicated=0 probe_mismatch=0 exec_fail=0 mismatches=1 met=false
+unlisted scripts/a.py
+

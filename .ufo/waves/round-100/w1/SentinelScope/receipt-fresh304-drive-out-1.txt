@@ -1,0 +1,124 @@
+sandbox_ok= True
+== probe p_probe.py rc=0 elapsed=0.02s
+{
+ "pid": 2,
+ "ppid": 1,
+ "uid_gid": [
+  1000,
+  1000
+ ],
+ "cwd": "/tmp",
+ "argv": [
+  "/cand/freshen_304.py"
+ ],
+ "env": {
+  "PATH": "/usr/bin",
+  "LANG": "C.UTF-8",
+  "HOME": "/tmp",
+  "PWD": "/tmp"
+ },
+ "pids_visible": [
+  1,
+  2
+ ],
+ "fds": {
+  "0": "pipe:[728218710]",
+  "1": "pipe:[728218711]",
+  "2": "pipe:[728218712]",
+  "3": "ERR [Errno 2] No such file or directory: '/proc/self/fd/3'"
+ },
+ "pid1_cmdline": "bwrap --unshare-all --die-with-parent --new-session --ro-bind /usr /usr --symlink usr/lib /lib --symlink usr/lib64 /lib64 --symlink usr/bin /bin --proc /proc --dev /dev --tmpfs /tmp --chdir /tmp --clearenv --setenv PATH /usr/bin --setenv LANG C.UTF-8 --setenv HOME /tmp --ro-bind p_probe.py /cand/freshen_304.py /usr/bin/python3 -I -B /cand/freshen_304.py ",
+ "pid1_exe": "/usr/bin/bwrap",
+ "status": [
+  "Uid:\t1000\t1000\t1000\t1000",
+  "Gid:\t1000\t1000\t1000\t1000",
+  "NSpid:\t2",
+  "CapInh:\t0000000000000000",
+  "CapPrm:\t0000000000000000",
+  "CapEff:\t0000000000000000",
+  "CapBnd:\t0000000000000000",
+  "CapAmb:\t0000000000000000",
+  "Seccomp:\t0",
+  "Seccomp_filters:\t0"
+ ],
+ "mountinfo": [
+  "797 452 0:120 /newroot / rw,nosuid,nodev,relatime - tmpfs tmpfs rw,uid=1000,gid=1000,inode64,huge=advise",
+  "801 797 0:30 /@/usr /usr ro,nosuid,nodev,noatime master:1 - btrfs /dev/mapper/root rw,compress=zstd:3,ssd,discard=async,space_cache=v2,subvolid=256,subvol=/@",
+  "802 797 0:121 / /proc rw,nosuid,nodev,noexec,relatime - proc proc rw",
+  "803 797 0:122 / /dev rw,nosuid,nodev,relatime - tmpfs tmpfs rw,mode=755,uid=1000,gid=1000,inode64,huge=advise",
+  "804 803 0:7 /null /dev/null rw,nosuid,relatime master:2 - devtmpfs dev rw,size=15668296k,nr_inodes=3917074,mode=755,inode64,huge=advise",
+  "805 803 0:7 /zero /dev/zero rw,nosuid,relatime master:2 - devtmpfs dev rw,size=15668296k,nr_inodes=3917074,mode=755,inode64,huge=advise",
+  "806 803 0:7 /full /dev/full rw,nosuid,relatime master:2 - devtmpfs dev rw,size=15668296k,nr_inodes=3917074,mode=755,inode64,huge=advise",
+  "807 803 0:7 /random /dev/random rw,nosuid,relatime master:2 - devtmpfs dev rw,size=15668296k,nr_inodes=3917074,mode=755,inode64,huge=advise",
+  "808 803 0:7 /urandom /dev/urandom rw,nosuid,relatime master:2 - devtmpfs dev rw,size=15668296k,nr_inodes=3917074,mode=755,inode64,huge=advise",
+  "809 803 0:7 /tty /dev/tty rw,nosuid,relatime master:2 - devtmpfs dev rw,size=15668296k,nr_inodes=3917074,mode=755,inode64,huge=advise",
+  "810 803 0:123 / /dev/pts rw,nosuid,noexec,relatime - devpts devpts rw,mode=620,ptmxmode=666",
+  "811 797 0:124 / /tmp rw,nosuid,nodev,relatime - tmpfs tmpfs rw,mode=755,uid=1000,gid=1000,inode64,huge=advise",
+  "812 797 259:2 /scratch/hyaku/kake-r100/SentinelScope/fr/p_probe.py /cand/freshen_304.py ro,nosuid,nodev,noatime master:213 - xfs /dev/nvme1n1p2 rw,inode64,logbufs=8,logbsize=256k,noquota"
+ ],
+ "ns": {
+  "user": "user:[4026534256]",
+  "pid": "pid:[4026534201]",
+  "net": "net:[4026534203]",
+  "mnt": "mnt:[4026534038]",
+  "ipc": "ipc:[4026534200]",
+  "uts": "uts:[4026534041]",
+  "cgroup": "cgroup:[4026534202]"
+ },
+ "writes": {
+  "/usr/r100_w": "EROFS",
+  "/cand/freshen_304.py": "EROFS",
+  "/tmp/r100_w": "WROTE",
+  "/dev/r100_w": "WROTE",
+  "/etc/r100_w": "ENOENT",
+  "/bin/r100_w": "EROFS",
+  "/proc/sys/kernel/hostname": "EACCES",
+  "/sys/r100_w": "ENOENT"
+ },
+ "host_paths_exist": {
+  "/home": false,
+  "/fast": false,
+  "/fast/scratch": false,
+  "/run": false,
+  "/var": false,
+  "/root": false,
+  "/etc/shadow": false,
+  "/proc/1/root/home": false
+ },
+ "net": {
+  "tcp-1.1.1.1:53": "OSError:101",
+  "tcp-127.0.0.1:18765": "ConnectionRefusedError:111",
+  "unix-abstract-r100": "ConnectionRefusedError:111"
+ }
+}
+
+host_survivors: ''
+== probe p_detect.py rc=0 elapsed=0.01s
+pid 2 pid1 bwrap --unshare-all --die-with-parent --new-session --ro-bind /usr /usr --symlink usr/lib /lib --symlink usr/lib64 /lib64 --symlink usr/bin /bin --proc /proc --dev /dev --tmpfs /tmp --chdir /tmp --clearenv --setenv PATH /usr/bin --setenv LANG C.UTF-8 --setenv HOME /tmp --ro-bind p_detect.py /cand/fr is_sandbox_pid2 True
+
+host_survivors: ''
+== probe p_cross.py rc=0 elapsed=0.01s
+tmp_before [] shm_before []
+tmp_after ['r100_marker']
+
+host_survivors: ''
+== probe p_cross.py rc=0 elapsed=0.01s
+tmp_before [] shm_before []
+tmp_after ['r100_marker']
+
+host_survivors: ''
+== probe p_outlive.py rc=0 elapsed=0.02s
+spawned 0.0 a_pid 3
+
+host_survivors: ''
+== probe p_fork.py rc=0 elapsed=2.02s
+forked 200
+
+host_survivors: ''
+== probe p_tmpfs.py rc=0 elapsed=0.04s
+tmp_total_bytes 16241557504 tmp_free_bytes 15973122048 wrote 268435456
+
+host_survivors: ''
+== probe p_hang.py rc=124 elapsed=10.01s
+
+host_survivors: ''

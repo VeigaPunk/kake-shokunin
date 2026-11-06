@@ -1,0 +1,32 @@
+ExecTwinFresh (round 100, w1) — held-out differential for C2 contract v2
+============================================================================
+
+Commands (observed rc):
+- cd /home/vgpnk/Projects/shokunin/kake-shokunin/.ufo/waves/round-100 && sha256sum -c controls/instrument-sha256.txt -> rc 0, all 21 files OK (c100_registry.py, c100_fresh304.py, fresh304-contract-v2.md, build_frozen.py, c1_repair_fixture.py, controls.sh, 14 frozen forgeries + pos-oracle.py).
+- printf '{"stored":[],"response":{"status":304,"headers":{}}}' | python3 -I -B .ufo/waves/round-100/frozen/pos-oracle.py -> rc 0, {"decision": "no-update", "rule": "no-validator", "updated": []}
+- printf '\xff\xfe' (non-UTF-8) | python3 -I -B frozen/pos-oracle.py -> rc 1, invalid_input:
+- cd /fast/scratch/hyaku/kake-r100/ExecTwinFresh && python3 -I -B gen_run.py (seed 100226, N=3600, 8 threads) -> rc 0, inputs=3600 disagreements=0 groups=0
+- python3 -I -B -c "import ast; ast.parse(open('gen_run.py').read())" -> rc 0 (after one syntax fix in the generator, before the run)
+
+Generator (own, not the counter's): scenarios strong / weak (incl. LM + ETag
+ties, LC3) / no-validator / update-fields (incl. Connection empty/OWS/quoted/
+non-ASCII members, stored proxy + LC4 hop-by-hop + content-length keep, Age)
+ / lm-whitespace / multi-strong; cc family (40%): qualified Cache-Control in
+token/quoted/empty-quoted forms, mixed case, extension directives containing
+no-cache/private, quoted strings with commas+escapes, empty list elements,
+malformed lists (unterminated quote, OWS around '=', ';', controls incl.
+0x00/0x01/CR/LF/DEL, non-ASCII tokens), OWS values both sides, stored proxy
+fields; refusals (18 kinds incl. raw non-JSON/non-UTF-8 stdin bytes).
+
+Results:
+- inputs=3600
+- agree=3600 (both rc=0 with identical parsed JSON: 2106; both rc=1 with
+  empty stdout + invalid_input: prefix: 1494)
+- disagreements=0
+- oracle_defects=0, twin_defects=0, ambiguities=0
+- decision tally (rc 0): update=1014, no-update=591, must-not-update=501
+- rule tally (rc 0): strong=1094, weak=523, no-validator=489
+- CC-tagged inputs: 1452 (1078 refusals incl. qualified + malformed)
+
+Verdict:
+TWIN inputs=3600 disagreements=0 oracle_defects=0 twin_defects=0 ambiguities=0
