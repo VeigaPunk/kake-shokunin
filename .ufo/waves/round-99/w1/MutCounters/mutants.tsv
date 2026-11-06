@@ -1,0 +1,53 @@
+counter	mutant	line	killed_by|SURVIVED
+registry	RG01 owner-required-dropped	58	SURVIVED
+registry	RG02 cell-count-lenient	237	selftest:rc 0->1
+registry	RG03 names-path-trailing-boundary-dropped	155	SURVIVED
+registry	RG04 names-path-leading-equals-dropped	155	SURVIVED
+registry	RG05 verdict-0-end-of-cell-dropped	207	SURVIVED
+registry	RG06 verdict-1-lookbehind-dropped	208	SURVIVED
+registry	RG07 owner-prefix-4-compare	250	SURVIVED
+registry	RG08 owner-allows-sibling	250	selftest:rc 0->1
+registry	RG09 owner-backtick-strip-dropped	250	SURVIVED
+registry	RG10 forbidden-dollar-paren-dropped	61	selftest:rc 0->1
+registry	RG11 forbidden-backtick-dropped	61	SURVIVED
+registry	RG12 assign-subst-alternative-dropped	63	selftest:rc 0->1
+registry	RG13 placeholder-substitution-disabled	178	selftest:rc 0->1
+registry	RG14 placeholder-masked-before-forbidden-check-dropped	163	selftest:rc 0->1
+registry	RG15 fence-skip-disabled	98	selftest:rc 0->1
+registry	RG16 html-comment-skip-disabled	107	selftest:rc 0->1
+registry	RG17 population-subdir-filter-dropped	79	selftest:rc 0->1
+registry	RG18 population-mjs-dropped	81	SURVIVED
+registry	RG19 dangling-token-mjs-dropped	158	SURVIVED
+registry	RG20 dangling-check-disabled	243	selftest:rc 0->1
+registry	RG21 met-ignores-dangling	271	selftest:rc 0->1
+registry	RG22 exit-1-counts-as-selftest-pass	259	selftest:rc 0->1
+registry	RG23 no-self-test-phrase-case-sensitive	264	NOT-RUN (batch-1 claim falseselftest:met-None was a disk-fault artefact; manual rerun identical to pristine)
+registry	RG24 no-self-test-without-selftest-absence-check	264	NOT-RUN (batch-1 claim selftest:rc0->1 unverified)
+registry	RG25 split-escape-protection-dropped	59	NOT-RUN (batch-1 claim pos:rc0->1 unverified)
+registry	RG26 selftest-header-alias-dropped	125	NOT-RUN (batch-1 claim pos:rc0->1 unverified)
+registry	RG27 table-row-contiguity-dropped	143	NOT-RUN (batch-1 claim namesonly:met-None unverified; probe separates)
+registry	RG28 cells-trailing-escaped-pipe-check-dropped	118	NOT-RUN (batch-1 claim pos:rc0->1 unverified)
+registry	RG29 selftest-sibling-file-match-dropped	255	NOT-RUN (batch-1 claim selftest:rc0->1 unverified)
+fresh304	FR01 etag-bang-0x21-dropped	82	NOT-RUN (batch-1 claim neg-lookup:met-None unverified; direct probe separates)
+fresh304	FR02 etag-obs-text-upper-0xFF-dropped	82	NOT-RUN (batch-1 claim neg-lenient:met-None unverified; direct probe separates)
+fresh304	FR03 etag-length-check-lowered	77	NOT-RUN (batch-1 claim neg-lenient:met-None unverified; direct probe separates)
+fresh304	FR04 weak-prefix-case-sensitive-w	74	selftest:rc0->2 (batch-1)
+fresh304	FR05 strong-rule-admits-weak-stored	120	selftest:rc0->2 (batch-1)
+fresh304	FR06 weak-tie-threshold-off-by-one	137	selftest:rc0->2 (batch-1)
+fresh304	FR07 weak-most-recent-min-not-max	135	selftest:rc0->2 (batch-1)
+fresh304	FR08 weak-lm-correspondence-skipped-with-etag	129	selftest:rc0->2 (batch-1)
+fresh304	FR09 no-validator-ignores-stored-lm	143	selftest:rc0->2 (batch-1)
+fresh304	FR10 exclusion-proxy-set-dropped	145	selftest:rc0->2 (batch-1)
+fresh304	FR11 exclusion-content-length-dropped	145	selftest:rc0->2 (batch-1)
+fresh304	FR12 connection-token-case-fold-dropped	148	selftest:rc0->2 (batch-1)
+fresh304	FR13 judge-compares-decision-only	340	neg-copyall:rc1->0 (batch-1)
+fresh304	FR14 met-ignores-generated	418	NOT-RUN (batch-1 claim pos-oracle:rc0->1 unverified; the mutation cannot fail pos-oracle)
+fresh304	FR15 generator-no-refusals	268	SURVIVED
+fresh304	FR16 seed-derivation-xor1	395	SURVIVED
+fresh304	FR17 qualified-private-refusal-dropped	116	selftest:rc0->2 (resume)
+fresh304	FR18 strong-none-decision-no-update	121	selftest:rc0->2 (resume)
+fresh304	FR19 connection-empty-token-guard-dropped	149	SURVIVED
+fresh304	FR20 judge-refusal-stdout-check-dropped	333	SURVIVED
+fresh304	FR21 judge-accepts-rc1-decisions	334	SURVIVED
+fresh304	FR22 nul-in-header-value-admitted	64	SURVIVED
+fresh304	FR23 case-duplicate-header-check-dropped	60	selftest:rc0->2 (resume)

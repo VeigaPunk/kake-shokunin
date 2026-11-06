@@ -1,0 +1,18 @@
+RG01 pristine rc=1 tools=1 rows=0 listed=0 unlisted=1 dangling=0 exec_fail=0 mismatches=1 met=false | mutant rc=1 ["KeyError: 'owner'"] | separated=True
+RG03 pristine rc=1 tools=1 rows=1 listed=0 unlisted=1 dangling=0 exec_fail=0 mismatches=1 met=false | mutant rc=0 tools=1 rows=1 listed=1 unlisted=0 dangling=0 exec_fail=0 mismatches=0 met=true | separated=True
+RG04 pristine rc=0 tools=1 rows=1 listed=1 unlisted=0 dangling=0 exec_fail=0 mismatches=0 met=true | mutant rc=1 tools=1 rows=1 listed=0 unlisted=1 dangling=0 exec_fail=0 mismatches=1 met=false | separated=True
+RG05 pristine rc=0 tools=1 rows=1 listed=1 unlisted=0 dangling=0 exec_fail=0 mismatches=0 met=true | mutant rc=1 tools=1 rows=1 listed=0 unlisted=1 dangling=0 exec_fail=0 mismatches=1 met=false | separated=True
+RG06 pristine rc=1 tools=1 rows=1 listed=0 unlisted=1 dangling=0 exec_fail=0 mismatches=1 met=false | mutant rc=0 tools=1 rows=1 listed=1 unlisted=0 dangling=0 exec_fail=0 mismatches=0 met=true | separated=True
+RG07 pristine rc=1 tools=1 rows=1 listed=0 unlisted=1 dangling=0 exec_fail=0 mismatches=1 met=false | mutant rc=0 tools=1 rows=1 listed=1 unlisted=0 dangling=0 exec_fail=0 mismatches=0 met=true | separated=True
+RG09 pristine rc=0 tools=1 rows=1 listed=1 unlisted=0 dangling=0 exec_fail=0 mismatches=0 met=true | mutant rc=1 tools=1 rows=1 listed=0 unlisted=1 dangling=0 exec_fail=0 mismatches=1 met=false | separated=True
+RG18 pristine rc=1 tools=2 rows=1 listed=1 unlisted=1 dangling=0 exec_fail=0 mismatches=1 met=false | mutant rc=0 tools=1 rows=1 listed=1 unlisted=0 dangling=0 exec_fail=0 mismatches=0 met=true | separated=True
+RG19 pristine rc=1 tools=1 rows=2 listed=1 unlisted=0 dangling=1 exec_fail=0 mismatches=1 met=false | mutant rc=0 tools=1 rows=2 listed=1 unlisted=0 dangling=0 exec_fail=0 mismatches=0 met=true | separated=True
+RG23 pristine rc=0 tools=2 rows=2 listed=2 unlisted=0 dangling=0 exec_fail=0 mismatches=0 met=true | mutant rc=1 tools=2 rows=2 listed=1 unlisted=1 dangling=0 exec_fail=0 mismatches=1 met=false | separated=True
+RG27 pristine rc=1 tools=2 rows=1 listed=1 unlisted=1 dangling=0 exec_fail=0 mismatches=1 met=false | mutant rc=0 tools=2 rows=2 listed=2 unlisted=0 dangling=0 exec_fail=0 mismatches=0 met=true | separated=True
+FR01 fr-probe pristine={"decision": "update", "rule": "strong", "updated": [{"id": "a", "headers": {"etag": "\"!\ | mutant=null | separated=True
+FR02 fr-probe pristine={"decision": "update", "rule": "strong", "updated": [{"id": "a", "headers": {"etag": "\"\u | mutant=null | separated=True
+FR03 fr-probe pristine=null | mutant={"decision": "must-not-update", "rule": "strong", "updated": []} | separated=True
+FR22 fr-probe pristine=null | mutant={"decision": "no-update", "rule": "no-validator", "updated": []} | separated=True
+FR20 judge-probe pristine=False | mutant=True | separated=True
+FR21 judge-probe pristine=False | mutant=True | separated=True
+FR16 probe X={"response": {"headers": {"Cache-Control": "r-9", "Connection": "X-Foo", "ETag": "\"a\"", "Expires": "r-7", "X-Foo": "r-3", "last-modified": "L2"}, "status": 304}, "stored": [{"headers": {"Cache-Contr pristine rc=0  refusals=42/42 seed=3454273765 met=true | mutant rc=1 refusals=41/41 seed=3454273764 met=false | separated=True

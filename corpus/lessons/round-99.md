@@ -270,5 +270,13 @@ ScribeLesson seat and integrated by the L1; mistake 5, R99-B and the verdicts ar
   leading/trailing OWS (F2), and an explicit case rule for LC6.
 - **R99-11 (C1 re-entry).** Re-claim registry calibration with exit-code cells derived from code
   (R99-B) and a probe that does not exempt exit 2; keep the two-reviewer conjunct.
+- **R99-12 (MutCounters).** `c99_registry.py`: 12 of 29 mutants killed, 10 confirmed survivors, 7
+  not run (host `/fast` ENOSPC mid-run voided a batch); `c99_fresh304.py`: 13 of 23 killed (not
+  re-run after the ENOSPC), 6 survivors, 4 not run (`w1/MutCounters/mutants.tsv`, `survivors.md`).
+  Also F1: an `OSError` traceback in the registry counter exits 1, indistinguishable from
+  `met=false`. Successor batteries take the survivors' separating inputs as fixtures.
+- **Seat yield (R98-B).** 13/13 seats settled with a non-empty final output (`w1-results.json`);
+  none dead. ExecFresh's final line notes the scored-blob clause was open at its own scoring
+  (it scored `--candidate-file`); the L1 scored the committed blob at `998b6d5f`.
 - **Carried unchanged** from the lane's own routes: R98-1…R98-5, R97-1…R97-5, R96-3, R95-6, and
   L0 R95-2.

@@ -5966,7 +5966,8 @@ Outside closure owns admission. Routed to round 100 (`corpus/lessons/round-99.md
 round 100`): R99-1…R99-7 (lesson), R99-8 (C2 counter population: the seven CriticClaims escape
 classes), R99-9 (candidate-runner isolation, SentinelScope W1–W4; c99_registry run_span V1/V2),
 R99-10 (contract v2: token-form qualified directives, unrecognised-directive substring, output
-OWS, LC6 case), R99-11 (C1 re-entry with exit-code cells derived from code, criterion R99-B),
+OWS, LC6 case), R99-11 (C1 re-entry with exit-code cells derived from code, criterion R99-B), R99-12
+(counter mutation survivors: registry 10, fresh304 6),
 plus carried R98-1…5, R97-1/2/3/5, R96-3, R95-6 and L0 R95-2. Frontier: initial-set computation
 (§4 with erratum 9185), HEAD freshening (§4.3.5), invalidation (§4.4) and every live-cache
 observation stay open.
