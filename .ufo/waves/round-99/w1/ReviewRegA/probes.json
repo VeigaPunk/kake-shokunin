@@ -1,0 +1,248 @@
+[
+ [
+  "cache_key.py: empty stdin",
+  1,
+  "",
+  "invalid_input: input is not valid JSON | "
+ ],
+ [
+  "cache_key.py: valid payload",
+  1,
+  "",
+  "invalid_input: vary must be a string | "
+ ],
+ [
+  "cache_key.py: bad json",
+  1,
+  "",
+  "invalid_input: input is not valid JSON | "
+ ],
+ [
+  "cache_key_conformance: no args",
+  2,
+  "",
+  "didate CANDIDATE [--seed SEED] |                                 [--generated GENERATED] [--jobs JOBS] |                                 [--work WORK] [--python PYTHON] [--verbose] | cache_key_conformance.py: error: the following arguments are required: --candidate | "
+ ],
+ [
+  "conditional_eval: empty stdin",
+  1,
+  "",
+  "invalid_input: input is not valid JSON | "
+ ],
+ [
+  "conditional_eval: bad json",
+  1,
+  "",
+  "invalid_input: input is not valid JSON | "
+ ],
+ [
+  "reval_exchange: empty stdin",
+  1,
+  "",
+  "invalid_input: body is not JSON | "
+ ],
+ [
+  "reval_exchange: bad json",
+  1,
+  "",
+  "invalid_input: body is not JSON | "
+ ],
+ [
+  "stale_extensions: empty stdin",
+  1,
+  "",
+  "invalid_input: not valid JSON: Expecting value: line 1 column 1 (char 0) | "
+ ],
+ [
+  "stale_extensions: bad json",
+  1,
+  "",
+  "invalid_input: not valid JSON: Expecting property name enclosed in double quotes: line 1 column 2 (char 1) | "
+ ],
+ [
+  "header_change_class: no args",
+  64,
+  "",
+  "usage: header_change_class.py [-h] [--a A] [--b B] [--declared DECLARED] |                               [--json] [--selftest] [--work WORK] | "
+ ],
+ [
+  "landed_check: no args",
+  64,
+  "",
+  "usage error: missing --report, --repo, --branch | usage: landed_check.py [-h] [--report REPORT] [--repo REPO] [--branch BRANCH] |                        [--selftest] | "
+ ],
+ [
+  "ledger_latest_check: --root FX",
+  0,
+  "rescore-tally MATCH quoted=14 derived=14 SCORECARD.md:3641 | donothing-ratios MATCH quoted=T1 4.21, T5 7.05 derived=T1 4.21, T5 7.05 LOG.md:1703 | build-ratio-range MATCH quoted=T1 1.00\u20131.01, T5 1.11\u20131.22 derived=T1 1.00\u20131.01, T5 1.11\u20131.22 LOG.md:1705 | ledger-quotes: 3 figures, 0 mismatches | ",
+  ""
+ ],
+ [
+  "knowledge_metatext_lint: --root FX --revision REV",
+  0,
+  "eat ran none. | corpus/knowledge/x-robots-tag-header.md:210: review this-seat | requested by this seat, and no serving host is described. | knowledge_metatext_lint: revision=9d341d1b46f16dbfbb41af75dd6d4966808dfa5d commit=9d341d1b46f16dbfbb41af75dd6d4966808dfa5d files=85 gate_findings=0 review_hits=146 | ",
+  ""
+ ],
+ [
+  "knowledge_metatext_lint: --root /nonexistent",
+  2,
+  "",
+  "knowledge_metatext_lint: setup error: git rev-parse --verify --quiet HEAD^{commit} rc=128: fatal: cannot change to '/nonexistent': No such file or directory | "
+ ],
+ [
+  "live_snapshot: no args",
+  64,
+  "",
+  "usage: live_snapshot.py [-h] --population POPULATION --out OUT [--reaudit] |                         [--validator VALIDATOR] | live_snapshot.py: error: the following arguments are required: --population, --out | "
+ ],
+ [
+  "response_snapshot: --bogus",
+  64,
+  "",
+  "usage: response_snapshot.py [-h] [--population POPULATION] [--out OUT] | response_snapshot.py: error: unrecognized arguments: --bogus | "
+ ],
+ [
+  "robots_audit: no args",
+  64,
+  "",
+  "robots_audit.py: usage: robots_audit.py --manifest PATH | "
+ ],
+ [
+  "robots_audit: missing manifest",
+  2,
+  "{\"version\":1,\"verdict\":\"could-not-evaluate\",\"checksEvaluated\":0,\"findings\":[{\"check\":null,\"reason\":\"input_invalid\"}]} | ",
+  ""
+ ],
+ [
+  "source_snapshot: no args",
+  2,
+  "",
+  "usage: source_snapshot.py [-h] --input INPUT --out-dir OUT_DIR |                           [--manifest MANIFEST] | source_snapshot.py: error: the following arguments are required: --input, --out-dir | "
+ ],
+ [
+  "wave_seat_record: no args",
+  2,
+  "",
+  "usage: wave_seat_record.py [-h] --results RESULTS --spec SPEC --out OUT | wave_seat_record.py: error: the following arguments are required: --results, --spec, --out | "
+ ],
+ [
+  "wave_seat_record: bad json results",
+  2,
+  "",
+  "unreadable input: [Errno 2] No such file or directory: '/fast/scratch/hyaku/kake-r99/ReviewRegA/bad.json' | "
+ ],
+ [
+  "citing_set_hostile: no args",
+  2,
+  "",
+  "usage: citing_set_hostile_selftest.py [-h] --root ROOT --tmpdir TMPDIR |                                       [--runner RUNNER] | citing_set_hostile_selftest.py: error: the following arguments are required: --root, --tmpdir | "
+ ],
+ [
+  "citing_set: no args",
+  64,
+  "{ |   \"verdict\": \"could-not-evaluate\", |   \"citingPairs\": 0, |   \"ledgerPairs\": 0, |   \"findings\": [], |   \"error\": \"usage: missing required option(s): --root, --population, --ledger\" | } | ",
+  "citing_set.py: missing required option(s): --root, --population, --ledger | "
+ ],
+ [
+  "citing_set: --root FX --population /nonexistent --ledger /nonexistent",
+  2,
+  "{ |   \"verdict\": \"could-not-evaluate\", |   \"citingPairs\": 0, |   \"ledgerPairs\": 0, |   \"findings\": [ |     { |       \"id\": \"input_invalid\", |       \"reason\": \"document_unreadable\", |       \"scope\": \"document\", |       \"path\": \"nope.json\", |       \"detail\": \"No such file or directory\" |     } |   ] | } | ",
+  ""
+ ],
+ [
+  "quote_class: no args",
+  2,
+  "",
+  "usage: quote_class.py [-h] [--selftest] [--json] {classify} ... | quote_class.py: error: one of --selftest or classify is required | "
+ ],
+ [
+  "quote_class: classify --json after subcommand",
+  2,
+  "",
+  "usage: quote_class.py [-h] [--selftest] [--json] {classify} ... | quote_class.py: error: unrecognized arguments: --json | "
+ ],
+ [
+  "quote_class --selftest",
+  0,
+  "case inline_raw_substring: derived=raw-substring expected=raw-substring pass | case markup_collapsed_only: derived=collapsed-only expected=collapsed-only pass | case absent_everywhere: derived=absent expected=absent pass | case s432_real: derived=collapsed-only expected=collapsed-only pass | selftest 4/4 | ",
+  ""
+ ],
+ [
+  "probe-delta: --bogus",
+  64,
+  "",
+  "unknown flag: --bogus | "
+ ],
+ [
+  "probe-delta: --history nonexistent",
+  2,
+  "",
+  "probe-delta: cannot read /nonexistent.jsonl: ENOENT: no such file or directory, open '/nonexistent.jsonl' | "
+ ],
+ [
+  "probe-delta: --help-ish no args",
+  2,
+  "",
+  "probe-delta: cannot read /home/vgpnk/Projects/webzites/state/probe-history.jsonl: ENOENT: no such file or directory, open '/home/vgpnk/Projects/webzites/state/probe-history.jsonl' | "
+ ],
+ [
+  "sidecar_reobserve: --check --root FX",
+  0,
+  "sidecar_reobserve mode=check entries=190 absent=20 restored=170 present=170 absent_present=0 absent_absent=20 restored_absent=0 unevaluable=0 flipped=0 wrote=false | ",
+  ""
+ ],
+ [
+  "sitemap_audit_selftest: --tool x --fault-injection",
+  0,
+  "PASS 271/271 | FAULT silent: rejected as expected (0/271 cases accepted) | FAULT constant-clean: rejected as expected (86/271 cases accepted) | ",
+  ""
+ ],
+ [
+  "sitemap_audit_selftest: --map",
+  0,
+  "ond_60, lm_time_without_tzd, lm_tzd_hour_24, lm_year_month, lm_year_only | rule (j): pos=cf_all_valid, cf_whitespace_stripped | neg=cf_case_sensitive, cf_unknown_value | rule (k): pos=pr_valid_forms, pr_whitespace_stripped | neg=pr_bare_dot, pr_comma, pr_empty, pr_exponent, pr_negative, pr_out_of_range | ",
+  ""
+ ],
+ [
+  "robots_audit_selftest --list",
+  0,
+  "n3 scripts/robots_audit.py --manife | u04-equals-form\tUsage. \"python3 scripts/robots_audit.py --manife | u05-wrong-flag\tUsage. \"python3 scripts/robots_audit.py --manife | u06-two-manifest-pairs\tUsage. \"python3 scripts/robots_audit.py --manife | u07-help-flag\tUsage. \"python3 scripts/robots_audit.py --manife | ",
+  ""
+ ],
+ [
+  "source_recheck_selftest --list",
+  0,
+  "ect\tUsage: \"python3 scripts/source_recheck.p | o02-report-shape-two-checks-two-evaluated\tUsage: \"python3 scripts/source_recheck.p | o04-report-shape-mixed-clean-and-failing-checks\tUsage: \"python3 scripts/source_recheck.p | o03-report-shape-findings-carry-check-ids\tUsage: \"python3 scripts/source_recheck.p | ",
+  ""
+ ],
+ [
+  "source_recheck_hardening_selftest --list",
+  0,
+  "open-resolved\t(g) \"It reads only the manifest and the  | g33-body-over-cap\tRound-38 repair carried from round-37 (g | g34-body-1g\tRound-38 repair carried from round-37 (g | g36-body-over-cap-with-moved\t(g) \"A check that breaks any manifest ru | g35-near-cap-manifest\tRound-38 repair carried from round-37 (g | ",
+  ""
+ ],
+ [
+  "landed_check --selftest",
+  0,
+  "ASS unknown-hash | PASS sha256-token-ignored | PASS short-hash-ambiguity | PASS empty-report | PASS prose-only-report | PASS branch-missing | PASS hash-inside-code-fence | PASS duplicate-hash-counted-once | PASS non-commit-object-skipped | PASS digest-label-ignored | PASS report-missing | PASS usage-error | selftest 14/14 | ",
+  ""
+ ],
+ [
+  "ledger_latest_check --selftest",
+  0,
+  "ledger_latest_check --selftest |   PASS matching fixture MATCH quoted=14 derived=14 |   RED MISMATCH mismatching fixture quoted=18 derived=14 | selftest: 2/2 passed | ",
+  ""
+ ],
+ [
+  "knowledge_metatext_lint --selftest",
+  0,
+  "r-miss words: gate want=[] got=[] | review want=[] got=[] | ok N4 plain heading and balanced inline code: gate want=[] got=[] | review want=[] got=[] | ok N5 longer closer keeps a shorter inner fence inside; trailing 'seat belt' prose is clean: gate want=[] got=[] | review want=[] got=[] | selftest 13/13 | ",
+  ""
+ ],
+ [
+  "base_path_selftest: stderr 45/45",
+  0,
+  "t-outside\", |     \"X09-template-content-not-scanned\", |     \"X10-audio-and-embed\", |     \"X11-default-port-and-host-case\", |     \"X12-backslash-and-encoded-dots\", |     \"X13-parent-traversal-with-file-present\", |     \"X14-resolved-field-after-whitespace-strip\", |     \"X15-same-scheme-single-slash-relative\" |   ] | } | ",
+  "45/45 fixtures passed | "
+ ]
+]

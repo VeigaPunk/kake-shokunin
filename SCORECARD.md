@@ -5925,3 +5925,48 @@ convention marks; s-maxage/lifetime coupling; duplicate JSON keys), R98-5 (dead 
 plus carried R97-1/2/3/5, R96-3, R95-6 and L0 R95-2. Frontier: live-cache observation of the
 stale extensions, background revalidation, storage/key identity (§4.1) and the merged 304 field
 set stay open.
+
+### Round 99 — claims and verdicts (2026-11-05, attempt 1, fresh start; not an admission)
+
+Round base `cde408e5817bf1376c701d8decc5469fa82b2985`; instruments `2345e309640adac6c36e41eca87409085ba3a276`;
+freeze `ab35eacebf922f4f598237590f0220d63111dc94` with both counters digest-pinned
+(`.ufo/waves/round-99/controls/instrument-sha256.txt`) and every do-nothing, forgery and positive
+control executed and committed BEFORE the wave and before the repair (`.ufo/waves/round-99/freeze.md`).
+C1 repair `9d341d1b46f16dbfbb41af75dd6d4966808dfa5d`; C2 content `998b6d5f6dd453d910b15c0bdf9e5ac124c84497`.
+Claims, counters, predicates and targets unchanged after the freeze.
+
+| Claim | Axis / type | Before → after | Counting command | Verdict |
+|---|---|---|---|---|
+| C1 SKILL.md tool registry covers the committed `scripts/` tools | calibration (3, lowest owned) | `tools=54 unlisted=26 dangling=0 mismatches=26 met=false` exit 1 at `cde408e5` → `tools=54 unlisted=0 dangling=0 mismatches=0 met=true` exit 0 at `9d341d1b`; review conjunct ReviewRegA 24 agree / 2 disagree, ReviewRegB 23 agree / 3 disagree of 26 | `python3 -B .ufo/waves/round-99/c99_registry.py --root . --revision <REV> --work <scratch>` + `cut -f2 .ufo/waves/round-99/w1/ReviewReg{A,B}/verdicts.tsv \| sort \| uniq -c` | **unmet** (frozen kill rule: a live reviewer's `disagree`, rows `quote_class.py`, `wave_seat_record.py`, `sitemap_audit_selftest.py`); score stays 3; the three rows were corrected afterwards without flipping the verdict |
+| C2 304 freshening decision, contract v1 (sourced: S484) | freshness (HOLD 10), capability | `candidate=absent met=false` exit 1 at `cde408e5` → `candidate=present sha256=db3a0f12… hand=50/50 generated=240/240 refusals=47/47 met=true` exit 0 at `998b6d5f`, scored blob = landed blob; 10 extra seeds 10/10 met; 2400 independent-generator inputs 0 disagreements with the reference | `python3 -B .ufo/waves/round-99/c99_fresh304.py --root . --revision <REV> --work <scratch>` | **met on the frozen predicate**; counter population blind to seven contract-violating classes found by CriticClaims and unisolated candidate runner (SentinelScope W1–W4) — routed R99-8/R99-9; contract-v1 RFC departures F1/F2/F10 routed R99-10 |
+
+C1 at the C2 commit: `tools=55 unlisted=0 dangling=0 met=true` (`controls/tip-c1-at-c2.txt`) —
+`scripts/freshen_304.py` landed with its own registry row, as the freeze's ordering rule requires.
+No capability row enters `## Capabilities` before an admitted closure (R98-C2); the round-98 row
+was moved to the no-admitted-closure table this round (`7f5b1b7b`; `c98_captable.py` at that
+commit `unbacked=0 met=true`, `controls/r98c2-captable-after-move.txt`).
+
+#### Move log (round 99)
+
+| Round | Axis | Before | After | Evidence |
+|---|---|---|---|---|
+| 99 | calibration | 3 (`unlisted=26`) | 3 (counter `unlisted=0`; review conjunct failed 3 rows) | `.ufo/waves/round-99/controls/{base-c1,after-c1}.txt`; `w1/ReviewRegA/verdicts.tsv`; `w1/ReviewRegB/verdicts.tsv` |
+| 99 | freshness (HOLD 10), capability | no candidate | counter `met=true` | `.ufo/waves/round-99/controls/{base-c2,after-c2,after-c2-10seeds,c2-landed-vs-oracle-twin-generator,c2-candidate-static,ctl-c2-pos-oracle}.txt` |
+
+#### Demonstrated repertoire — round 99
+
+| Capability | What it can now do | Evidence | First-working round |
+|---|---|---|---|
+| 304 freshening decision, contract v1 | Decides over supplied values which stored responses of a caller-supplied initial set a 304 identifies for update (RFC 9111 §4.3.4 first match: strong ETag all-matching or must-not-update; weak ETag/Last-Modified most recent corresponding; sole validator-less response) and their updated header fields (§3.2 with Content-Length, Connection-listed, hop-by-hop and Proxy-* exceptions); refuses malformed input; no initial-set computation, no live cache | `scripts/freshen_304.py` sha256 `db3a0f12…`; `.ufo/waves/round-99/controls/after-c2.txt` | 99 (not admitted; row stays out of `## Capabilities` until a closure admits it) |
+| Tool-registry coverage counter | Counts committed `scripts/` tools without a conformant SKILL.md registry row (structure plus one executed self-test per row) and dangling rows | `.ufo/waves/round-99/c99_registry.py`; selftest 20/20 (`controls/ctl-c1-selftest.txt`); declared junk-prose limit (`controls/ctl-c1-junkprose.txt`) | 99 |
+
+#### Planned — after round 99
+
+Outside closure owns admission. Routed to round 100 (`corpus/lessons/round-99.md` `## Routed to
+round 100`): R99-1…R99-7 (lesson), R99-8 (C2 counter population: the seven CriticClaims escape
+classes), R99-9 (candidate-runner isolation, SentinelScope W1–W4; c99_registry run_span V1/V2),
+R99-10 (contract v2: token-form qualified directives, unrecognised-directive substring, output
+OWS, LC6 case), R99-11 (C1 re-entry with exit-code cells derived from code, criterion R99-B),
+plus carried R98-1…5, R97-1/2/3/5, R96-3, R95-6 and L0 R95-2. Frontier: initial-set computation
+(§4 with erratum 9185), HEAD freshening (§4.3.5), invalidation (§4.4) and every live-cache
+observation stay open.

@@ -1,0 +1,37 @@
+# QUALITY R99-A check command controls
+# check command: python3 -B .ufo/waves/round-99/w1/ScribeLesson/frontier_first_named.py --root <lane>
+
+# positive control: fixture commit db0a7662 with a conformant open-frontier map
+db0a7662e402690d5861daa231e73c31bb329efe
+named_open=4 map_rows=4 missing=0 wrong=0 met=true
+map rows: 4
+
+# negative control 1: one map row deleted (ground unmapped)
+named_open=4 map_rows=3 missing=1 wrong=0 met=false
+missing_open_ground 4.3.4 (named open in round 93)
+map rows: 3
+rc=1
+
+# negative control 2: map row names a LATER first-named round than the round that named it open
+named_open=4 map_rows=4 missing=0 wrong=1 met=false
+wrong_first_named 4.3.4 map_says_r97 first_named_r93
+map rows: 4
+rc=1
+
+# negative control 3: the whole open-frontier section removed
+named_open=4 map_rows=absent missing=4 wrong=0 met=false
+missing_open_ground 15.4.5 (named open in round 93)
+missing_open_ground 4.1 (named open in round 95)
+missing_open_ground 4.3 (named open in round 95)
+missing_open_ground 4.3.4 (named open in round 93)
+corpus/README.md has no `## Open frontier` section
+rc=1
+
+# lane tip (unfixed): the red state the criterion names
+named_open=4 map_rows=absent missing=4 wrong=0 met=false
+missing_open_ground 15.4.5 (named open in round 93)
+missing_open_ground 4.1 (named open in round 95)
+missing_open_ground 4.3 (named open in round 95)
+missing_open_ground 4.3.4 (named open in round 93)
+corpus/README.md has no `## Open frontier` section
+rc=1

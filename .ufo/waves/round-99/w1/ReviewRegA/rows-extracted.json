@@ -1,0 +1,236 @@
+[
+ {
+  "name": "base_path_selftest.py",
+  "kind": "selftest runner for base-path-audit",
+  "entry": "`python3 -B scripts/base_path_selftest.py` (`--tool PATH`, `--fixtures DIR`, `--python EXE`, `--case SUBSTR`, `--verbose`)",
+  "verdict": "`0` every fixture under `scripts/fixtures/base-path/` matched; `1` at least one fixture mismatched; `2` setup/input fault",
+  "selftest": "`python3 -B scripts/base_path_selftest.py` (it is the self-test; prints `45/45 fixtures passed` at round-99 base)",
+  "scope": "reads the committed fixtures; writes nothing",
+  "owner": "kake"
+ },
+ {
+  "name": "cache_key.py",
+  "kind": "probe (Vary-nominated cache-key constructor, round-89 contract)",
+  "entry": "`printf '%s' '<payload>' | python3 -B scripts/cache_key.py` with stdin JSON `{uri,request_headers,vary}`",
+  "verdict": "`0` key printed on stdout as `{\"key\": ...}`; `1` refusal, `invalid_input: <reason>` on stderr",
+  "selftest": "no self-test (no `--selftest` mode; scored by `.ufo/waves/round-89/c89_key.py` and `scripts/cache_key_conformance.py`)",
+  "scope": "stdin/stdout/stderr only",
+  "owner": "kake"
+ },
+ {
+  "name": "cache_key_conformance.py",
+  "kind": "gate (behavioural conformance of a cache-key candidate to the round-89 key contract, audit-hook sandbox)",
+  "entry": "`python3 -B scripts/cache_key_conformance.py --candidate <script> --work <explicit-scratch> [--seed N] [--generated N]`",
+  "verdict": "`0` met; `1` not met (a hand or generated disagreement or a sandbox violation); `2` usage or reference self-check failure",
+  "selftest": "no self-test (no `--selftest` mode; the reference self-checks against the contract's worked examples and hand cases before any candidate runs, exit 2 on drift)",
+  "scope": "per-case scratch under `--work` only",
+  "owner": "kake"
+ },
+ {
+  "name": "citing_set.py",
+  "kind": "gate (syntactic citing-set pair completeness over `corpus/knowledge`)",
+  "entry": "`python3 -B scripts/citing_set.py --root <dir> [--revision <commit>] --population <relative-json> --ledger <relative-json> [--json]`",
+  "verdict": "`0` clean; `1` failed (findings present); `2` could-not-evaluate; `64` usage",
+  "selftest": "`python3 -B scripts/citing_set.py --selftest` (delegates to `scripts/citing_set_selftest.py` with an explicit root)",
+  "scope": "read-only over the corpus; the selftest writes case copies under the runner's tmpdir",
+  "owner": "kake"
+ },
+ {
+  "name": "citing_set_selftest.py",
+  "kind": "selftest runner for citing-set (fixture cases under `scripts/fixtures/citing-set/`)",
+  "entry": "`python3 -B scripts/citing_set_selftest.py --selftest [--tmpdir DIR]`",
+  "verdict": "`0` every case matched; `1` at least one case mismatched; `2` could-not-evaluate (bad fixture tree)",
+  "selftest": "`python3 -B scripts/citing_set_selftest.py --selftest`",
+  "scope": "case copies under `--tmpdir` (default `/fast/scratch/hyaku/kake-r27`)",
+  "owner": "kake"
+ },
+ {
+  "name": "citing_set_hostile_selftest.py",
+  "kind": "selftest for the citing-set fixture runner's refusal of hostile fixture shapes",
+  "entry": "`python3 -B scripts/citing_set_hostile_selftest.py --root <tree> --tmpdir <dir> [--runner PATH]`",
+  "verdict": "`0` every hostile spec refused as expected; `1` a spec failed; `2` bad input (no specs, unreadable spec)",
+  "selftest": "`python3 -B scripts/citing_set_hostile_selftest.py --root . --tmpdir <dir>`",
+  "scope": "hostile builds under `--tmpdir` only",
+  "owner": "kake"
+ },
+ {
+  "name": "conditional_eval.py",
+  "kind": "probe (conditional-request evaluation, contracts v1/v2 rounds 93/95)",
+  "entry": "`printf '%s' '<payload>' | python3 -B scripts/conditional_eval.py`",
+  "verdict": "`0` decision printed as `{\"decision\": \"200\"|\"304\"|\"412\", \"precondition\": ...}`; `1` refusal, `invalid_input: <reason>` on stderr, empty stdout",
+  "selftest": "`python3 -B scripts/conditional_eval.py --selftest` (in-memory fixtures; `99/99` at round-99 base)",
+  "scope": "stdin/stdout/stderr only",
+  "owner": "kake"
+ },
+ {
+  "name": "header_change_class.py",
+  "kind": "evidence classifier (changed response headers between two retained capture trees, round-83 class table)",
+  "entry": "`python3 -B scripts/header_change_class.py --a <capture-dir> --b <capture-dir> --declared <file> [--json]`",
+  "verdict": "`0` classification printed; `1` unevaluable input; `64` usage",
+  "selftest": "`python3 -B scripts/header_change_class.py --selftest` (`6/6` at round-99 base)",
+  "scope": "reads retained receipts only; the selftest writes fixtures under `--work` or a TMPDIR scratch dir",
+  "owner": "kake"
+ },
+ {
+  "name": "knowledge_metatext_lint.py",
+  "kind": "gate (seat-handoff meta-text in `corpus/knowledge/*.md`, R98-D1)",
+  "entry": "`python3 -B scripts/knowledge_metatext_lint.py --root . --revision <rev>` (or `--dir <dir>` for fixtures)",
+  "verdict": "`0` clean (review-tier hits allowed); `1` gate findings; `2` setup error",
+  "selftest": "`python3 -B scripts/knowledge_metatext_lint.py --selftest` (`13/13` at round-99 base)",
+  "scope": "read-only (`git show` of committed bytes)",
+  "owner": "kake"
+ },
+ {
+  "name": "landed_check.py",
+  "kind": "gate (report-cited commit hashes vs branch ancestry)",
+  "entry": "`python3 -B scripts/landed_check.py --report <report.md> --repo <gitdir> --branch <name>`",
+  "verdict": "`0` every resolvable cited hash is an ancestor and at least one resolved; `1` a cited commit is not an ancestor; `2` unevaluable; `64` usage",
+  "selftest": "`python3 -B scripts/landed_check.py --selftest` (`14/14` at round-99 base)",
+  "scope": "read-only on the repo; the selftest builds fixture repos in a TMPDIR scratch dir",
+  "owner": "kake"
+ },
+ {
+  "name": "ledger_latest_check.py",
+  "kind": "gate (latest declared ledger figures vs their committed round-43 receipts)",
+  "entry": "`python3 -B scripts/ledger_latest_check.py [--root <lane>]`",
+  "verdict": "`0` every latest figure matches its receipt; `1` a mismatch; `2` unreadable input",
+  "selftest": "`python3 -B scripts/ledger_latest_check.py --selftest` (`2/2` at round-99 base)",
+  "scope": "read-only",
+  "owner": "kake"
+ },
+ {
+  "name": "link_preview_selftest.py",
+  "kind": "selftest runner for link-preview-audit",
+  "entry": "`python3 -B scripts/link_preview_selftest.py [--tool PATH] [--fixtures DIR]`",
+  "verdict": "`0` every fixture passed; `1` a fixture failed; `2` setup fault",
+  "selftest": "`python3 -B scripts/link_preview_selftest.py` (it is the self-test; `46/46` at round-99 base)",
+  "scope": "reads the committed fixtures; writes nothing",
+  "owner": "kake"
+ },
+ {
+  "name": "live_snapshot.py",
+  "kind": "evidence tool (network GET of owned pages for the canonical preflight)",
+  "entry": "`python3 -B scripts/live_snapshot.py --population <pop.json> --out <dir>` (`--reaudit` re-reads stored bytes offline)",
+  "verdict": "`0` every surface attempted (per-surface outcomes are data); `1` not used; `2` bad input or inconsistent snapshot; `64` usage",
+  "selftest": "no self-test (no `--selftest` mode)",
+  "scope": "creates `--out/<id>/` receipts only",
+  "owner": "kake"
+ },
+ {
+  "name": "probe-delta.mjs",
+  "kind": "report (violated[] membership deltas and coverage holes over `probe-history.jsonl`)",
+  "entry": "`node scripts/probe-delta.mjs [--history PATH] [--since ISO] [--hole-hours H] [--json]`",
+  "verdict": "`0` parsed and reported (a report, not a gate); `1` not used; `2` unreadable input or zero usable rows; `64` unknown flag",
+  "selftest": "no self-test (no `--selftest` mode)",
+  "scope": "read-only",
+  "owner": "kake"
+ },
+ {
+  "name": "quote_class.py",
+  "kind": "probe (quote-class derivation: raw-substring / collapsed-only / absent over two retained blobs)",
+  "entry": "`python3 -B scripts/quote_class.py classify --quote \"<span>\" --raw <file> --text <file> [--json]`",
+  "verdict": "`0` determination printed; `1` selftest failure only; `2` unreadable input; `64` usage",
+  "selftest": "`python3 -B scripts/quote_class.py --selftest` (`4/4` at round-99 base)",
+  "scope": "read-only",
+  "owner": "kake"
+ },
+ {
+  "name": "response_snapshot.py",
+  "kind": "evidence tool (one network GET per surface, header field-lines in wire order)",
+  "entry": "`python3 -B scripts/response_snapshot.py [--population DIR] [--out DIR]`",
+  "verdict": "`0` every attempt recorded; `1` not used; `2` bad input or output collision; `64` usage",
+  "selftest": "no self-test (no `--selftest` mode)",
+  "scope": "creates receipts under `--out` exclusively; never overwrites",
+  "owner": "kake"
+ },
+ {
+  "name": "reval_exchange.py",
+  "kind": "probe (revalidation exchange over supplied values, round-96 contract v1, RFC 9111 §4.3.1/§4.3.3)",
+  "entry": "`printf '%s' '<payload>' | python3 -B scripts/reval_exchange.py`",
+  "verdict": "`0` decision object on stdout; `1` refusal, `invalid_input: <reason>` on stderr",
+  "selftest": "no self-test (no `--selftest` mode; scored by `.ufo/waves/round-97/c97_reval.py`)",
+  "scope": "stdin/stdout/stderr only",
+  "owner": "kake"
+ },
+ {
+  "name": "robots_audit.py",
+  "kind": "gate (offline robots.txt expectation audit, round-37 contract + round-38 rules)",
+  "entry": "`python3 -B scripts/robots_audit.py --manifest <path>`",
+  "verdict": "`0` clean; `1` failed-policy; `2` could-not-evaluate; `64` usage",
+  "selftest": "`python3 -B scripts/robots_audit_selftest.py`",
+  "scope": "read-only (manifest and the robots files it names)",
+  "owner": "kake"
+ },
+ {
+  "name": "robots_audit_selftest.py",
+  "kind": "selftest runner for robots_audit.py (black-box fixtures)",
+  "entry": "`python3 -B scripts/robots_audit_selftest.py [--tool PATH] [--list]`",
+  "verdict": "`0` every fixture passed and coverage minimums met; `1` a fixture failed; `2` setup fault",
+  "selftest": "`python3 -B scripts/robots_audit_selftest.py`",
+  "scope": "fixture directories under a TMPDIR scratch dir",
+  "owner": "kake"
+ },
+ {
+  "name": "sidecar_reobserve.py",
+  "kind": "maintenance tool (re-observe path tokens into `corpus/knowledge/freshness-sidecar.json` without editing citations)",
+  "entry": "`python3 -B scripts/sidecar_reobserve.py --check [--root <lane>] [--json]`; writing form `--write --root <lane> --date YYYY-MM-DD`",
+  "verdict": "`0` observation completed; `1` not used; `2` refused or error (including a failed selftest)",
+  "selftest": "`python3 -B scripts/sidecar_reobserve.py --selftest --work <dir>`",
+  "scope": "`--check` is read-only; `--write` replaces `corpus/knowledge/freshness-sidecar.json` atomically; selftest fixtures under `--work`",
+  "owner": "kake"
+ },
+ {
+  "name": "sitemap_audit_selftest.py",
+  "kind": "selftest runner for sitemap_audit.py (round-39 contract sentences 1-34)",
+  "entry": "`python3 -B scripts/sitemap_audit_selftest.py --tool <path> [--fault-injection]`; `--map` prints coverage",
+  "verdict": "`0` PASS; `1` a case failed or coverage gap; `2` setup fault; `64` usage",
+  "selftest": "`python3 -B scripts/sitemap_audit_selftest.py --tool scripts/sitemap_audit.py` (`PASS 271/271` at round-99 base)",
+  "scope": "case directories under a TMPDIR scratch dir",
+  "owner": "kake"
+ },
+ {
+  "name": "source_recheck_hardening_selftest.py",
+  "kind": "selftest (round-37/38 hardening fixtures for source_recheck.py)",
+  "entry": "`python3 -B scripts/source_recheck_hardening_selftest.py [--tool PATH] [--list]`",
+  "verdict": "`0` every fixture passed; `1` a fixture failed; `2` setup fault",
+  "selftest": "`python3 -B scripts/source_recheck_hardening_selftest.py` (`10/10` at round-99 base)",
+  "scope": "fixture and trace directories under a TMPDIR scratch dir",
+  "owner": "kake"
+ },
+ {
+  "name": "source_recheck_selftest.py",
+  "kind": "selftest runner for source_recheck.py (round-36 contract)",
+  "entry": "`python3 -B scripts/source_recheck_selftest.py [--tool PATH] [--list]`",
+  "verdict": "`0` every fixture passed; `1` a fixture failed; `2` setup fault",
+  "selftest": "`python3 -B scripts/source_recheck_selftest.py` (`106/106` at round-99 base)",
+  "scope": "fixture directories under a TMPDIR scratch dir",
+  "owner": "kake"
+ },
+ {
+  "name": "source_snapshot.py",
+  "kind": "evidence tool (records live source fetches as a round-36 version-1 manifest)",
+  "entry": "`python3 -B scripts/source_snapshot.py --input <list.json> --manifest <out.json> --out-dir <dir>`",
+  "verdict": "`0` manifest written; `1` not used; `2` bad input or fetch-recording fault",
+  "selftest": "no self-test (no `--selftest` mode)",
+  "scope": "writes the manifest and body files it names",
+  "owner": "kake"
+ },
+ {
+  "name": "stale_extensions.py",
+  "kind": "probe (RFC 5861 stale-while-revalidate / stale-if-error decision, round-98 contract v1)",
+  "entry": "`printf '%s' '<payload>' | python3 -B scripts/stale_extensions.py`",
+  "verdict": "`0` `{\"decision\": ..., \"staleness\": ...}` on stdout; `1` refusal, `invalid_input: <reason>` on stderr, empty stdout",
+  "selftest": "`python3 -B scripts/stale_extensions.py --selftest`",
+  "scope": "stdin/stdout/stderr only",
+  "owner": "kake"
+ },
+ {
+  "name": "wave_seat_record.py",
+  "kind": "recorder (per-seat outcome record from a wave results file, R80-6)",
+  "entry": "`python3 -B scripts/wave_seat_record.py --results <wave-results.json> --spec <wave-spec.json> --out <record.json>`",
+  "verdict": "`0` record written; `1` not used; `2` unreadable input; `64` usage",
+  "selftest": "no self-test (no `--selftest` mode)",
+  "scope": "writes `--out` only",
+  "owner": "kake"
+ }
+]

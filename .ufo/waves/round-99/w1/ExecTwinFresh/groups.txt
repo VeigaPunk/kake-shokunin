@@ -1,0 +1,125 @@
+n=2400 disagreements=30 groups=2
+
+=== GROUP 0  n=21  sig=[0, 1, [0, "must-not-update", "strong", 0], [1, null, null, null]]
+--- case i=153 tag=update-mixedcase
+IN: {"stored": [{"id": "only", "received": 9, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}], "response": {"status": 304, "headers": {"etag": "\"\u00df\u00c1\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": "X-LISTED", "Cache-Control": "Private=\"g\""}}}
+TWIN rc=0 ["OK", {"decision": "must-not-update", "rule": "strong", "updated": []}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=258 tag=refusal-lc6
+IN: {"stored": [{"id": "s0", "received": 1, "headers": {"etag": "\"a\"", "x-a": "1"}}], "response": {"status": 304, "headers": {"etag": "\"\u009a\u00fc\"", "cache-control": "NO-CACHE=\"x\""}}}
+TWIN rc=0 ["OK", {"decision": "must-not-update", "rule": "strong", "updated": []}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=292 tag=update-mixedcase
+IN: {"stored": [{"id": "only", "received": 9, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}], "response": {"status": 304, "headers": {"etag": "\"\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": "X-LISTED", "Cache-Control": "Private=\"g\""}}}
+TWIN rc=0 ["OK", {"decision": "must-not-update", "rule": "strong", "updated": []}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=309 tag=update-self
+IN: {"stored": [{"id": "only", "received": -4, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}], "response": {"status": 304, "headers": {"etag": "\"3\u00a2\u00b2\u00b6\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": "connection", "Cache-Control": "NO-CACHE=\"x\""}}}
+TWIN rc=0 ["OK", {"decision": "must-not-update", "rule": "strong", "updated": []}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=546 tag=update-obs-member
+IN: {"stored": [{"id": "only", "received": 9, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}], "response": {"status": 304, "headers": {"etag": "\"\u008e\u00e7\u008d\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": "x-listed, s\u00e9cret", "Cache-Control": "Private=\"g\"", "keep-alive": "timeout=9", "tE": "trailers", "Transfer-Encoding": "chunked", "Upgrade": "h2c", "Proxy-Authenticate": "Basic realm=\"x\"", "Proxy-Authentication-Info": "next"}}}
+TWIN rc=0 ["OK", {"decision": "must-not-update", "rule": "strong", "updated": []}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=550 tag=update-ows
+IN: {"stored": [{"id": "only", "received": 0, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}], "response": {"status": 304, "headers": {"etag": "\"\u00dfP#5\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": "x-listed , X-Secret", "Cache-Control": "NO-CACHE=\"x\""}}}
+TWIN rc=0 ["OK", {"decision": "must-not-update", "rule": "strong", "updated": []}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=592 tag=update-empty-members
+IN: {"stored": [{"id": "only", "received": 0, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}], "response": {"status": 304, "headers": {"etag": "\"\u00a2\u00db\u00c5\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": ",,x-listed,,", "Cache-Control": "Private=\"g\"", "keep-alive": "timeout=9", "tE": "trailers", "Transfer-Encoding": "chunked", "Upgrade": "h2c", "Proxy-Authenticate": "Basic realm=\"x\"", "Proxy-Authentication-Info": "next"}}}
+TWIN rc=0 ["OK", {"decision": "must-not-update", "rule": "strong", "updated": []}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=610 tag=refusal-lc6
+IN: {"stored": [{"id": "s0", "received": 1, "headers": {"etag": "\"a\"", "x-a": "1"}}], "response": {"status": 304, "headers": {"etag": "\"'-t\u0098MF\u008c>\"", "cache-control": "NO-CACHE=\"x\""}}}
+TWIN rc=0 ["OK", {"decision": "must-not-update", "rule": "strong", "updated": []}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=950 tag=refusal-lc6
+IN: {"stored": [{"id": "s0", "received": 1, "headers": {"etag": "\"a\"", "x-a": "1"}}], "response": {"status": 304, "headers": {"etag": "\"\\*)\u0091:\"", "cache-control": "NO-CACHE=\"x\""}}}
+TWIN rc=0 ["OK", {"decision": "must-not-update", "rule": "strong", "updated": []}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=979 tag=update-plain
+IN: {"stored": [{"id": "only", "received": -4, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}], "response": {"status": 304, "headers": {"etag": "\"*\u00d6\u00cc\u00fa\u0087\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": "x-listed", "Cache-Control": "NO-CACHE=\"x\""}}}
+TWIN rc=0 ["OK", {"decision": "must-not-update", "rule": "strong", "updated": []}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=1128 tag=update-plain
+IN: {"stored": [{"id": "only", "received": -4, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}], "response": {"status": 304, "headers": {"etag": "\"\u00e3\u009e\u008e\u0094\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": "x-listed", "Cache-Control": "NO-CACHE=\"x\""}}}
+TWIN rc=0 ["OK", {"decision": "must-not-update", "rule": "strong", "updated": []}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=1201 tag=update-empty-members
+IN: {"stored": [{"id": "only", "received": -4, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}], "response": {"status": 304, "headers": {"etag": "\"Cr\u00cfB\u00f7\u00ee\u00c80\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": ",,x-listed,,", "Cache-Control": "Private=\"g\""}}}
+TWIN rc=0 ["OK", {"decision": "must-not-update", "rule": "strong", "updated": []}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=1210 tag=update-plain
+IN: {"stored": [{"id": "only", "received": 0, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}], "response": {"status": 304, "headers": {"etag": "\"w\u008bwp\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": "x-listed", "Cache-Control": "Private=\"g\""}}}
+TWIN rc=0 ["OK", {"decision": "must-not-update", "rule": "strong", "updated": []}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=1492 tag=update-self
+IN: {"stored": [{"id": "only", "received": 0, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}], "response": {"status": 304, "headers": {"etag": "\"\u00a14\u0093\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": "connection", "Cache-Control": "NO-CACHE=\"x\""}}}
+TWIN rc=0 ["OK", {"decision": "must-not-update", "rule": "strong", "updated": []}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=1613 tag=update-obs-member
+IN: {"stored": [{"id": "only", "received": 9, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}], "response": {"status": 304, "headers": {"etag": "\"I\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": "x-listed, s\u00e9cret", "Cache-Control": "Private=\"g\""}}}
+TWIN rc=0 ["OK", {"decision": "must-not-update", "rule": "strong", "updated": []}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=1693 tag=update-obs-member
+IN: {"stored": [{"id": "only", "received": 0, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}], "response": {"status": 304, "headers": {"etag": "\"Z\u0096\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": "x-listed, s\u00e9cret", "Cache-Control": "Private=\"g\""}}}
+TWIN rc=0 ["OK", {"decision": "must-not-update", "rule": "strong", "updated": []}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=1930 tag=update-ows
+IN: {"stored": [{"id": "only", "received": 0, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}], "response": {"status": 304, "headers": {"etag": "\"@\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": "x-listed , X-Secret", "Cache-Control": "Private=\"g\""}}}
+TWIN rc=0 ["OK", {"decision": "must-not-update", "rule": "strong", "updated": []}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=1962 tag=refusal-lc6
+IN: {"stored": [{"id": "s0", "received": 1, "headers": {"etag": "\"a\"", "x-a": "1"}}], "response": {"status": 304, "headers": {"etag": "\"\u0097f\u0094R\"", "cache-control": "NO-CACHE=\"x\""}}}
+TWIN rc=0 ["OK", {"decision": "must-not-update", "rule": "strong", "updated": []}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=1967 tag=update-ows
+IN: {"stored": [{"id": "only", "received": 9, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}], "response": {"status": 304, "headers": {"etag": "\"vB\u0096\u00bd\u00be\u00c2\u00ba\u00f8\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": "x-listed , X-Secret", "Cache-Control": "Private=\"g\""}}}
+TWIN rc=0 ["OK", {"decision": "must-not-update", "rule": "strong", "updated": []}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=2357 tag=refusal-lc6
+IN: {"stored": [{"id": "s0", "received": 1, "headers": {"etag": "\"a\"", "x-a": "1"}}], "response": {"status": 304, "headers": {"etag": "\"\u0092\u00cf\u00c6\u0088\u008fm\u008e{\"", "cache-control": "NO-CACHE=\"x\""}}}
+TWIN rc=0 ["OK", {"decision": "must-not-update", "rule": "strong", "updated": []}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=2397 tag=refusal-lc6
+IN: {"stored": [{"id": "s0", "received": 1, "headers": {"etag": "\"a\"", "x-a": "1"}}], "response": {"status": 304, "headers": {"etag": "\"^x\u009e?\u0092SE\u00f1\"", "cache-control": "Private=\"g\""}}}
+TWIN rc=0 ["OK", {"decision": "must-not-update", "rule": "strong", "updated": []}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+
+=== GROUP 1  n=9  sig=[0, 1, [0, "update", "strong", 1], [1, null, null, null]]
+--- case i=281 tag=update-self
+IN: {"stored": [{"id": "only", "received": 9, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}, {"id": "shadow", "received": 99, "headers": {"etag": "\"p&v\"", "x-shadow": "1"}}], "response": {"status": 304, "headers": {"etag": "\"p&v\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": "connection", "Cache-Control": "Private=\"g\"", "Authentication-Info": "ok"}}}
+TWIN rc=0 ["OK", {"decision": "update", "rule": "strong", "updated": [{"id": "shadow", "headers": {"etag": "\"p&v\"", "x-shadow": "1", "x-unlisted": "new", "x-overwrite": "new", "x-listed": "conn-dropped", "age": "0", "cache-control": "Private=\"g\"", "authentication-info": "ok"}}]}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=480 tag=update-excluded
+IN: {"stored": [{"id": "only", "received": -4, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}, {"id": "shadow", "received": 99, "headers": {"etag": "\"X\u00cbz\u009f\u00b2\u00cc\"", "x-shadow": "1"}}], "response": {"status": 304, "headers": {"etag": "\"X\u00cbz\u009f\u00b2\u00cc\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": "keep-alive,te,upgrade,proxy-connection,transfer-encoding,proxy-authenticate,proxy-authentication-info,content-length", "Cache-Control": "NO-CACHE=\"x\"", "keep-alive": "timeout=9", "tE": "trailers", "Transfer-Encoding": "chunked", "Upgrade": "h2c", "Proxy-Authenticate": "Basic realm=\"x\"", "Proxy-Authentication-Info": "next"}}}
+TWIN rc=0 ["OK", {"decision": "update", "rule": "strong", "updated": [{"id": "shadow", "headers": {"etag": "\"X\u00cbz\u009f\u00b2\u00cc\"", "x-shadow": "1", "x-unlisted": "new", "x-overwrite": "new", "x-listed": "conn-dropped", "age": "0", "cache-control": "NO-CACHE=\"x\""}}]}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=503 tag=update-ows
+IN: {"stored": [{"id": "only", "received": -4, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}, {"id": "shadow", "received": 99, "headers": {"etag": "\"\u00d7\u00eb\"", "x-shadow": "1"}}], "response": {"status": 304, "headers": {"etag": "\"\u00d7\u00eb\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": "x-listed , X-Secret", "Cache-Control": "NO-CACHE=\"x\""}}}
+TWIN rc=0 ["OK", {"decision": "update", "rule": "strong", "updated": [{"id": "shadow", "headers": {"etag": "\"\u00d7\u00eb\"", "x-shadow": "1", "x-unlisted": "new", "x-overwrite": "new", "age": "0", "cache-control": "NO-CACHE=\"x\""}}]}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=1000 tag=update-plain
+IN: {"stored": [{"id": "only", "received": -4, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}, {"id": "shadow", "received": 99, "headers": {"etag": "\"r\u00f8\u00f2\u00a5\"", "x-shadow": "1"}}], "response": {"status": 304, "headers": {"etag": "\"r\u00f8\u00f2\u00a5\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": "x-listed", "Cache-Control": "Private=\"g\""}}}
+TWIN rc=0 ["OK", {"decision": "update", "rule": "strong", "updated": [{"id": "shadow", "headers": {"etag": "\"r\u00f8\u00f2\u00a5\"", "x-shadow": "1", "x-unlisted": "new", "x-overwrite": "new", "age": "0", "cache-control": "Private=\"g\""}}]}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=1295 tag=update-empty-members
+IN: {"stored": [{"id": "only", "received": 0, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}, {"id": "shadow", "received": 99, "headers": {"etag": "\"tu\"", "x-shadow": "1"}}], "response": {"status": 304, "headers": {"etag": "\"tu\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": ",,x-listed,,", "Cache-Control": "NO-CACHE=\"x\""}}}
+TWIN rc=0 ["OK", {"decision": "update", "rule": "strong", "updated": [{"id": "shadow", "headers": {"etag": "\"tu\"", "x-shadow": "1", "x-unlisted": "new", "x-overwrite": "new", "age": "0", "cache-control": "NO-CACHE=\"x\""}}]}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=1302 tag=update-ows
+IN: {"stored": [{"id": "only", "received": 9, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}, {"id": "shadow", "received": 99, "headers": {"etag": "\"U\u00c3\u009f[\u008d9\u009b\"", "x-shadow": "1"}}], "response": {"status": 304, "headers": {"etag": "\"U\u00c3\u009f[\u008d9\u009b\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": "x-listed , X-Secret", "Cache-Control": "Private=\"g\""}}}
+TWIN rc=0 ["OK", {"decision": "update", "rule": "strong", "updated": [{"id": "shadow", "headers": {"etag": "\"U\u00c3\u009f[\u008d9\u009b\"", "x-shadow": "1", "x-unlisted": "new", "x-overwrite": "new", "age": "0", "cache-control": "Private=\"g\""}}]}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=1631 tag=update-empty-members
+IN: {"stored": [{"id": "only", "received": -4, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}, {"id": "shadow", "received": 99, "headers": {"etag": "\"\u0086]\u00d2\u00b2YJ\u00e1g\"", "x-shadow": "1"}}], "response": {"status": 304, "headers": {"etag": "\"\u0086]\u00d2\u00b2YJ\u00e1g\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": ",,x-listed,,", "Cache-Control": "NO-CACHE=\"x\""}}}
+TWIN rc=0 ["OK", {"decision": "update", "rule": "strong", "updated": [{"id": "shadow", "headers": {"etag": "\"\u0086]\u00d2\u00b2YJ\u00e1g\"", "x-shadow": "1", "x-unlisted": "new", "x-overwrite": "new", "age": "0", "cache-control": "NO-CACHE=\"x\""}}]}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=1784 tag=update-plain
+IN: {"stored": [{"id": "only", "received": -4, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}, {"id": "shadow", "received": 99, "headers": {"etag": "\"\u00c0\"", "x-shadow": "1"}}], "response": {"status": 304, "headers": {"etag": "\"\u00c0\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": "x-listed", "Cache-Control": "Private=\"g\"", "Authentication-Info": "ok"}}}
+TWIN rc=0 ["OK", {"decision": "update", "rule": "strong", "updated": [{"id": "shadow", "headers": {"etag": "\"\u00c0\"", "x-shadow": "1", "x-unlisted": "new", "x-overwrite": "new", "age": "0", "cache-control": "Private=\"g\"", "authentication-info": "ok"}}]}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract
+--- case i=2299 tag=update-excluded
+IN: {"stored": [{"id": "only", "received": -4, "headers": {"content-type": "text/html", "cache-control": "max-age=60", "x-listed": "stored-kept", "x-unlisted": "stored-old", "Content-Length": "99", "KEEP-ALIVE": "timeout=5", "Proxy-Authorization": "Basic z", "x-overwrite": "old"}}, {"id": "shadow", "received": 99, "headers": {"etag": "\"\u0085\u009b\u00d0\u00d9\u00cd\u00d7\"", "x-shadow": "1"}}], "response": {"status": 304, "headers": {"etag": "\"\u0085\u009b\u00d0\u00d9\u00cd\u00d7\"", "Content-Length": "5", "x-unlisted": "new", "X-Overwrite": "new", "x-listed": "conn-dropped", "age": "0", "connection": "keep-alive,te,upgrade,proxy-connection,transfer-encoding,proxy-authenticate,proxy-authentication-info,content-length", "Cache-Control": "Private=\"g\"", "keep-alive": "timeout=9", "tE": "trailers", "Transfer-Encoding": "chunked", "Upgrade": "h2c", "Proxy-Authenticate": "Basic realm=\"x\"", "Proxy-Authentication-Info": "next"}}}
+TWIN rc=0 ["OK", {"decision": "update", "rule": "strong", "updated": [{"id": "shadow", "headers": {"etag": "\"\u0085\u009b\u00d0\u00d9\u00cd\u00d7\"", "x-shadow": "1", "x-unlisted": "new", "x-overwrite": "new", "x-listed": "conn-dropped", "age": "0", "cache-control": "Private=\"g\""}}]}] err=
+ORAC rc=1 ["ERR", true] err=invalid_input: qualified cache-control outside contract

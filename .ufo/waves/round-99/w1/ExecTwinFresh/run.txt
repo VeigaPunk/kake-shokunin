@@ -1,0 +1,45 @@
+ExecTwinFresh — differential run, C2 freshen_304 contract v1 (twin vs frozen/pos-oracle.py)
+
+tool versions: Python 3.14.8 (/usr/bin/python3 -B); no third-party packages; no installs.
+lane tip at run: master = 7f5b1b7b8dbfdae74dfe6d487bbf5406c478b916 (read-only git rev-parse)
+round base: cde408e5817bf1376c701d8decc5469fa82b2985 (oracle sha256 ae789bfbde732ea1a244896741bb1bc6a18ba6a7a0bae177a9524657fc750b56 verified against controls/instrument-sha256.txt: OK)
+contract sha256 2be46b4d8dcc57539b0a45e2e3b7b57e76cb1c4e570891e8cdea88c5ebbba2a6 (OK)
+twin sha256 dabc0a88db49d168c4289ec12f2d37fa00223dfcac01c56294d2aa75610f9273
+
+command (cwd = seat scratch /fast/scratch/hyaku/kake-r99/ExecTwinFresh):
+  python3 -B gen_run.py > run.stdout 2> run.stderr ; echo rc=$?
+  -> rc=0 (stderr empty)
+  copy of gen_run.py in this directory (sha256 ee3f0cce0785aa76e74c...)
+
+generator: seed SEED=99226, N=2400, 8 scenario families (strong, weak, no-validator,
+update-fields, lm-whitespace, multi-strong, refusal[18 kinds], fuzz). Written by this seat;
+counter's generator not read.
+
+stdout line:
+  inputs=2400 disagreements=30 groups=2
+tag histogram (full): see run.stdout
+
+verdict tally (results.jsonl, 2400 rows):
+  both OK, identical JSON (rc 0/0):                 1845
+  both refuse, empty stdout, invalid_input: prefix (rc 1/1): 525
+  twin OK, oracle refuses (rc 0/1):                   30
+  twin refuses, oracle OK (rc 1/0):                    0
+  decisions on twin-OK rows: update/strong 450, must-not-update/strong 524,
+    update/weak 241, no-update/weak 261, update/no-validator 78, no-update/no-validator 321
+
+Harness note (honesty): the first run (before correction) reported 555 disagreements because
+the predicate counted both-refuse rows as disagreements (shape_ok() was False on refusals).
+That predicate was corrected (both-refuse = agreement iff both rc=1 with empty stdout and the
+invalid_input prefix); the 525 false positives vanished and nothing else changed. Both runs
+are the same corpus; only the scoring line differs. The reported run is the corrected one.
+
+Targeted oracle probes (single input, stored=[]; rc of oracle / twin):
+  "no-cache=\"x\""  1/1   "No-Cache=\"x\""  1/0   "NO-CACHE=\"x\""  1/0
+  "private=\"g\""   1/1   "Private=\"g\""   1/0   "PRIVATE=\"g\""   1/0
+  "no-cache=x" 0/0   "no-cache = \"x\"" 0/0   "no-cache" 0/0
+  "x-no-cache=\"x\"" 1/1   "public, no-cache=\"a, b\"" 1/1   "no-cache=\"\"" 1/1
+  "max-age=5, no-cache=\"f\"" 1/1   "no-cache=\"x" 1/1   "private=\"\"" 1/1
+(probe commands were run from the seat scratch dir; stdout/stderr captured there)
+
+Verdict line for this run: TWIN inputs=2400 disagreements=30 oracle-defects=0 ambiguities=30
+(30 inputs = one divergence class, see disagreements.md)

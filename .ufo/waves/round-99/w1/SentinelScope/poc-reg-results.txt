@@ -1,0 +1,23 @@
+fixture toplevel ok: /fast/scratch/hyaku/kake-r99/SentinelScope/fx-reg
+== baseline rev=5a234aeb13d8bc03674df536b0049496a4181a66
+revision=5a234aeb13d8bc03674df536b0049496a4181a66
+tools=2 rows=2 listed=1 unlisted=1 dangling=0 exec_fail=1 mismatches=1 met=false
+unlisted scripts/broken.py
+exec_fail 3 scripts/broken.py rc=1
+rc=1
+== poc1-single-amp rev=6139baaf94775156b6a00b24cb31f52c279624ae
+revision=6139baaf94775156b6a00b24cb31f52c279624ae
+tools=2 rows=2 listed=2 unlisted=0 dangling=0 exec_fail=0 mismatches=0 met=true
+rc=0
+== poc2-escape-write rev=4a588904b06fbec6bb22b69b0a489174cb533d62
+revision=4a588904b06fbec6bb22b69b0a489174cb533d62
+tools=2 rows=2 listed=2 unlisted=0 dangling=0 exec_fail=0 mismatches=0 met=true
+rc=0
+== marker files after runs
+-rw-r--r-- 1 vgpnk vgpnk 420 Nov  5 20:27 /fast/scratch/hyaku/kake-r99/SentinelScope/poc-sanctioned-net.txt
+-rw-r--r-- 1 vgpnk vgpnk   0 Nov  5 20:27 /fast/scratch/hyaku/kake-r99/SentinelScope/poc-write-outside.txt
+-- poc-write-outside.txt (written by smuggled \x3e redirect, outside work and tree):
+-- poc-sanctioned-net.txt (written by sanctioned repo-tool selftest):
+net.py selftest ran; socket connect_ex to 127.0.0.1:9 rc=111 (0=open,111=refused; either proves socket syscalls are allowed during scoring)
+net.py selftest ran; socket connect_ex to 127.0.0.1:9 rc=111 (0=open,111=refused; either proves socket syscalls are allowed during scoring)
+net.py selftest ran; socket connect_ex to 127.0.0.1:9 rc=111 (0=open,111=refused; either proves socket syscalls are allowed during scoring)

@@ -1,0 +1,33 @@
+total unlisted: 26
+A) no row mentions the tool at all: 11
+    scripts/citing_set_hostile_selftest.py
+    scripts/conditional_eval.py
+    scripts/header_change_class.py
+    scripts/knowledge_metatext_lint.py
+    scripts/landed_check.py
+    scripts/ledger_latest_check.py
+    scripts/probe-delta.mjs
+    scripts/reval_exchange.py
+    scripts/sidecar_reobserve.py
+    scripts/source_recheck_hardening_selftest.py
+    scripts/wave_seat_record.py
+B) exactly one rule fails on the near-miss row: 13
+    scripts/base_path_selftest.py            R2
+    scripts/cache_key_conformance.py         R5
+    scripts/citing_set.py                    R2
+    scripts/citing_set_selftest.py           R2
+    scripts/link_preview_selftest.py         R2
+    scripts/live_snapshot.py                 R3
+    scripts/quote_class.py                   R2
+    scripts/response_snapshot.py             R3
+    scripts/robots_audit_selftest.py         R2
+    scripts/sitemap_audit_selftest.py        R2
+    scripts/source_recheck_selftest.py       R2
+    scripts/source_snapshot.py               R3
+    scripts/stale_extensions.py              R2
+C) more than one rule fails: 1
+    scripts/cache_key.py ["line 1621   name='cache_key'                  R5 self-test span 'c89_key.py --selftest' names no population file with 'selftest' in its name", "line 1623   name='c89 key capability'         R5 self-test span 'python3 -B .ufo/waves/round-89/c89_key.py --selftest' names no population file with 'selftest' in its name"]
+D) passes R1-R5 shape (counter still unlisted => R5 EXECUTION failed): 1
+    scripts/robots_audit.py tool_has_selftest_mode= False
+
+rule-failure histogram: {'R2': 7, 'R5': 2, 'no_row': 11, 'R3,R5': 3, 'R2,R5': 2, 'R5-exec': 1}

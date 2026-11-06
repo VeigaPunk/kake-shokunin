@@ -1,0 +1,35 @@
+Q1	957	yes	957	18	The initial set of stored responses to update are those that could have been chosen for that request
+Q2	962	yes	962	15	Then, that initial set of stored responses is further filtered by the first match of:
+Q3	965	yes	965	15	If the new response contains one or more "strong validators" (see Section 8.8.1 of [HTTP])
+Q4	967	yes	967	19	All the stored responses in the initial set with one of those same strong validators are identified for update.
+Q5	970	yes	970	14	then the cache MUST NOT use the new response to update any stored responses
+Q6	974	yes	974	16	If the new response contains no strong validators but does contain one or more "weak validators"
+Q7	976	yes	976	13	then the most recent of those matching stored responses is identified for update.
+Q8	979	yes	979	11	If the new response does not include any form of validator
+Q9	982	yes	982	18	there is only one stored response in the initial set, and that stored response also lacks a validator
+Q10	986	yes	986	18	the cache MUST update its header fields with the header fields provided in the 304 (Not Modified) response
+Q11	375	yes	375	22	the cache MUST add each header field in the provided response to the stored response, replacing field values that are already present
+Q12	377	yes	377	4	with the following exceptions:
+Q13	379	yes	379	8	Header fields excepted from storage in Section 3.1,
+Q14	381	yes	381	9	Header fields that the cache's stored response depends upon
+Q15	384	yes	384	11	Header fields that are automatically processed and removed by the recipient
+Q16	387	yes	387	4	The Content-Length header field.
+Q17	393	yes	393	13	MAY omit these header fields from updating stored responses on an exceptional basis
+Q18	412	yes	412	15	the Content-* prefix is not a signal that a header field is omitted from update
+Q19	340	yes	340	17	Caches MUST include all received response header fields -- including unrecognized ones -- when storing a response
+Q20	345	yes	345	21	fields whose names are listed in it are required by Section 7.6.1 of [HTTP] to be removed before forwarding the message
+Q21	350	yes	350	12	some fields' semantics require them to be removed before forwarding the message
+Q22	354	yes	354	19	The no-cache (Section 5.2.2.4) and private (Section 5.2.2.7) cache directives can have arguments that prevent storage of header fields
+Q23	358	yes	358	20	Header fields that are specific to the proxy that a cache uses when forwarding a request MUST NOT be stored
+Q24	361	yes	361	21	Effectively, this is limited to Proxy-Authenticate (Section 11.7.1 of [HTTP]), Proxy-Authentication-Info (Section 11.7.3 of [HTTP]), and Proxy-Authorization (Section 11.7.2 of [HTTP]).
+Q25	935	yes	935	17	A 304 (Not Modified) response status code indicates that the stored response can be updated and reused
+Q26	953	yes	953	20	When a cache receives a 304 (Not Modified) response, it needs to identify stored responses that are suitable for updating
+E1	1	yes	101	18	The initial set of stored responses to update are those that could have been chosen for that request
+E2	1	yes	110	14	The initial set consists of stored responses that satisfy all of the following conditions
+E3	1	yes	172	14	the current wording of Section 4.3.4 excludes the stored response before comparing the ETag
+E4	1	yes	137	22	The key technical change is to allow the initial set to include stored responses whose requests have nonmatching selecting request header fields
+E5	1	yes	127	25	the cache MUST, for the purposes of Section 4.1, associate the updated response with the header fields of the request that elicited the 304 response
+E6	1	yes	55	1	Reported
+E7	1	yes	49	2	Errata-ID: 9185
+E8	1	yes	61	1	Technical
+E9	1	yes	136	25	The choice to recast the affected paragraph as a list of criteria rather than a list of exceptions to the Section 4 requirements is editorial

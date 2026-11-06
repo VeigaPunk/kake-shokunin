@@ -1,0 +1,598 @@
+[
+ {
+  "name": "base_path_selftest.py",
+  "probes": {
+   "selftest": {
+    "rc": 0,
+    "last": "45/45 fixtures passed",
+    "out": "e\",\n    \"X06-repeated-manifest-option\",\n    \"X07-abbreviated-option\",\n    \"X08-cross-scheme-same-host-outside\",\n    \"X09-template-content-not-scanned\",\n    \"X10-audio-and-embed\",\n    \"X11-default-port-and-host-case\",\n    \"X12-backslash-and-encoded-dots\",\n    \"X13-parent-traversal-with-file-present\",\n    \"X14-resolved-field-after-whitespace-strip\",\n    \"X15-same-scheme-single-slash-relative\"\n  ]\n}\n",
+    "err": "45/45 fixtures passed\n"
+   },
+   "noargs": {
+    "rc": 0,
+    "last": "45/45 fixtures passed",
+    "out": "e\",\n    \"X06-repeated-manifest-option\",\n    \"X07-abbreviated-option\",\n    \"X08-cross-scheme-same-host-outside\",\n    \"X09-template-content-not-scanned\",\n    \"X10-audio-and-embed\",\n    \"X11-default-port-and-host-case\",\n    \"X12-backslash-and-encoded-dots\",\n    \"X13-parent-traversal-with-file-present\",\n    \"X14-resolved-field-after-whitespace-strip\",\n    \"X15-same-scheme-single-slash-relative\"\n  ]\n}\n",
+    "err": "45/45 fixtures passed\n"
+   },
+   "bogusflag": {
+    "rc": 2,
+    "last": "base_path_selftest.py: error: unrecognized arguments: --zz-bogus",
+    "out": "",
+    "err": "usage: base_path_selftest.py [-h] [--tool TOOL] [--fixtures FIXTURES]\n                             [--python PYTHON] [--case CASE] [--verbose]\nbase_path_selftest.py: error: unrecognized arguments: --zz-bogus\n"
+   }
+  }
+ },
+ {
+  "name": "cache_key.py",
+  "probes": {
+   "noargs": {
+    "rc": 1,
+    "last": "invalid_input: input is not valid JSON",
+    "out": "",
+    "err": "invalid_input: input is not valid JSON\n"
+   },
+   "bogusflag": {
+    "rc": 1,
+    "last": "invalid_input: input is not valid JSON",
+    "out": "",
+    "err": "invalid_input: input is not valid JSON\n"
+   },
+   "stdin-emptyjson": {
+    "rc": 1,
+    "last": "invalid_input: uri must be a string",
+    "out": "",
+    "err": "invalid_input: uri must be a string\n"
+   },
+   "stdin-notjson": {
+    "rc": 1,
+    "last": "invalid_input: input is not valid JSON",
+    "out": "",
+    "err": "invalid_input: input is not valid JSON\n"
+   }
+  }
+ },
+ {
+  "name": "cache_key_conformance.py",
+  "probes": {
+   "noargs": {
+    "rc": 2,
+    "last": "cache_key_conformance.py: error: the following arguments are required: --candidate",
+    "out": "",
+    "err": "usage: cache_key_conformance.py [-h] --candidate CANDIDATE [--seed SEED]\n                                [--generated GENERATED] [--jobs JOBS]\n                                [--work WORK] [--python PYTHON] [--verbose]\ncache_key_conformance.py: error: the following arguments are required: --candidate\n"
+   },
+   "bogusflag": {
+    "rc": 2,
+    "last": "cache_key_conformance.py: error: the following arguments are required: --candidate",
+    "out": "",
+    "err": "usage: cache_key_conformance.py [-h] --candidate CANDIDATE [--seed SEED]\n                                [--generated GENERATED] [--jobs JOBS]\n                                [--work WORK] [--python PYTHON] [--verbose]\ncache_key_conformance.py: error: the following arguments are required: --candidate\n"
+   }
+  }
+ },
+ {
+  "name": "citing_set.py",
+  "probes": {
+   "selftest": {
+    "rc": 0,
+    "last": "}",
+    "out": "ts/citing_set.py\",\n        \"--root\",\n        \"/fast/scratch/hyaku/kake-r27/citing-set-selftest-kienbgdx/citing-set-selftest/cases/45-repeated-revision-abbreviated\",\n        \"--population\",\n        \"population.json\",\n        \"--ledger\",\n        \"ledger.json\",\n        \"--json\",\n        \"--revision\",\n        \"HEAD\",\n        \"--rev\",\n        \"HEAD\"\n      ]\n    }\n  ],\n  \"failures\": [],\n  \"notes\": []\n}\n",
+    "err": ""
+   },
+   "noargs": {
+    "rc": 64,
+    "last": "citing_set.py: missing required option(s): --root, --population, --ledger",
+    "out": "{\n  \"verdict\": \"could-not-evaluate\",\n  \"citingPairs\": 0,\n  \"ledgerPairs\": 0,\n  \"findings\": [],\n  \"error\": \"usage: missing required option(s): --root, --population, --ledger\"\n}\n",
+    "err": "citing_set.py: missing required option(s): --root, --population, --ledger\n"
+   },
+   "bogusflag": {
+    "rc": 64,
+    "last": "citing_set.py: unrecognized arguments: --zz-bogus",
+    "out": "{\n  \"verdict\": \"could-not-evaluate\",\n  \"citingPairs\": 0,\n  \"ledgerPairs\": 0,\n  \"findings\": [],\n  \"error\": \"usage: unrecognized arguments: --zz-bogus\"\n}\n",
+    "err": "citing_set.py: unrecognized arguments: --zz-bogus\n"
+   }
+  }
+ },
+ {
+  "name": "citing_set_selftest.py",
+  "probes": {
+   "selftest": {
+    "rc": 0,
+    "last": "}",
+    "out": "ee/scripts/citing_set.py\",\n        \"--root\",\n        \"/fast/scratch/hyaku/kake-r99/ExecRegProbe/tmp/cst/citing-set-selftest/cases/45-repeated-revision-abbreviated\",\n        \"--population\",\n        \"population.json\",\n        \"--ledger\",\n        \"ledger.json\",\n        \"--json\",\n        \"--revision\",\n        \"HEAD\",\n        \"--rev\",\n        \"HEAD\"\n      ]\n    }\n  ],\n  \"failures\": [],\n  \"notes\": []\n}\n",
+    "err": ""
+   },
+   "noargs": {
+    "rc": 0,
+    "last": "}",
+    "out": "ts/citing_set.py\",\n        \"--root\",\n        \"/fast/scratch/hyaku/kake-r27/citing-set-selftest-xmisxp0r/citing-set-selftest/cases/45-repeated-revision-abbreviated\",\n        \"--population\",\n        \"population.json\",\n        \"--ledger\",\n        \"ledger.json\",\n        \"--json\",\n        \"--revision\",\n        \"HEAD\",\n        \"--rev\",\n        \"HEAD\"\n      ]\n    }\n  ],\n  \"failures\": [],\n  \"notes\": []\n}\n",
+    "err": ""
+   },
+   "bogusflag": {
+    "rc": 0,
+    "last": "}",
+    "out": "fast/scratch/hyaku/kake-r27/citing-set-selftest-03p5m1bx/citing-set-selftest/cases/45-repeated-revision-abbreviated\",\n        \"--population\",\n        \"population.json\",\n        \"--ledger\",\n        \"ledger.json\",\n        \"--json\",\n        \"--revision\",\n        \"HEAD\",\n        \"--rev\",\n        \"HEAD\"\n      ]\n    }\n  ],\n  \"failures\": [],\n  \"notes\": [\n    \"ignored unknown arguments: --zz-bogus\"\n  ]\n}\n",
+    "err": ""
+   }
+  }
+ },
+ {
+  "name": "citing_set_hostile_selftest.py",
+  "probes": {
+   "selftest": {
+    "rc": 0,
+    "last": "}",
+    "out": "ail\": {\n    \"gap\": \"m3\",\n    \"hostile\": [\n     \"h6\"\n    ],\n    \"exit\": 1,\n    \"timedOut\": false,\n    \"reasons\": {\n     \"h6\": \"case.json setup op 'git_commit' needs an earlier 'git_init'\"\n    },\n    \"codes\": {\n     \"h6\": \"setup_commit_before_init\"\n    },\n    \"canary\": false,\n    \"victimUnchanged\": true,\n    \"reasonChecks\": {},\n    \"codeChecks\": {\n     \"h6\": true\n    }\n   }\n  }\n ],\n \"error\": null\n}\n",
+    "err": ""
+   },
+   "noargs": {
+    "rc": 2,
+    "last": "citing_set_hostile_selftest.py: error: the following arguments are required: --root, --tmpdir",
+    "out": "",
+    "err": "usage: citing_set_hostile_selftest.py [-h] --root ROOT --tmpdir TMPDIR\n                                      [--runner RUNNER]\nciting_set_hostile_selftest.py: error: the following arguments are required: --root, --tmpdir\n"
+   },
+   "bogusflag": {
+    "rc": 2,
+    "last": "citing_set_hostile_selftest.py: error: the following arguments are required: --root, --tmpdir",
+    "out": "",
+    "err": "usage: citing_set_hostile_selftest.py [-h] --root ROOT --tmpdir TMPDIR\n                                      [--runner RUNNER]\nciting_set_hostile_selftest.py: error: the following arguments are required: --root, --tmpdir\n"
+   }
+  }
+ },
+ {
+  "name": "conditional_eval.py",
+  "probes": {
+   "selftest": {
+    "rc": 0,
+    "last": "selftest 99/99",
+    "out": "selftest 99/99\n",
+    "err": ""
+   },
+   "noargs": {
+    "rc": 1,
+    "last": "invalid_input: input is not valid JSON",
+    "out": "",
+    "err": "invalid_input: input is not valid JSON\n"
+   },
+   "bogusflag": {
+    "rc": 1,
+    "last": "invalid_input: input is not valid JSON",
+    "out": "",
+    "err": "invalid_input: input is not valid JSON\n"
+   },
+   "stdin-emptyjson": {
+    "rc": 1,
+    "last": "invalid_input: missing top-level key: method",
+    "out": "",
+    "err": "invalid_input: missing top-level key: method\n"
+   },
+   "stdin-notjson": {
+    "rc": 1,
+    "last": "invalid_input: input is not valid JSON",
+    "out": "",
+    "err": "invalid_input: input is not valid JSON\n"
+   }
+  }
+ },
+ {
+  "name": "header_change_class.py",
+  "probes": {
+   "selftest": {
+    "rc": 0,
+    "last": "selftest: 6/6 passed",
+    "out": "': 0, 'representation': 0, 'policy': 1, 'unknown': 0, 'diffs': 3, 'verdict_representation': 0} expect={'policy': 1, 'verdict_representation': 0}\nok   body-change \u2014 observed={'per-request': 2, 'validator': 0, 'representation': 0, 'policy': 0, 'unknown': 0, 'diffs': 2, 'verdict_representation': 1} expect={'validator': 0, 'verdict_representation': 1}\nok   bytes-mismatch-rejected\nselftest: 6/6 passed\n",
+    "err": ""
+   },
+   "noargs": {
+    "rc": 64,
+    "last": "[--json] [--selftest] [--work WORK]",
+    "out": "",
+    "err": "usage: header_change_class.py [-h] [--a A] [--b B] [--declared DECLARED]\n                              [--json] [--selftest] [--work WORK]\n"
+   },
+   "bogusflag": {
+    "rc": 64,
+    "last": "header_change_class.py: error: unrecognized arguments: --zz-bogus",
+    "out": "",
+    "err": "usage: header_change_class.py [-h] [--a A] [--b B] [--declared DECLARED]\n                              [--json] [--selftest] [--work WORK]\nheader_change_class.py: error: unrecognized arguments: --zz-bogus\n"
+   }
+  }
+ },
+ {
+  "name": "knowledge_metatext_lint.py",
+  "probes": {
+   "selftest": {
+    "rc": 0,
+    "last": "selftest 13/13",
+    "out": "rases is exempt: gate want=[] got=[] | review want=[] got=[]\nok N3 ordinary technical prose with near-miss words: gate want=[] got=[] | review want=[] got=[]\nok N4 plain heading and balanced inline code: gate want=[] got=[] | review want=[] got=[]\nok N5 longer closer keeps a shorter inner fence inside; trailing 'seat belt' prose is clean: gate want=[] got=[] | review want=[] got=[]\nselftest 13/13\n",
+    "err": ""
+   },
+   "noargs": {
+    "rc": 2,
+    "last": "Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).",
+    "out": "",
+    "err": "knowledge_metatext_lint: setup error: git rev-parse --verify --quiet HEAD^{commit} rc=128: fatal: not a git repository (or any parent up to mount point /)\nStopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).\n"
+   },
+   "bogusflag": {
+    "rc": 2,
+    "last": "knowledge_metatext_lint.py: error: unrecognized arguments: --zz-bogus",
+    "out": "",
+    "err": "usage: knowledge_metatext_lint.py [-h] [--root ROOT] [--revision REVISION]\n                                  [--dir DIR] [--selftest]\nknowledge_metatext_lint.py: error: unrecognized arguments: --zz-bogus\n"
+   }
+  }
+ },
+ {
+  "name": "landed_check.py",
+  "probes": {
+   "selftest": {
+    "rc": 0,
+    "last": "selftest 14/14",
+    "out": "PASS honest-report\nPASS side-branch-hash\nPASS unknown-hash\nPASS sha256-token-ignored\nPASS short-hash-ambiguity\nPASS empty-report\nPASS prose-only-report\nPASS branch-missing\nPASS hash-inside-code-fence\nPASS duplicate-hash-counted-once\nPASS non-commit-object-skipped\nPASS digest-label-ignored\nPASS report-missing\nPASS usage-error\nselftest 14/14\n",
+    "err": ""
+   },
+   "noargs": {
+    "rc": 64,
+    "last": "[--selftest]",
+    "out": "",
+    "err": "usage error: missing --report, --repo, --branch\nusage: landed_check.py [-h] [--report REPORT] [--repo REPO] [--branch BRANCH]\n                       [--selftest]\n"
+   },
+   "bogusflag": {
+    "rc": 64,
+    "last": "landed_check.py: error: unrecognized arguments: --zz-bogus",
+    "out": "",
+    "err": "usage: landed_check.py [-h] [--report REPORT] [--repo REPO] [--branch BRANCH]\n                       [--selftest]\nlanded_check.py: error: unrecognized arguments: --zz-bogus\n"
+   }
+  }
+ },
+ {
+  "name": "ledger_latest_check.py",
+  "probes": {
+   "selftest": {
+    "rc": 0,
+    "last": "selftest: 2/2 passed",
+    "out": "ledger_latest_check --selftest\n  PASS matching fixture MATCH quoted=14 derived=14\n  RED MISMATCH mismatching fixture quoted=18 derived=14\nselftest: 2/2 passed\n",
+    "err": ""
+   },
+   "noargs": {
+    "rc": 2,
+    "last": "Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).",
+    "out": "",
+    "err": "ledger_latest_check: unreadable input: .ufo/waves/round-43/verification/l1-rescores/*.json: git command failed with exit 128: fatal: not a git repository (or any parent up to mount point /)\nStopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).\n"
+   },
+   "bogusflag": {
+    "rc": 2,
+    "last": "ledger_latest_check.py: error: unrecognized arguments: --zz-bogus",
+    "out": "",
+    "err": "usage: ledger_latest_check.py [-h] [--root ROOT] [--selftest]\nledger_latest_check.py: error: unrecognized arguments: --zz-bogus\n"
+   }
+  }
+ },
+ {
+  "name": "link_preview_selftest.py",
+  "probes": {
+   "selftest": {
+    "rc": 0,
+    "last": "{\"caseNames\": [\"canonical_first_mismatch\", \"canonical_unparsable_href\", \"clean_first_canonical\", \"clean_image_url_alias\", \"clean_markup_variants\", \"clean_multiple_images\", \"clean_relative_canonical\", \"clean_without_canonical\", \"content_ascii_whitespace\", \"duplicate_attribute_first_wins\", \"input_empt",
+    "out": "\"url_trailing_slash_differs\", \"usage_no_args\", \"usage_unknown_flag\"], \"cases\": 46, \"failed\": 0, \"failures\": [], \"fixtures\": \"/fast/scratch/hyaku/kake-r99/ExecRegProbe/tree/scripts/fixtures/link-preview\", \"passed\": 46, \"passedOverTotal\": \"46/46\", \"selftest\": \"kake-r34-link-preview-selftest\", \"tool\": \"/fast/scratch/hyaku/kake-r99/ExecRegProbe/tree/scripts/link_preview_audit.py\", \"verdict\": \"clean\"}\n",
+    "err": ""
+   },
+   "noargs": {
+    "rc": 0,
+    "last": "{\"caseNames\": [\"canonical_first_mismatch\", \"canonical_unparsable_href\", \"clean_first_canonical\", \"clean_image_url_alias\", \"clean_markup_variants\", \"clean_multiple_images\", \"clean_relative_canonical\", \"clean_without_canonical\", \"content_ascii_whitespace\", \"duplicate_attribute_first_wins\", \"input_empt",
+    "out": "\"url_trailing_slash_differs\", \"usage_no_args\", \"usage_unknown_flag\"], \"cases\": 46, \"failed\": 0, \"failures\": [], \"fixtures\": \"/fast/scratch/hyaku/kake-r99/ExecRegProbe/tree/scripts/fixtures/link-preview\", \"passed\": 46, \"passedOverTotal\": \"46/46\", \"selftest\": \"kake-r34-link-preview-selftest\", \"tool\": \"/fast/scratch/hyaku/kake-r99/ExecRegProbe/tree/scripts/link_preview_audit.py\", \"verdict\": \"clean\"}\n",
+    "err": ""
+   },
+   "bogusflag": {
+    "rc": 2,
+    "last": "link_preview_selftest.py: error: unrecognized arguments: --zz-bogus",
+    "out": "",
+    "err": "usage: link_preview_selftest.py [-h] [--tool TOOL] [--fixtures FIXTURES]\nlink_preview_selftest.py: error: unrecognized arguments: --zz-bogus\n"
+   }
+  }
+ },
+ {
+  "name": "live_snapshot.py",
+  "probes": {
+   "noargs": {
+    "rc": 64,
+    "last": "live_snapshot.py: error: the following arguments are required: --population, --out",
+    "out": "",
+    "err": "usage: live_snapshot.py [-h] --population POPULATION --out OUT [--reaudit]\n                        [--validator VALIDATOR]\nlive_snapshot.py: error: the following arguments are required: --population, --out\n"
+   },
+   "bogusflag": {
+    "rc": 64,
+    "last": "live_snapshot.py: error: the following arguments are required: --population, --out",
+    "out": "",
+    "err": "usage: live_snapshot.py [-h] --population POPULATION --out OUT [--reaudit]\n                        [--validator VALIDATOR]\nlive_snapshot.py: error: the following arguments are required: --population, --out\n"
+   }
+  }
+ },
+ {
+  "name": "probe-delta.mjs",
+  "probes": {
+   "noargs": {
+    "rc": 2,
+    "last": "probe-delta: cannot read /home/vgpnk/Projects/webzites/state/probe-history.jsonl: ENOENT: no such file or directory, open '/home/vgpnk/Projects/webzites/state/probe-history.jsonl'",
+    "out": "",
+    "err": "probe-delta: cannot read /home/vgpnk/Projects/webzites/state/probe-history.jsonl: ENOENT: no such file or directory, open '/home/vgpnk/Projects/webzites/state/probe-history.jsonl'\n"
+   },
+   "bogusflag": {
+    "rc": 64,
+    "last": "unknown flag: --zz-bogus",
+    "out": "",
+    "err": "unknown flag: --zz-bogus\n"
+   }
+  }
+ },
+ {
+  "name": "quote_class.py",
+  "probes": {
+   "selftest": {
+    "rc": 0,
+    "last": "selftest 4/4",
+    "out": "case inline_raw_substring: derived=raw-substring expected=raw-substring pass\ncase markup_collapsed_only: derived=collapsed-only expected=collapsed-only pass\ncase absent_everywhere: derived=absent expected=absent pass\ncase s432_real: derived=collapsed-only expected=collapsed-only pass\nselftest 4/4\n",
+    "err": ""
+   },
+   "noargs": {
+    "rc": 2,
+    "last": "quote_class.py: error: one of --selftest or classify is required",
+    "out": "",
+    "err": "usage: quote_class.py [-h] [--selftest] [--json] {classify} ...\nquote_class.py: error: one of --selftest or classify is required\n"
+   },
+   "bogusflag": {
+    "rc": 2,
+    "last": "quote_class.py: error: unrecognized arguments: --zz-bogus",
+    "out": "",
+    "err": "usage: quote_class.py [-h] [--selftest] [--json] {classify} ...\nquote_class.py: error: unrecognized arguments: --zz-bogus\n"
+   }
+  }
+ },
+ {
+  "name": "response_snapshot.py",
+  "probes": {
+   "noargs": {
+    "rc": "skipped-fetchmode",
+    "last": "no-args defaults to fetch mode (POPULATION_DEFAULT/OUT_DEFAULT); skipped per no-network rule"
+   },
+   "bogusflag": {
+    "rc": 64,
+    "last": "response_snapshot.py: error: unrecognized arguments: --zz-bogus",
+    "out": "",
+    "err": "usage: response_snapshot.py [-h] [--population POPULATION] [--out OUT]\nresponse_snapshot.py: error: unrecognized arguments: --zz-bogus\n"
+   }
+  }
+ },
+ {
+  "name": "reval_exchange.py",
+  "probes": {
+   "noargs": {
+    "rc": 1,
+    "last": "invalid_input: body is not JSON",
+    "out": "",
+    "err": "invalid_input: body is not JSON\n"
+   },
+   "bogusflag": {
+    "rc": 1,
+    "last": "invalid_input: body is not JSON",
+    "out": "",
+    "err": "invalid_input: body is not JSON\n"
+   },
+   "stdin-emptyjson": {
+    "rc": 1,
+    "last": "invalid_input: unexpected or missing top-level keys",
+    "out": "",
+    "err": "invalid_input: unexpected or missing top-level keys\n"
+   },
+   "stdin-notjson": {
+    "rc": 1,
+    "last": "invalid_input: body is not JSON",
+    "out": "",
+    "err": "invalid_input: body is not JSON\n"
+   }
+  }
+ },
+ {
+  "name": "robots_audit.py",
+  "probes": {
+   "selftest": {
+    "rc": 0,
+    "last": "{\"cases\": 204, \"failed\": 0, \"failures\": [], \"passed\": 204, \"passedOverTotal\": \"204/204\", \"perContract\": {\"a\": 13, \"b\": 19, \"c\": 15, \"c-exact\": 6, \"d\": 17, \"d-match\": 6, \"e\": 16, \"f\": 27, \"g\": 15, \"h\": 12, \"h-bound\": 1, \"i\": 28, \"i-clar\": 1, \"k\": 11, \"k-clar\": 2, \"usage\": 7, \"verdict\": 8}, \"selftest\"",
+    "out": ": [], \"passed\": 204, \"passedOverTotal\": \"204/204\", \"perContract\": {\"a\": 13, \"b\": 19, \"c\": 15, \"c-exact\": 6, \"d\": 17, \"d-match\": 6, \"e\": 16, \"f\": 27, \"g\": 15, \"h\": 12, \"h-bound\": 1, \"i\": 28, \"i-clar\": 1, \"k\": 11, \"k-clar\": 2, \"usage\": 7, \"verdict\": 8}, \"selftest\": \"kake-r38-robots-audit-selftest\", \"tool\": \"/fast/scratch/hyaku/kake-r99/ExecRegProbe/tree/scripts/robots_audit.py\", \"verdict\": \"clean\"}\n",
+    "err": ""
+   },
+   "noargs": {
+    "rc": 64,
+    "last": "robots_audit.py: usage: robots_audit.py --manifest PATH",
+    "out": "",
+    "err": "robots_audit.py: usage: robots_audit.py --manifest PATH\n"
+   },
+   "bogusflag": {
+    "rc": 64,
+    "last": "robots_audit.py: usage: robots_audit.py --manifest PATH",
+    "out": "",
+    "err": "robots_audit.py: usage: robots_audit.py --manifest PATH\n"
+   }
+  }
+ },
+ {
+  "name": "robots_audit_selftest.py",
+  "probes": {
+   "selftest": {
+    "rc": 0,
+    "last": "{\"cases\": 204, \"failed\": 0, \"failures\": [], \"passed\": 204, \"passedOverTotal\": \"204/204\", \"perContract\": {\"a\": 13, \"b\": 19, \"c\": 15, \"c-exact\": 6, \"d\": 17, \"d-match\": 6, \"e\": 16, \"f\": 27, \"g\": 15, \"h\": 12, \"h-bound\": 1, \"i\": 28, \"i-clar\": 1, \"k\": 11, \"k-clar\": 2, \"usage\": 7, \"verdict\": 8}, \"selftest\"",
+    "out": ": [], \"passed\": 204, \"passedOverTotal\": \"204/204\", \"perContract\": {\"a\": 13, \"b\": 19, \"c\": 15, \"c-exact\": 6, \"d\": 17, \"d-match\": 6, \"e\": 16, \"f\": 27, \"g\": 15, \"h\": 12, \"h-bound\": 1, \"i\": 28, \"i-clar\": 1, \"k\": 11, \"k-clar\": 2, \"usage\": 7, \"verdict\": 8}, \"selftest\": \"kake-r38-robots-audit-selftest\", \"tool\": \"/fast/scratch/hyaku/kake-r99/ExecRegProbe/tree/scripts/robots_audit.py\", \"verdict\": \"clean\"}\n",
+    "err": ""
+   },
+   "noargs": {
+    "rc": 0,
+    "last": "{\"cases\": 204, \"failed\": 0, \"failures\": [], \"passed\": 204, \"passedOverTotal\": \"204/204\", \"perContract\": {\"a\": 13, \"b\": 19, \"c\": 15, \"c-exact\": 6, \"d\": 17, \"d-match\": 6, \"e\": 16, \"f\": 27, \"g\": 15, \"h\": 12, \"h-bound\": 1, \"i\": 28, \"i-clar\": 1, \"k\": 11, \"k-clar\": 2, \"usage\": 7, \"verdict\": 8}, \"selftest\"",
+    "out": ": [], \"passed\": 204, \"passedOverTotal\": \"204/204\", \"perContract\": {\"a\": 13, \"b\": 19, \"c\": 15, \"c-exact\": 6, \"d\": 17, \"d-match\": 6, \"e\": 16, \"f\": 27, \"g\": 15, \"h\": 12, \"h-bound\": 1, \"i\": 28, \"i-clar\": 1, \"k\": 11, \"k-clar\": 2, \"usage\": 7, \"verdict\": 8}, \"selftest\": \"kake-r38-robots-audit-selftest\", \"tool\": \"/fast/scratch/hyaku/kake-r99/ExecRegProbe/tree/scripts/robots_audit.py\", \"verdict\": \"clean\"}\n",
+    "err": ""
+   },
+   "bogusflag": {
+    "rc": 2,
+    "last": "robots_audit_selftest.py: error: unrecognized arguments: --zz-bogus",
+    "out": "",
+    "err": "usage: robots_audit_selftest.py [-h] [--tool TOOL] [--list]\nrobots_audit_selftest.py: error: unrecognized arguments: --zz-bogus\n"
+   }
+  }
+ },
+ {
+  "name": "sidecar_reobserve.py",
+  "probes": {
+   "selftest": {
+    "rc": 0,
+    "last": "sidecar_reobserve tests=10 failures=0 errors=0 passed=true",
+    "out": "sidecar_reobserve tests=10 failures=0 errors=0 passed=true\n",
+    "err": ""
+   },
+   "noargs": {
+    "rc": 0,
+    "last": "sidecar_reobserve mode=check entries=190 absent=20 restored=170 present=170 absent_present=0 absent_absent=20 restored_absent=0 unevaluable=0 flipped=0 wrote=false",
+    "out": "sidecar_reobserve mode=check entries=190 absent=20 restored=170 present=170 absent_present=0 absent_absent=20 restored_absent=0 unevaluable=0 flipped=0 wrote=false\n",
+    "err": ""
+   },
+   "bogusflag": {
+    "rc": 2,
+    "last": "sidecar_reobserve.py: error: unrecognized arguments: --zz-bogus",
+    "out": "",
+    "err": "usage: sidecar_reobserve.py [-h] [--root ROOT] [--check | --write]\n                            [--date DATE] [--host HOST] [--json] [--selftest]\n                            [--work WORK]\nsidecar_reobserve.py: error: unrecognized arguments: --zz-bogus\n"
+   }
+  }
+ },
+ {
+  "name": "sitemap_audit_selftest.py",
+  "probes": {
+   "selftest": {
+    "rc": 0,
+    "last": "PASS 271/271",
+    "out": "PASS 271/271\n",
+    "err": ""
+   },
+   "noargs": {
+    "rc": 64,
+    "last": "usage: sitemap_audit_selftest.py --tool <path>",
+    "out": "",
+    "err": "usage: sitemap_audit_selftest.py --tool <path>\n"
+   },
+   "bogusflag": {
+    "rc": 64,
+    "last": "usage: sitemap_audit_selftest.py --tool <path> [--fault-injection] | --map",
+    "out": "",
+    "err": "usage: sitemap_audit_selftest.py --tool <path> [--fault-injection] | --map\n"
+   }
+  }
+ },
+ {
+  "name": "source_recheck_hardening_selftest.py",
+  "probes": {
+   "selftest": {
+    "rc": 0,
+    "last": "{\"cases\": 10, \"failed\": 0, \"failures\": [], \"passed\": 10, \"passedOverTotal\": \"10/10\", \"selftest\": \"kake-r37-source-recheck-hardening-selftest\", \"tool\": \"/fast/scratch/hyaku/kake-r99/ExecRegProbe/tree/scripts/source_recheck.py\", \"verdict\": \"clean\"}",
+    "out": "{\"cases\": 10, \"failed\": 0, \"failures\": [], \"passed\": 10, \"passedOverTotal\": \"10/10\", \"selftest\": \"kake-r37-source-recheck-hardening-selftest\", \"tool\": \"/fast/scratch/hyaku/kake-r99/ExecRegProbe/tree/scripts/source_recheck.py\", \"verdict\": \"clean\"}\n",
+    "err": ""
+   },
+   "noargs": {
+    "rc": 0,
+    "last": "{\"cases\": 10, \"failed\": 0, \"failures\": [], \"passed\": 10, \"passedOverTotal\": \"10/10\", \"selftest\": \"kake-r37-source-recheck-hardening-selftest\", \"tool\": \"/fast/scratch/hyaku/kake-r99/ExecRegProbe/tree/scripts/source_recheck.py\", \"verdict\": \"clean\"}",
+    "out": "{\"cases\": 10, \"failed\": 0, \"failures\": [], \"passed\": 10, \"passedOverTotal\": \"10/10\", \"selftest\": \"kake-r37-source-recheck-hardening-selftest\", \"tool\": \"/fast/scratch/hyaku/kake-r99/ExecRegProbe/tree/scripts/source_recheck.py\", \"verdict\": \"clean\"}\n",
+    "err": ""
+   },
+   "bogusflag": {
+    "rc": 2,
+    "last": "source_recheck_hardening_selftest.py: error: unrecognized arguments: --zz-bogus",
+    "out": "",
+    "err": "usage: source_recheck_hardening_selftest.py [-h] [--tool TOOL] [--list]\nsource_recheck_hardening_selftest.py: error: unrecognized arguments: --zz-bogus\n"
+   }
+  }
+ },
+ {
+  "name": "source_recheck_selftest.py",
+  "probes": {
+   "selftest": {
+    "rc": 0,
+    "last": "{\"cases\": 106, \"failed\": 0, \"failures\": [], \"passed\": 106, \"passedOverTotal\": \"106/106\", \"selftest\": \"kake-r36-source-recheck-selftest\", \"tool\": \"/fast/scratch/hyaku/kake-r99/ExecRegProbe/tree/scripts/source_recheck.py\", \"verdict\": \"clean\"}",
+    "out": "{\"cases\": 106, \"failed\": 0, \"failures\": [], \"passed\": 106, \"passedOverTotal\": \"106/106\", \"selftest\": \"kake-r36-source-recheck-selftest\", \"tool\": \"/fast/scratch/hyaku/kake-r99/ExecRegProbe/tree/scripts/source_recheck.py\", \"verdict\": \"clean\"}\n",
+    "err": ""
+   },
+   "noargs": {
+    "rc": 0,
+    "last": "{\"cases\": 106, \"failed\": 0, \"failures\": [], \"passed\": 106, \"passedOverTotal\": \"106/106\", \"selftest\": \"kake-r36-source-recheck-selftest\", \"tool\": \"/fast/scratch/hyaku/kake-r99/ExecRegProbe/tree/scripts/source_recheck.py\", \"verdict\": \"clean\"}",
+    "out": "{\"cases\": 106, \"failed\": 0, \"failures\": [], \"passed\": 106, \"passedOverTotal\": \"106/106\", \"selftest\": \"kake-r36-source-recheck-selftest\", \"tool\": \"/fast/scratch/hyaku/kake-r99/ExecRegProbe/tree/scripts/source_recheck.py\", \"verdict\": \"clean\"}\n",
+    "err": ""
+   },
+   "bogusflag": {
+    "rc": 2,
+    "last": "source_recheck_selftest.py: error: unrecognized arguments: --zz-bogus",
+    "out": "",
+    "err": "usage: source_recheck_selftest.py [-h] [--tool TOOL] [--list]\nsource_recheck_selftest.py: error: unrecognized arguments: --zz-bogus\n"
+   }
+  }
+ },
+ {
+  "name": "source_snapshot.py",
+  "probes": {
+   "noargs": {
+    "rc": 2,
+    "last": "source_snapshot.py: error: the following arguments are required: --input, --out-dir",
+    "out": "",
+    "err": "usage: source_snapshot.py [-h] --input INPUT --out-dir OUT_DIR\n                          [--manifest MANIFEST]\nsource_snapshot.py: error: the following arguments are required: --input, --out-dir\n"
+   },
+   "bogusflag": {
+    "rc": 2,
+    "last": "source_snapshot.py: error: the following arguments are required: --input, --out-dir",
+    "out": "",
+    "err": "usage: source_snapshot.py [-h] --input INPUT --out-dir OUT_DIR\n                          [--manifest MANIFEST]\nsource_snapshot.py: error: the following arguments are required: --input, --out-dir\n"
+   }
+  }
+ },
+ {
+  "name": "stale_extensions.py",
+  "probes": {
+   "selftest": {
+    "rc": 0,
+    "last": "selftest cases=113 passed=113 failed=0",
+    "out": "selftest cases=113 passed=113 failed=0\n",
+    "err": ""
+   },
+   "noargs": {
+    "rc": 1,
+    "last": "invalid_input: not valid JSON: Expecting value: line 1 column 1 (char 0)",
+    "out": "",
+    "err": "invalid_input: not valid JSON: Expecting value: line 1 column 1 (char 0)\n"
+   },
+   "bogusflag": {
+    "rc": 1,
+    "last": "invalid_input: not valid JSON: Expecting value: line 1 column 1 (char 0)",
+    "out": "",
+    "err": "invalid_input: not valid JSON: Expecting value: line 1 column 1 (char 0)\n"
+   },
+   "stdin-emptyjson": {
+    "rc": 1,
+    "last": "invalid_input: response_cc is required",
+    "out": "",
+    "err": "invalid_input: response_cc is required\n"
+   },
+   "stdin-notjson": {
+    "rc": 1,
+    "last": "invalid_input: not valid JSON: Expecting value: line 1 column 1 (char 0)",
+    "out": "",
+    "err": "invalid_input: not valid JSON: Expecting value: line 1 column 1 (char 0)\n"
+   }
+  }
+ },
+ {
+  "name": "wave_seat_record.py",
+  "probes": {
+   "noargs": {
+    "rc": 2,
+    "last": "wave_seat_record.py: error: the following arguments are required: --results, --spec, --out",
+    "out": "",
+    "err": "usage: wave_seat_record.py [-h] --results RESULTS --spec SPEC --out OUT\nwave_seat_record.py: error: the following arguments are required: --results, --spec, --out\n"
+   },
+   "bogusflag": {
+    "rc": 2,
+    "last": "wave_seat_record.py: error: the following arguments are required: --results, --spec, --out",
+    "out": "",
+    "err": "usage: wave_seat_record.py [-h] --results RESULTS --spec SPEC --out OUT\nwave_seat_record.py: error: the following arguments are required: --results, --spec, --out\n"
+   }
+  }
+ }
+]
