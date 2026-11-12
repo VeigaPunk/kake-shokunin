@@ -3322,3 +3322,10 @@ Published 4 original, source-linked reading candidates. Independent review cover
 - `considerthese/2026-11-10-close-delimited-evidence.md` — SHA-256 `c02cccfaf92624a3b54a98d4ac6789871d5c93d03e080eb41194571a8a56e3da`.
 
 Preparation-stage statements (including held/candidate or no-repository-change wording) in the preserved notes describe their original saves; this entry records subsequent publication. These remain reading candidates, not admitted knowledge. This batch performs no training, assimilation, implementation experiment or capability promotion. It includes no third-party source snapshots, private-held notes or private review records.
+
+
+## 2026-11-12: publish reviewed curation notes
+
+Published 1 independently reviewed original reading note(s) from the saved curation copies. The note text and source/rights boundaries are preserved exactly; any preparation-time statement such as Space hold, no repository change, or unperformed exercises describes the original note preparation. This entry records publication only, not source-code reuse, capability admission, training, or assimilation. No private receipts or source captures are included.
+
+- `considerthese/2026-11-12-browser-lifecycle-and-resource-selection.md`: source `Shokunin-Kake-Browser-Lifecycle-and-Resource-Selection-2026-11-12.md`; SHA-256 `f1f5e7adcc30bcfeeaac4c7dd025aea28bb25c4d8d94aa2ca99f0acfe680de35`.
