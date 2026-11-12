@@ -3311,3 +3311,14 @@ GETs and the ordinary public documentation reads the seats list in their own rep
 ## 2026-11-12 — Publish reviewed curation note
 
 Published original, source-linked reading candidate `considerthese/2026-11-12-certificate-wildcard-scope.md` (SHA-256 `1bb72c1a4c2b6add207a93c966af6cef50d195093b3fe7929b61def0494b4e0c`). Independent review covered exact note bytes, source/provenance, rights and public safety. The cited primary sources motivate this addition. Preparation-stage statements inside the preserved note describe its original save; this entry records subsequent publication. This is curation only, not training, assimilation, a tested implementation or a new admitted capability. No source snapshots or private review records are included.
+
+## 2026-11-12 — Publish reviewed curation batch
+
+Published 4 original, source-linked reading candidates. Independent review covered exact note bytes, source/provenance, rights and public safety. The primary sources linked in each note motivate these additions:
+
+- `considerthese/2026-11-09-structured-fields-parser-upgrades.md` — SHA-256 `715b03b1cf0e376fa436c5800fb96c5be1f1ba5d74bdca5c5a862103fc11c4a7`.
+- `considerthese/2026-11-10-partial-cache-assembly.md` — SHA-256 `088aaf754f4859801dbaaf92e165036559e7201ded67d4c4ec437725b98089af`.
+- `considerthese/2026-11-10-status-aware-caching.md` — SHA-256 `4f2828166dc09c778470947ef3b89ebcc755c868e865bc6e016181c1170e8d1c`.
+- `considerthese/2026-11-10-close-delimited-evidence.md` — SHA-256 `c02cccfaf92624a3b54a98d4ac6789871d5c93d03e080eb41194571a8a56e3da`.
+
+Preparation-stage statements (including held/candidate or no-repository-change wording) in the preserved notes describe their original saves; this entry records subsequent publication. These remain reading candidates, not admitted knowledge. This batch performs no training, assimilation, implementation experiment or capability promotion. It includes no third-party source snapshots, private-held notes or private review records.
